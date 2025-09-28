@@ -1,7 +1,7 @@
-import flowereighteen from "../assets/images/flower-18.png";
-import flowernineteen from "../assets/images/flower-19.png";
-import floweretwenty from "../assets/images/flower-20.png";
-import flowertwentyone from "../assets/images/flower-21.png";
+import flowereighteen from "/assets/images/flower-18.png";
+import flowernineteen from "/assets/images/flower-19.png";
+import floweretwenty from "/assets/images/flower-20.png";
+import flowertwentyone from "/assets/images/flower-21.png";
 import { Link } from "react-router-dom";
 
 const Section = ({ image, name, description }) => {

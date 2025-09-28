@@ -1,5 +1,5 @@
-import aboutflower1 from "../assets/images/aboutflower-1.png";
-import aboutflower2 from "../assets/images/aboutflower.jpg";
+import aboutflower1 from "/assets/images/aboutflower-1.png";
+import aboutflower2 from "/assets/images/aboutflower.jpg";
 
 const Aboutourstory = () => {
   return (

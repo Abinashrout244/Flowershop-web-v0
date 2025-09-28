@@ -1,5 +1,5 @@
 import { Herosection } from "../Constants";
-import bgFlower from "../assets/images/workshopbg.jpg";
+import bgFlower from "/assets/images/workshopbg.jpg";
 import { Info } from "../Data/Data";
 
 const Workshopmain = () => {

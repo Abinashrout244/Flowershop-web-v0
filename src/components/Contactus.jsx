@@ -1,5 +1,5 @@
 import { useState } from "react";
-import flowerseventeen from "../assets/images/flower-17.jpg";
+import flowerseventeen from "/assets/images/flower-17.jpg";
 
 const Contactus = () => {
   const [showMap, setShowMap] = useState(true);

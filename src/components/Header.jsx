@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { NavLink, Link } from "react-router-dom";
-import flowerone from "../assets/images/flower1.png";
+import flowerone from "/assets/images/flower1.png";
 import { useSelector } from "react-redux";
 import { ShoppingCartIcon } from "lucide-react";
 

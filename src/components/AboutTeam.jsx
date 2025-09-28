@@ -1,7 +1,7 @@
-import profile1 from "../assets/images/aboutflower-2.jpg";
-import profile2 from "../assets/images/aboutflower-3.jpg";
-import profile3 from "../assets/images/aboutflower-4.jpg";
-import profile4 from "../assets/images/profile.jpg";
+import profile1 from "/assets/images/aboutflower-2.jpg";
+import profile2 from "/assets/images/aboutflower-3.jpg";
+import profile3 from "/assets/images/aboutflower-4.jpg";
+import profile4 from "/assets/images/profile.jpg";
 
 const Section = ({ Image, name, work }) => {
   return (

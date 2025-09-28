@@ -1,5 +1,5 @@
-import flowernine_ from "../assets/images/flower-9.png";
-import flowerten from "../assets/images/flower-10.jpg";
+import flowernine_ from "/assets/images/flower-9.png";
+import flowerten from "/assets/images/flower-10.jpg";
 import { Link } from "react-router-dom";
 
 const Flowerbox = () => {

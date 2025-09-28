@@ -1,4 +1,4 @@
-import flowerone from "../assets/images/flower1.png";
+import flowerone from "/assets/images/flower1.png";
 import { Link } from "react-router-dom";
 
 const Foooter = () => {

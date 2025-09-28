@@ -1,5 +1,5 @@
-import flowerfive from "../assets/images/floewr-5.jpg";
-import flowerthree from "../assets/images/flower-3.png";
+import flowerfive from "/assets/images/floewr-5.jpg";
+import flowerthree from "/assets/images/flower-3.png";
 const Aboutusone = () => {
   return (
     <div className="bg-[#DDE0EB] flex flex-col md:flex-row items-center gap-12 px-6 md:px-12 lg:px-20 py-20 pt-[120px]">

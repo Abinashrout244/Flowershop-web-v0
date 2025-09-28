@@ -1,5 +1,5 @@
 import { Herosection } from "../Constants";
-import aboutbg from "../assets/images/aboutbg.jpg";
+import aboutbg from "/assets/images/aboutbg.jpg";
 import AboutStory from "../components/Aboutourstory";
 import AboutTeam from "../components/AboutTeam";
 import AboutImage from "../components/Aboutimage";

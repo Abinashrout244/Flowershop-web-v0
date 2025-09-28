@@ -1,8 +1,7 @@
-import flowersix from "../assets/images/flower-6.jpg";
-import flowerseven from "../assets/images/flower-7.jpg";
-import flowernine from "../assets/images/flower-9.jpg";
+import flowersix from "/assets/images/flower-6.jpg";
+import flowerseven from "/assets/images/flower-7.jpg";
+import flowernine from "/assets/images/flower-9.jpg";
 import { Link } from "react-router-dom";
-
 
 const Section = ({ image, name }) => {
   return (
@@ -39,7 +38,6 @@ const Customerfav = () => {
           <Section image={flowerseven} name={"Soft Pasteles Bouquet"} />
           <Section image={flowernine} name={"Spring Bouquet"} />
         </div>
-        
 
         <div className="flex justify-center items-center">
           <Link to="/workshop">

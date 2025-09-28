@@ -1,5 +1,5 @@
 import { Herosection } from "../Constants";
-import bgimage from "../assets/images/shop-bg.jpg";
+import bgimage from "/assets/images/shop-bg.jpg";
 import { Section } from "./Section";
 import { Outlet } from "react-router-dom";
 import Products from "./Products";

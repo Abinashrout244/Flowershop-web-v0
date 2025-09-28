@@ -1,9 +1,9 @@
-import w1 from "../assets/images/shop-1.jpg";
-import w2 from "../assets/images/shop-2.jpg";
-import w3 from "../assets/images/shop-3.jpg";
-import w5 from "../assets/images/shop-5.jpg";
-import w6 from "../assets/images/shop-6.jpg";
-import w7 from "../assets/images/shop-7.jpg";
+import w1 from "/assets/images/shop-1.jpg";
+import w2 from "/assets/images/shop-2.jpg";
+import w3 from "/assets/images/shop-3.jpg";
+import w5 from "/assets/images/shop-5.jpg";
+import w6 from "/assets/images/shop-6.jpg";
+import w7 from "/assets/images/shop-7.jpg";
 
 const Products = [
   {

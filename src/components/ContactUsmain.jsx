@@ -1,4 +1,4 @@
-import bghero from "../assets/images/contact-bg.jpg";
+import bghero from "/assets/images/contact-bg.jpg";
 import { Herosection } from "../Constants";
 import Contact from "../components/Contactus";
 const ContactUsmain = () => {

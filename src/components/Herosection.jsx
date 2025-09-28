@@ -1,4 +1,4 @@
-import flowertwo from "../assets/images/flower-2.png";
+import flowertwo from "/assets/images/flower-2.png";
 import { Link } from "react-router-dom";
 
 const Herosection = () => {
