@@ -1,0 +1,6 @@
+@import "tailwindcss";
+@theme {
+  --font-syne: "Poppins", sans-serif;
+  --font-head: "Story Script", sans-serif;
+  --font-paragraph: "SUSE Mono", sans-serif;
+}
