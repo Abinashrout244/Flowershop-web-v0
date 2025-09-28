@@ -1,10 +1,14 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CartProducts from "./CartProducts";
 import { Link } from "react-router-dom";
-
+import { clearCart } from "../utils/CartSlice";
 const Cart = () => {
   const CartItems = useSelector((store) => store?.cart?.items ?? []);
 
+  const dispatch = useDispatch();
+  const handleClearCart = () => {
+    dispatch(clearCart());
+  };
   const Total_price = CartItems.reduce((accumlator, product) => {
     const Price = parseFloat(product.price.replace("$", ""));
     return accumlator + Price;
@@ -19,6 +23,12 @@ const Cart = () => {
         <p className="text-md md:text-lg font-medium text-slate-400">
           Store / Shopping Cart
         </p>
+        <button
+          className="bg-[#2D416A] text-white p-3 max-w-fit rounded-lg hover:scale-95"
+          onClick={() => handleClearCart()}
+        >
+          Clear Cart
+        </button>
       </div>
 
       {CartItems.length === 0 ? (
@@ -37,7 +47,7 @@ const Cart = () => {
           </Link>
         </div>
       ) : (
-        <div className="px-[200px]">
+        <div className="px-2 md:px-[200px]">
           <div className="flex flex-col gap-5 pb-4">
             {CartItems.map((Product, index) => (
               <CartProducts {...Product} key={Product?.id ?? index} />

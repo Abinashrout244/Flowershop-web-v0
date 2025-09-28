@@ -45,10 +45,9 @@ const ShopDetail = () => {
         </p>
         <div className="flex flex-col gap-2">
           <p className="text-lg font-semibold text-[#2D416A] font-syne">
-            {" "}
             in Stock
           </p>
-          <div className="flex flex-row gap-2 py-2 w-full rounded-md md:w-fit px-[100px] text-white bg-slate-600">
+          <div className="flex flex-row gap-2 py-2 w-full rounded-md md:w-fit px-[122px]  md:px-[100px] text-white bg-slate-600">
             <button className=" " onClick={() => handleAddItem()}>
               Add to Cart
             </button>
@@ -56,7 +55,7 @@ const ShopDetail = () => {
           </div>
 
           <Link to="/cart">
-            <div className="flex flex-row gap-2 py-2 w-full rounded-md md:w-fit px-[105px] font-semibold text-slate-600 bg-white">
+            <div className="flex flex-row gap-2 py-2 w-full rounded-md md:w-fit px-[123px]  md:px-[105px] font-semibold text-slate-600 bg-white">
               <button>Go to Cart</button>
               <ArrowBigRightDashIcon />
             </div>

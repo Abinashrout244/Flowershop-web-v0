@@ -147,7 +147,11 @@ const Header = () => {
             Contact Us
           </NavLink>
 
-          <NavLink to="/cart" className="relative text-[#2D416A]">
+          <NavLink
+            to="/cart"
+            className="relative text-[#2D416A]"
+            onClick={togglemenu}
+          >
             <ShoppingCartIcon className="w-6 h-6" />
             <span className="absolute -top-3 left-4 bg-[#2D416A] text-white rounded-full text-xs w-5 h-5 flex items-center justify-center font-semibold">
               {CartItems.length}
