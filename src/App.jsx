@@ -9,7 +9,8 @@ import ShopDetail from "./components/ShopDetails";
 import ScrollToTop from "./utils/Scrolltop";
 import Cart from "./components/Cart";
 import Error from "./components/Error";
-import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import { createHashRouter, Outlet, RouterProvider } from "react-router-dom";
+
 const App = () => {
   return (
     <>
@@ -20,41 +21,24 @@ const App = () => {
     </>
   );
 };
-const approuter = createBrowserRouter([
+
+const approuter = createHashRouter([
   {
     path: "/",
     element: <App />,
     errorElement: <Error />,
     children: [
-      {
-        path: "/",
-        element: <Body />,
-      },
-      {
-        path: "/about",
-        element: <Aboutus />,
-      },
-      {
-        path: "/workshop",
-        element: <Workshop />,
-      },
-      {
-        path: "/shop",
-        element: <Shop />,
-      },
+      { path: "/", element: <Body /> },
+      { path: "/about", element: <Aboutus /> },
+      { path: "/workshop", element: <Workshop /> },
+      { path: "/shop", element: <Shop /> },
       { path: "/shop/:id", element: <ShopDetail /> },
-      {
-        path: "/contact",
-        element: <Contact />,
-      },
-      {
-        path: "/cart",
-        element: <Cart />,
-      },
+      { path: "/contact", element: <Contact /> },
+      { path: "/cart", element: <Cart /> },
     ],
   },
 ]);
 
-const appLayout = () => <RouterProvider router={approuter} />;
+const AppLayout = () => <RouterProvider router={approuter} />;
 
-export default appLayout;
+export default AppLayout;
