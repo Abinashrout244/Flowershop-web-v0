@@ -28,4 +28,4 @@ A beautiful and responsive flower shop website built with modern web technologie
 
 ## 📸 Screenshots
 
-![Homepage](assets/Screenshots/Home.png)
+![Homepage](src/assets/Screenshots/Home.png)
