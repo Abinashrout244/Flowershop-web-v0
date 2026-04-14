@@ -1,4 +1,6 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 @theme {
   --font-syne: "Poppins", sans-serif;
   --font-head: "Story Script", sans-serif;
