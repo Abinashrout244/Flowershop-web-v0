@@ -86,6 +86,7 @@ const CustomerReviews = () => (
       </div>
 
       <Swiper
+        className="home-swiper-nav"
         modules={[Navigation, A11y]}
         slidesPerView={1.1}
         spaceBetween={16}

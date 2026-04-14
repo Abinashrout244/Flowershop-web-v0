@@ -14,13 +14,13 @@ const countries = [
     name: "United Kingdom",
     flag: "🇬🇧",
     tagline: "Same Day",
-    image: "https://images.unsplash.com/photo-1444093826349-9f23e37eae8a?w=400&q=80",
+    image: "https://images.unsplash.com/photo-1485738422979-f5c462d49f74?w=400&q=80",
   },
   {
     name: "United States",
     flag: "🇺🇸",
     tagline: "Next Day",
-    image: "https://images.unsplash.com/photo-1428366890462-dd4baecf492b?w=400&q=80",
+    image: "https://images.unsplash.com/photo-1486299267070-83823f5448dd?w=400&q=80",
   },
   {
     name: "UAE",
@@ -38,7 +38,7 @@ const countries = [
     name: "Australia",
     flag: "🇦🇺",
     tagline: "Express",
-    image: "https://images.unsplash.com/photo-1529663044400-f64af3a218eb?w=400&q=80",
+    image: "https://images.unsplash.com/photo-1624138784614-87fd1b6528f8?w=400&q=80",
   },
   {
     name: "Singapore",
@@ -64,6 +64,7 @@ const WorldwideDelivery = () => (
       </div>
 
       <Swiper
+        className="home-swiper-nav"
         modules={[Navigation, A11y]}
         slidesPerView={2}
         spaceBetween={14}

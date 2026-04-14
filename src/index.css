@@ -1,100 +1,196 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
 /* ─── Base ─────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
-
-body {
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  scroll-behavior: smooth;
   font-family: 'Jost', sans-serif;
   background-color: #faf9f7;
   color: #1a1a1a;
   -webkit-font-smoothing: antialiased;
 }
 
-/* ─── Typography ────────────────────────────────────────── */
+/* ─── Typography helpers ────────────────────────────────── */
 .font-serif-display { font-family: 'Cormorant Garamond', serif; }
 .font-playfair      { font-family: 'Playfair Display', serif; }
 
-/* ─── Category Strip ────────────────────────────────────── */
+/* ─── Category Strip scrollbar hide ────────────────────── */
 .cat-strip::-webkit-scrollbar { display: none; }
 .cat-strip { -ms-overflow-style: none; scrollbar-width: none; }
 
-/* ─── Swiper custom ─────────────────────────────────────── */
+/* ─────────────────────────────────────────────────────────
+   SWIPER GLOBAL OVERRIDES
+   ─────────────────────────────────────────────────────── */
+
+/* Give Swiper containers breathing room for arrows */
+.swiper {
+  padding-left: 40px !important;
+  padding-right: 40px !important;
+}
+
+/* Nav arrows base */
 .swiper-button-next,
 .swiper-button-prev {
-  color: #1a1a1a !important;
-  background: #fff;
-  width: 40px !important;
-  height: 40px !important;
+  color: #c9a87c !important;
+  background: #ffffff;
+  width: 44px !important;
+  height: 44px !important;
   border-radius: 50%;
-  box-shadow: 0 2px 12px rgba(0,0,0,.12);
+  box-shadow: 0 4px 14px rgba(0,0,0,.08);
+  top: 40% !important;
+  margin: 0 !important;
+  transition: all 0.3s ease;
+  border: 1px solid #f0e6d2;
 }
+
+.swiper-button-prev { left: 0 !important; }
+.swiper-button-next { right: 0 !important; }
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background: #c9a87c !important;
+  color: #ffffff !important;
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(201,168,124,.3);
+  border-color: #c9a87c;
+}
+
 .swiper-button-next::after,
 .swiper-button-prev::after {
   font-size: 14px !important;
-  font-weight: 700;
+  font-weight: 800;
 }
+
+/* Pagination bullets */
 .swiper-pagination-bullet {
   background: #c9a87c !important;
   opacity: .4;
+  width: 6px !important;
+  height: 6px !important;
 }
 .swiper-pagination-bullet-active {
-  background: #c9a87c !important;
   opacity: 1;
+  width: 20px !important;
+  border-radius: 3px !important;
 }
 
-/* Hero swiper nav override */
+/* ─── HERO specific overrides ───────────────────────────── */
+.hero-swiper .swiper {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  overflow: visible !important;
+}
 .hero-swiper .swiper-button-next,
 .hero-swiper .swiper-button-prev {
   color: #fff !important;
-  background: rgba(255,255,255,.2);
-  backdrop-filter: blur(4px);
+  width: 52px !important;
+  height: 52px !important;
+  background: linear-gradient(135deg, rgba(248, 230, 196, 0.78), rgba(201, 168, 124, 0.42));
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 236, 205, 0.8);
+  top: 50% !important;
+  transform: translateY(-50%);
+  z-index: 20;
+  box-shadow:
+    0 14px 30px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+.hero-swiper .swiper-button-prev { left: 16px !important; }
+.hero-swiper .swiper-button-next { right: 16px !important; }
+.hero-swiper .swiper-button-next:hover,
+.hero-swiper .swiper-button-prev:hover {
+  background: linear-gradient(135deg, rgba(248, 230, 196, 0.95), rgba(201, 168, 124, 0.62)) !important;
+  transform: translateY(-50%) scale(1.08);
+  box-shadow:
+    0 18px 38px rgba(0, 0, 0, 0.32),
+    0 0 0 1px rgba(255, 243, 223, 0.95);
+}
+.hero-swiper .swiper-pagination {
+  bottom: 18px !important;
+}
+.hero-swiper .swiper-button-next::after,
+.hero-swiper .swiper-button-prev::after {
+  font-size: 15px !important;
+  font-weight: 900;
 }
 
-/* Dark swiper (reviews) */
+@media (max-width: 767px) {
+  .hero-swiper .swiper-button-next,
+  .hero-swiper .swiper-button-prev,
+  .home-swiper-nav .swiper-button-next,
+  .home-swiper-nav .swiper-button-prev,
+  .dark-swiper .swiper-button-next,
+  .dark-swiper .swiper-button-prev {
+    display: none !important;
+  }
+}
+
+/* ─── DARK swiper (reviews) ─────────────────────────────── */
 .dark-swiper .swiper-button-next,
 .dark-swiper .swiper-button-prev {
   color: #c9a87c !important;
-  background: rgba(255,255,255,.08);
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
 }
 
 /* ─── Hover card lift ───────────────────────────────────── */
 .product-card {
   transition: transform .3s ease, box-shadow .3s ease;
 }
-.product-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 40px rgba(0,0,0,.12);
-}
-.product-card:hover .card-img {
-  transform: scale(1.06);
-}
-.card-img { transition: transform .4s ease; }
+.product-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,.12); }
+.product-card:hover .card-img { transform: scale(1.07); }
+.card-img { transition: transform .45s ease; }
 
-/* ─── Banner parallax ───────────────────────────────────── */
-.banner-zoom {
-  transition: transform 6s ease;
-}
-.banner-wrapper:hover .banner-zoom {
-  transform: scale(1.04);
-}
+/* ─── Banner zoom ───────────────────────────────────────── */
+.banner-wrapper:hover .banner-zoom { transform: scale(1.04); }
+.banner-zoom { transition: transform 6s ease; }
 
-/* ─── Scrollbar global ──────────────────────────────────── */
-::-webkit-scrollbar { width: 6px; height: 6px; }
+/* ─── Scrollbar ─────────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
 ::-webkit-scrollbar-track { background: #f1f1f1; }
 ::-webkit-scrollbar-thumb { background: #c9a87c; border-radius: 4px; }
 
-/* ─── Soft link hover ───────────────────────────────────── */
-.footer-link {
-  transition: color .2s;
-}
+/* ─── Footer links ──────────────────────────────────────── */
+.footer-link { transition: color .2s; }
 .footer-link:hover { color: #c9a87c; }
 
-/* ─── Lazy image fade ───────────────────────────────────── */
+/* ─── Lazy fade ─────────────────────────────────────────── */
 img.lazy { opacity: 0; transition: opacity .5s ease; }
 img.lazy.loaded { opacity: 1; }
+
+/* ─── Product detail Swiper ─────────────────────────────── */
+.product-detail-swiper { border-radius: 1.5rem; overflow: hidden; }
+.product-detail-swiper .swiper-button-next,
+.product-detail-swiper .swiper-button-prev {
+  color: #fff !important;
+  background: rgba(0,0,0,.35);
+  top: 50% !important;
+  transform: translateY(-50%);
+}
+.product-detail-swiper .swiper-button-prev { left: 12px !important; }
+.product-detail-swiper .swiper-button-next { right: 12px !important; }
+
+/* ─── Thumbs Swiper ─────────────────────────────────────── */
+.thumbs-swiper .swiper {
+  padding: 0 !important;
+}
+.thumbs-swiper .swiper-slide-thumb-active div {
+  border-color: #c9a87c !important;
+}
+
+/* ─── Page transitions (fade) ───────────────────────────── */
+.page-enter { animation: fadeUp .4s ease forwards; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Checkout step connector ───────────────────────────── */
+.step-done { background: #10b981; }
+.step-active { background: #c9a87c; box-shadow: 0 0 0 6px rgba(201,168,124,.2); }

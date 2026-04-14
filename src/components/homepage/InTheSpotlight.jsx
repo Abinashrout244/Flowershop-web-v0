@@ -4,41 +4,64 @@ import { Play } from "lucide-react";
 import "swiper/css";
 import "swiper/css/navigation";
 
+const BASE = "https://images.unsplash.com/";
+
 const spotlightItems = [
   {
     id: 1,
     title: "How We Create Our Signature Rose Bouquets",
     duration: "3:24",
-    image: "https://images.unsplash.com/photo-1561181286-d3fee7d55364?w=600&q=80",
+    image: `${BASE}photo-1582794543139-8ac9cb0f7b11?w=800&q=85&auto=format`,
     views: "45K views",
+    videoUrl: "https://www.youtube.com/watch?v=Y3v2NaDFnTQ",
   },
   {
     id: 2,
     title: "Behind the Scenes: Morning Flower Market",
     duration: "5:11",
-    image: "https://images.unsplash.com/photo-1606041011872-596597976b25?w=600&q=80",
+    image: `${BASE}photo-1525310072745-f49212b5ac6d?w=800&q=85&auto=format`,
     views: "28K views",
+    videoUrl: "https://www.youtube.com/watch?v=Y3v2NaDFnTQ",
   },
   {
     id: 3,
     title: "Summer Collection 2025 — Full Look",
     duration: "2:47",
-    image: "https://images.unsplash.com/photo-1468327768560-75b778cbb551?w=600&q=80",
+    image: `${BASE}photo-1559934043-a18baf6c367f?w=800&q=85&auto=format`,
     views: "61K views",
+    videoUrl: "https://www.youtube.com/watch?v=Y3v2NaDFnTQ",
   },
   {
     id: 4,
     title: "Wedding Floral Design Masterclass",
     duration: "8:02",
-    image: "https://images.unsplash.com/photo-1599733594230-6b823276d44c?w=600&q=80",
+    image: `${BASE}photo-1562859135-3c009b776595?w=800&q=85&auto=format`,
     views: "32K views",
+    videoUrl: "https://www.youtube.com/watch?v=Y3v2NaDFnTQ",
   },
   {
     id: 5,
     title: "Caring for Fresh Cut Flowers at Home",
     duration: "4:15",
-    image: "https://images.unsplash.com/photo-1582794543139-8ac9cb0f7b11?w=600&q=80",
+    image: `${BASE}photo-1519378058457-4c29a0a2efac?w=800&q=85&auto=format`,
     views: "19K views",
+    videoUrl: "https://www.youtube.com/watch?v=Y3v2NaDFnTQ",
+  },
+  {
+    id: 6,
+    title: "Lavender Fields — The Farm Experience",
+    duration: "6:30",
+    image: `${BASE}photo-1471086569966-db3eebc25a59?w=800&q=85&auto=format`,
+    views: "37K views",
+    videoUrl: "https://www.youtube.com/watch?v=Y3v2NaDFnTQ",
+  },
+  {
+    id: 7,
+    title: "Wildflower Meadow Walk & Picking Guide",
+    duration: "7:05",
+    image: `${BASE}photo-1462275646964-a0e3386b89fa?w=800&q=85&auto=format`,
+    views: "22K views",
+    videoUrl: "https://www.youtube.com/watch?v=Y3v2NaDFnTQ",
   },
 ];
 
@@ -59,9 +82,10 @@ const InTheSpotlight = () => (
       </div>
 
       <Swiper
+        className="home-swiper-nav"
         modules={[Navigation, A11y]}
         slidesPerView={1.2}
-        spaceBetween={16}
+        spaceBetween={8}
         navigation
         grabCursor
         loop
@@ -73,31 +97,49 @@ const InTheSpotlight = () => (
       >
         {spotlightItems.map((item) => (
           <SwiperSlide key={item.id}>
-            <div className="group cursor-pointer rounded-2xl overflow-hidden bg-white shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-              <div className="relative aspect-video overflow-hidden">
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  loading="lazy"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-14 h-14 rounded-full bg-white/90 group-hover:bg-white group-hover:scale-110 transition-all duration-300 flex items-center justify-center shadow-lg">
-                    <Play size={18} className="text-gray-900 fill-gray-900 translate-x-0.5" />
-                  </div>
-                </div>
-                <span className="absolute bottom-3 right-3 bg-black/70 text-white text-[10px] font-semibold px-2.5 py-1 rounded-md tracking-wide">
-                  {item.duration}
-                </span>
-              </div>
-              <div className="p-4">
-                <p className="text-xs text-[#c9a87c] font-semibold tracking-widest uppercase mb-1.5">{item.views}</p>
-                <h3 className="text-sm font-medium text-gray-800 leading-snug line-clamp-2 group-hover:text-[#c9a87c] transition-colors">
-                  {item.title}
-                </h3>
-              </div>
-            </div>
+            <a
+              href={item.videoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group cursor-pointer  overflow-hidden bg-white shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 block"
+            >
+             <div className="relative aspect-[4/5] md:aspect-[3/4] overflow-hidden group">
+  
+  {/* Image */}
+  <img
+    src={item.image}
+    alt={item.title}
+    loading="lazy"
+    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+  />
+
+  {/* Dark gradient overlay */}
+  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+
+  {/* Play button center */}
+  <div className="absolute inset-0 flex items-center justify-center">
+    <div className="w-14 h-14 rounded-full bg-white/90 flex items-center justify-center shadow-lg group-hover:scale-110 transition">
+      <Play size={18} className="text-gray-900 fill-gray-900 translate-x-0.5" />
+    </div>
+  </div>
+
+  {/* 🔥 Bottom Text */}
+  <div className="absolute bottom-0 left-0 w-full p-4">
+    <p className="text-[10px] text-[#c9a87c] font-semibold tracking-widest uppercase mb-1">
+      {item.views}
+    </p>
+    
+    <h3 className="text-sm md:text-base font-medium text-white leading-snug line-clamp-2">
+      {item.title}
+    </h3>
+
+    <span className="text-[10px] text-white/70 mt-1 inline-block">
+      {item.duration}
+    </span>
+  </div>
+</div>
+             
+            </a>
           </SwiperSlide>
         ))}
       </Swiper>

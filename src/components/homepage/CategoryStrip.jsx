@@ -1,77 +1,149 @@
-import { useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const categories = [
-  { icon: "🚀", label: "Same Day Delivery" },
-  { icon: "🎂", label: "Birthday Flowers" },
-  { icon: "💍", label: "Anniversary Flowers" },
-  { icon: "💐", label: "Grand Gestures" },
-  { icon: "🎁", label: "Gift Hampers" },
-  { icon: "📅", label: "Subscription Flowers" },
-  { icon: "🌿", label: "Potted Plants" },
-  { icon: "🏢", label: "Corporate Gifting" },
-  { icon: "💑", label: "Weddings" },
-  { icon: "🌸", label: "Exotic Flowers" },
-  { icon: "🍫", label: "Choco & Flowers" },
-  { icon: "🕯️", label: "Sympathy Flowers" },
+  { icon: "🚀", label: "Same Day Delivery",   href: "/shop?category=All" },
+  { icon: "🎂", label: "Birthday Flowers",    href: "/flowers?category=Birthday" },
+  { icon: "💍", label: "Anniversary Flowers", href: "/flowers?category=Anniversary" },
+  { icon: "💐", label: "Grand Gestures",      href: "/shop?category=Roses" },
+  { icon: "🎁", label: "Gift Hampers",        href: "/gifts" },
+  { icon: "📅", label: "Subscription Flowers",href: "/flowers" },
+  { icon: "🌿", label: "Potted Plants",       href: "/plants" },
+  { icon: "🏢", label: "Corporate Gifting",   href: "/gifts" },
+  { icon: "💑", label: "Weddings",            href: "/weddings" },
+  { icon: "🌸", label: "Exotic Flowers",      href: "/shop?category=Orchids" },
+  { icon: "🍫", label: "Choco & Flowers",     href: "/gifts" },
+  { icon: "🕯️", label: "Sympathy Flowers",   href: "/flowers" },
+  { icon: "💐", label: "Grand Gestures",      href: "/shop?category=Roses" },
+  { icon: "🎁", label: "Gift Hampers",        href: "/gifts" },
+  { icon: "📅", label: "Subscription Flowers",href: "/flowers" },
 ];
 
 const CategoryStrip = () => {
   const stripRef = useRef(null);
+  const navigate = useNavigate();
   const [active, setActive] = useState(0);
+  const loopCategories = useMemo(() => [...categories, ...categories, ...categories], []);
 
-  // Drag-to-scroll
+  // Drag / swipe to scroll
   const isDragging = useRef(false);
-  const startX = useRef(0);
+  const startClientX = useRef(0);
   const scrollLeft = useRef(0);
+  const didDrag = useRef(false);
+  const pauseAutoScroll = useRef(false);
+  const loopWidthRef = useRef(0);
 
-  const onMouseDown = (e) => {
+  useEffect(() => {
+    const node = stripRef.current;
+    if (!node) return;
+
+    const syncLoopWidth = () => {
+      loopWidthRef.current = node.scrollWidth / 3;
+      node.scrollLeft = loopWidthRef.current;
+    };
+
+    syncLoopWidth();
+    window.addEventListener("resize", syncLoopWidth);
+
+    let frameId;
+    const tick = () => {
+      if (!pauseAutoScroll.current && !isDragging.current) {
+        node.scrollLeft += 0.45;
+
+        const loopWidth = loopWidthRef.current;
+        if (loopWidth > 0) {
+          if (node.scrollLeft <= loopWidth * 0.2) {
+            node.scrollLeft += loopWidth;
+          } else if (node.scrollLeft >= loopWidth * 1.8) {
+            node.scrollLeft -= loopWidth;
+          }
+        }
+      }
+      frameId = requestAnimationFrame(tick);
+    };
+
+    frameId = requestAnimationFrame(tick);
+
+    return () => {
+      cancelAnimationFrame(frameId);
+      window.removeEventListener("resize", syncLoopWidth);
+    };
+  }, []);
+
+  const onPointerDown = (e) => {
+    const node = stripRef.current;
+    if (!node) return;
     isDragging.current = true;
-    startX.current = e.pageX - stripRef.current.offsetLeft;
-    scrollLeft.current = stripRef.current.scrollLeft;
-    stripRef.current.style.cursor = "grabbing";
+    pauseAutoScroll.current = true;
+    didDrag.current = false;
+    startClientX.current = e.clientX;
+    scrollLeft.current = node.scrollLeft;
+    node.style.cursor = "grabbing";
+    if (node.setPointerCapture && e.pointerId !== undefined) {
+      node.setPointerCapture(e.pointerId);
+    }
   };
-  const onMouseMove = (e) => {
+
+  const onPointerMove = (e) => {
     if (!isDragging.current) return;
     e.preventDefault();
-    const x = e.pageX - stripRef.current.offsetLeft;
-    const walk = (x - startX.current) * 1.5;
-    stripRef.current.scrollLeft = scrollLeft.current - walk;
+    const node = stripRef.current;
+    if (!node) return;
+    const walk = (e.clientX - startClientX.current) * 1.5;
+    if (Math.abs(walk) > 5) didDrag.current = true;
+    node.scrollLeft = scrollLeft.current - walk;
   };
-  const onMouseUp = () => {
+
+  const onPointerUp = () => {
+    const node = stripRef.current;
+    if (!node) return;
     isDragging.current = false;
-    stripRef.current.style.cursor = "grab";
+    node.style.cursor = "grab";
+    setTimeout(() => {
+      pauseAutoScroll.current = false;
+    }, 700);
   };
 
   return (
     <section className="bg-white border-b border-gray-100 py-1">
       <div
         ref={stripRef}
-        className="cat-strip flex items-center gap-1 overflow-x-auto select-none cursor-grab"
-        onMouseDown={onMouseDown}
-        onMouseMove={onMouseMove}
-        onMouseUp={onMouseUp}
-        onMouseLeave={onMouseUp}
+        className="cat-strip flex items-center gap-1 overflow-x-auto select-none cursor-grab touch-pan-x"
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={onPointerUp}
+        onPointerCancel={onPointerUp}
+        onPointerLeave={onPointerUp}
+        onMouseEnter={() => { pauseAutoScroll.current = true; }}
+        onMouseLeave={() => { pauseAutoScroll.current = false; }}
       >
         <div className="flex items-center gap-1 px-4 py-2 min-w-max">
-          {categories.map((cat, i) => (
+          {loopCategories.map((cat, i) => {
+            const baseIndex = i % categories.length;
+            return (
             <button
-              key={cat.label}
-              onClick={() => setActive(i)}
+              key={`${cat.label}-${i}`}
+              onClick={() => {
+                if (!didDrag.current) {
+                  setActive(baseIndex);
+                  navigate(cat.href);
+                }
+              }}
               className={`flex flex-col items-center gap-1.5 px-4 py-2.5 rounded-xl transition-all duration-200 min-w-[90px] hover:bg-[#fdf7ee] group
-                ${active === i ? "bg-[#fdf7ee] text-[#c9a87c]" : "text-gray-600"}`}
+                ${active === baseIndex ? "bg-[#fdf7ee] text-[#c9a87c]" : "text-gray-600"}`}
             >
               <span className="text-2xl">{cat.icon}</span>
               <span
                 className={`text-[10px] font-medium text-center leading-tight tracking-wide
-                  ${active === i ? "text-[#c9a87c]" : "text-gray-600 group-hover:text-[#c9a87c]"}`}
+                  ${active === baseIndex ? "text-[#c9a87c]" : "text-gray-600 group-hover:text-[#c9a87c]"}`}
               >
                 {cat.label}
               </span>
-              {active === i && (
+              {active === baseIndex && (
                 <span className="w-1 h-1 rounded-full bg-[#c9a87c]" />
               )}
             </button>
-          ))}
+          )})}
         </div>
       </div>
     </section>
@@ -79,3 +151,4 @@ const CategoryStrip = () => {
 };
 
 export default CategoryStrip;
+

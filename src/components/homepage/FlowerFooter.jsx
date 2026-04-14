@@ -1,4 +1,5 @@
 import { Facebook, Instagram, Linkedin, Twitter, Youtube } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const footerLinks = {
   Company: ["About Us", "Weddings", "Careers", "Press & Media", "Blog"],
@@ -26,6 +27,45 @@ const flowerLists = {
 };
 
 const paymentIcons = ["💳 Visa", "💳 Mastercard", "📱 UPI", "💰 PayPal", "📲 GPay", "🔒 COD"];
+const footerRouteMap = {
+  "About Us": "/about",
+  Weddings: "/weddings",
+  Careers: "/careers",
+  "Press & Media": "/press-media",
+  Blog: "/blog",
+  
+  "Contact Us": "/contact",
+  FAQ: "/faq",
+  "Returns Policy": "/returns-policy",
+  "Privacy Policy": "/privacy-policy",
+  "Terms & Conditions": "/terms-conditions",
+  "Cookie Policy": "/cookie-policy",
+  Sitemap: "/sitemap",
+};
+
+const flowerLinkRouteMap = {
+  "Birthday Flowers": "/flowers?search=Birthday",
+  "Anniversary Flowers": "/flowers?search=Anniversary",
+  "Valentine Flowers": "/flowers?search=Valentine",
+  "Mother's Day Flowers": "/flowers?search=Mother%27s%20Day",
+  "Congratulations Flowers": "/flowers?search=Congratulations",
+  "Get Well Soon Flowers": "/flowers?search=Get%20Well%20Soon",
+  Roses: "/shop?category=Roses",
+  Lilies: "/shop?category=Lilies",
+  Orchids: "/shop?category=Orchids",
+  Sunflowers: "/shop?category=Sunflowers",
+  Tulips: "/shop?category=Tulips",
+  Gerberas: "/flowers?search=Gerberas",
+  Carnations: "/flowers?search=Carnations",
+  "Mixed Bouquets": "/shop?category=Mixed",
+  "Red Flowers": "/flowers?search=Red",
+  "Pink Flowers": "/flowers?search=Pink",
+  "White Flowers": "/flowers?search=White",
+  "Yellow Flowers": "/flowers?search=Yellow",
+  "Purple Flowers": "/flowers?search=Purple",
+  "Peach Flowers": "/flowers?search=Peach",
+  "Orange Flowers": "/flowers?search=Orange",
+};
 
 const FlowerFooter = () => (
   <footer className="bg-[#0f0f0f] text-white">
@@ -90,9 +130,18 @@ const FlowerFooter = () => (
             <ul className="space-y-2.5">
               {links.map((link) => (
                 <li key={link}>
-                  <a href="#" className="footer-link text-xs text-white/45 hover:text-[#c9a87c] transition-colors">
-                    {link}
-                  </a>
+                  {footerRouteMap[link] ? (
+                    <Link
+                      to={footerRouteMap[link]}
+                      className="footer-link text-xs text-white/45 hover:text-[#c9a87c] transition-colors"
+                    >
+                      {link}
+                    </Link>
+                  ) : (
+                    <a href="#" className="footer-link text-xs text-white/45 hover:text-[#c9a87c] transition-colors">
+                      {link}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
@@ -131,9 +180,18 @@ const FlowerFooter = () => (
               <ul className="space-y-1.5">
                 {links.map((link) => (
                   <li key={link}>
-                    <a href="#" className="footer-link text-[11px] text-white/35 hover:text-[#c9a87c] transition-colors">
-                      {link}
-                    </a>
+                    {flowerLinkRouteMap[link] ? (
+                      <Link
+                        to={flowerLinkRouteMap[link]}
+                        className="footer-link text-[11px] text-white/35 hover:text-[#c9a87c] transition-colors"
+                      >
+                        {link}
+                      </Link>
+                    ) : (
+                      <a href="#" className="footer-link text-[11px] text-white/35 hover:text-[#c9a87c] transition-colors">
+                        {link}
+                      </a>
+                    )}
                   </li>
                 ))}
               </ul>

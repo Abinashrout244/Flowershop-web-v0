@@ -7,7 +7,7 @@ const BrandStory = () => (
         <div className="relative group">
           <div className="relative overflow-hidden rounded-3xl aspect-[3/4] md:aspect-auto md:h-[540px] shadow-2xl">
             <img
-              src="https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=800&q=80"
+              src="https://images.unsplash.com/photo-1685798066531-543166f5f425?w=800&q=80"
               alt="Founder Anuja Joshi"
               loading="lazy"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"

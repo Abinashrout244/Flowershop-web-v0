@@ -1,22 +1,29 @@
+import { useNavigate } from "react-router-dom";
+
 const sentiments = [
   {
     title: "Get Well Soon",
     subtitle: "Warm wishes wrapped in petals",
-    image: "https://images.unsplash.com/photo-1468327768560-75b778cbb551?w=700&q=80",
+    image: "https://images.unsplash.com/photo-1462275646964-a0e3386b89fa?w=700&q=85",
+    href: "/flowers",
   },
   {
     title: "For Sympathy",
     subtitle: "Gentle comfort through nature's grace",
-    image: "https://images.unsplash.com/photo-1561181286-d3fee7d55364?w=700&q=80",
+    image: "https://images.unsplash.com/photo-1538998073820-4dfa76300194?w=700&q=85",
+    href: "/flowers",
   },
   {
     title: "Apologies",
     subtitle: "Let flowers speak when words fall short",
-    image: "https://images.unsplash.com/photo-1582794543139-8ac9cb0f7b11?w=700&q=80",
+    image: "https://images.unsplash.com/photo-1516205651411-aef33a44f7c2??w=700&q=85",
+    href: "/flowers",
   },
 ];
 
-const SoftSentiments = () => (
+const SoftSentiments = () => {
+  const navigate = useNavigate();
+  return (
   <section className="py-14 md:py-20 bg-[#faf9f7]">
     <div className="max-w-7xl mx-auto px-4">
       {/* Heading */}
@@ -35,6 +42,7 @@ const SoftSentiments = () => (
         {sentiments.map((item) => (
           <div
             key={item.title}
+            onClick={() => navigate(item.href)}
             className="group relative overflow-hidden rounded-3xl cursor-pointer aspect-[3/4]"
           >
             <img
@@ -49,7 +57,10 @@ const SoftSentiments = () => (
               <p className="text-white/70 text-xs font-light tracking-wide mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 {item.subtitle}
               </p>
-              <button className="text-[11px] font-semibold text-white border border-white/50 px-5 py-2 rounded-full hover:bg-white hover:text-gray-900 transition-colors opacity-0 group-hover:opacity-100 duration-300 tracking-widest uppercase">
+              <button
+                onClick={(e) => { e.stopPropagation(); navigate(item.href); }}
+                className="text-[11px] font-semibold text-white border border-white/50 px-5 py-2 rounded-full hover:bg-white hover:text-gray-900 transition-colors opacity-0 group-hover:opacity-100 duration-300 tracking-widest uppercase"
+              >
                 Shop Now →
               </button>
             </div>
@@ -58,6 +69,9 @@ const SoftSentiments = () => (
       </div>
     </div>
   </section>
-);
+  );
+};
 
 export default SoftSentiments;
+
+

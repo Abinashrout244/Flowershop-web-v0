@@ -1,8 +1,12 @@
-const SummerBanner = () => (
+import { useNavigate } from "react-router-dom";
+
+const SummerBanner = () => {
+  const navigate = useNavigate();
+  return (
   <section className="banner-wrapper relative overflow-hidden h-80 md:h-[480px] lg:h-[520px] my-0">
     {/* Background image with zoom effect */}
     <img
-      src="https://images.unsplash.com/photo-1468327768560-75b778cbb551?w=1600&q=85"
+      src="https://images.unsplash.com/photo-1464965257414-d44b44754a4f?w=1600&q=85"
       alt="Summer Blooms"
       loading="lazy"
       className="banner-zoom absolute inset-0 w-full h-full object-cover scale-105"
@@ -22,7 +26,10 @@ const SummerBanner = () => (
       <p className="text-white/80 text-sm md:text-base max-w-sm mb-8 font-light leading-relaxed">
         Vibrant, sun-kissed florals handpicked for the season. While stocks last.
       </p>
-      <button className="group px-10 py-4 border-2 border-white text-white text-sm font-semibold tracking-[0.25em] uppercase rounded-full hover:bg-white hover:text-gray-900 transition-all duration-400 flex items-center gap-2">
+      <button
+        onClick={() => navigate("/flowers")}
+        className="group px-10 py-4 border-2 border-white text-white text-sm font-semibold tracking-[0.25em] uppercase rounded-full hover:bg-white hover:text-gray-900 transition-all duration-400 flex items-center gap-2"
+      >
         EXPLORE COLLECTION
         <span className="group-hover:translate-x-1 transition-transform">→</span>
       </button>
@@ -34,6 +41,8 @@ const SummerBanner = () => (
       </div>
     </div>
   </section>
-);
+  );
+};
 
 export default SummerBanner;
+

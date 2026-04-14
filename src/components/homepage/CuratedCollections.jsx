@@ -1,37 +1,61 @@
+import { useNavigate } from "react-router-dom";
+
+const BASE = "https://images.unsplash.com/";
+
 const collections = [
   {
     label: "Birthday",
-    image: "https://images.unsplash.com/photo-1561181286-d3fee7d55364?w=600&q=80",
+    image: `${BASE}photo-1519378058457-4c29a0a2efac?w=800&q=85&auto=format`,
     count: "48 items",
+    href: "/shop?category=Mixed",
   },
   {
     label: "Grand Gestures",
-    image: "https://images.unsplash.com/photo-1599733594230-6b823276d44c?w=600&q=80",
+    image: `${BASE}photo-1680563094046-5d846e2c59d1?w=800&q=85&auto=format`,
     count: "32 items",
+    href: "/shop?category=Roses",
   },
   {
     label: "Anniversary",
-    image: "https://images.unsplash.com/photo-1582794543139-8ac9cb0f7b11?w=600&q=80",
+    image: `${BASE}photo-1518621736915-f3b1c41bfd00?w=800&q=85&auto=format`,
     count: "56 items",
+    href: "/shop?category=Roses",
   },
   {
-    label: "Flowers & Cake",
-    image: "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?w=600&q=80",
+    label: "Flowers & Candles",
+    image: `${BASE}photo-1503525766218-8efbcfe836a0?w=800&q=85&auto=format`,
     count: "24 items",
+    href: "/gifts",
   },
   {
     label: "Vase Arrangements",
-    image: "https://images.unsplash.com/photo-1606041011872-596597976b25?w=600&q=80",
+    image: `${BASE}photo-1508610048659-a06b669e3321?w=800&q=85&auto=format`,
     count: "19 items",
+    href: "/flowers",
   },
   {
     label: "Hand Tied Bouquets",
-    image: "https://images.unsplash.com/photo-1468327768560-75b778cbb551?w=600&q=80",
+    image: `${BASE}photo-1652346107876-58d7354ce9b8?w=800&q=85&auto=format`,
     count: "37 items",
+    href: "/flowers",
+  },
+  {
+    label: "Pastel Collection",
+    image: `${BASE}photo-1458682625221-3a45f8a844c7?w=800&q=85&auto=format`,
+    count: "29 items",
+    href: "/shop?category=Mixed",
+  },
+  {
+    label: "Wildflower Meadow",
+    image: `${BASE}photo-1505129137389-dc838a46f3f9?w=800&q=85&auto=format`,
+    count: "21 items",
+    href: "/flowers",
   },
 ];
 
-const CuratedCollections = () => (
+const CuratedCollections = () => {
+  const navigate = useNavigate();
+  return (
   <section className="py-14 md:py-20 bg-white">
     <div className="max-w-7xl mx-auto px-4">
       <div className="text-center mb-10">
@@ -45,10 +69,11 @@ const CuratedCollections = () => (
         <div className="w-12 h-px bg-[#c9a87c] mx-auto mt-5" />
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-5">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5">
         {collections.map((col) => (
           <div
             key={col.label}
+            onClick={() => navigate(col.href)}
             className="group relative overflow-hidden rounded-2xl cursor-pointer"
           >
             <div className="aspect-[4/5]">
@@ -72,12 +97,18 @@ const CuratedCollections = () => (
       </div>
 
       <div className="text-center mt-10">
-        <button className="px-10 py-3.5 border border-[#1a1a1a] text-sm font-semibold tracking-[0.2em] uppercase text-gray-800 rounded-full hover:bg-[#1a1a1a] hover:text-white transition-all duration-300">
+        <button
+          onClick={() => navigate("/shop")}
+          className="px-10 py-3.5 border border-[#1a1a1a] text-sm font-semibold tracking-[0.2em] uppercase text-gray-800 rounded-full hover:bg-[#1a1a1a] hover:text-white transition-all duration-300"
+        >
           Browse All Collections
         </button>
       </div>
     </div>
   </section>
-);
+  );
+};
 
 export default CuratedCollections;
+
+

@@ -1,48 +1,66 @@
-import Aboutus from "./components/Aboutusmain";
-import Workshop from "./components/Workshopmain";
-import Shop from "./components/Shopmain";
-import Contact from "./components/ContactUsmain";
-import ShopDetail from "./components/ShopDetails";
-import ScrollToTop from "./utils/Scrolltop";
-import Cart from "./components/Cart";
-import Error from "./components/Error";
-import HomePage from "./components/homepage/HomePage";
-import OldHeader from "./components/Header";
-import OldFooter from "./components/Footer";
-import { createHashRouter, Outlet, RouterProvider } from "react-router-dom";
+import { createHashRouter, RouterProvider } from "react-router-dom";
 
-// Shell layout for legacy pages (About, Shop, etc.)
-const LegacyLayout = () => (
-  <>
-    <ScrollToTop />
-    <OldHeader />
-    <Outlet />
-    <OldFooter />
-  </>
-);
+// ── Homepage ───────────────────────────────────────────────
+import HomePage          from "./components/homepage/HomePage";
 
-const approuter = createHashRouter([
-  {
-    // New premium homepage — no shared layout wrapper needed
-    path: "/",
-    element: <><ScrollToTop /><HomePage /></>,
-    errorElement: <Error />,
-  },
-  {
-    // Legacy pages share old header/footer
-    element: <LegacyLayout />,
-    errorElement: <Error />,
-    children: [
-      { path: "/about",      element: <Aboutus /> },
-      { path: "/workshop",   element: <Workshop /> },
-      { path: "/shop",       element: <Shop /> },
-      { path: "/shop/:id",   element: <ShopDetail /> },
-      { path: "/contact",    element: <Contact /> },
-      { path: "/cart",       element: <Cart /> },
-    ],
-  },
+// ── Shop pages ─────────────────────────────────────────────
+import FlowersPage       from "./components/pages/FlowersPage";
+import PlantsPage        from "./components/pages/PlantsPage";
+import GiftsPage         from "./components/pages/GiftsPage";
+import WeddingsPage      from "./components/pages/WeddingsPage";
+
+// ── Product & commerce ─────────────────────────────────────
+import ProductDetailPage from "./components/pages/ProductDetailPage";
+import CartPage          from "./components/pages/CartPage";
+import CheckoutPage      from "./components/pages/CheckoutPage";
+import OrderConfirmedPage from "./components/pages/OrderConfirmedPage";
+import ShopPage          from "./components/pages/ShopPage";
+import FAQPage           from "./components/pages/FAQPage";
+import ContactPage       from "./components/pages/ContactPage";
+import AboutPage         from "./components/pages/AboutPage";
+import BlogPage          from "./components/pages/BlogPage";
+import CareersPage       from "./components/pages/CareersPage";
+import PressMediaPage    from "./components/pages/PressMediaPage";
+import ReturnsPolicyPage from "./components/pages/ReturnsPolicyPage";
+import PrivacyPolicyPage from "./components/pages/PrivacyPolicyPage";
+import TermsPage         from "./components/pages/TermsPage";
+import CookiePolicyPage  from "./components/pages/CookiePolicyPage";
+import SitemapPage       from "./components/pages/SitemapPage";
+
+// ── Account ────────────────────────────────────────────────
+import WishlistPage      from "./components/pages/WishlistPage";
+import ProfilePage       from "./components/pages/ProfilePage";
+
+// ── Utility ────────────────────────────────────────────────
+import ScrollToTop       from "./utils/Scrolltop";
+
+const Wrap = ({ children }) => <><ScrollToTop />{children}</>;
+
+const router = createHashRouter([
+  { path: "/",                element: <Wrap><HomePage /></Wrap>           },
+  { path: "/shop",            element: <Wrap><ShopPage /></Wrap>           },
+  { path: "/flowers",         element: <Wrap><FlowersPage /></Wrap>        },
+  { path: "/plants",          element: <Wrap><PlantsPage /></Wrap>         },
+  { path: "/gifts",           element: <Wrap><GiftsPage /></Wrap>          },
+  { path: "/weddings",        element: <Wrap><WeddingsPage /></Wrap>       },
+  { path: "/product/:id",     element: <Wrap><ProductDetailPage /></Wrap>  },
+  { path: "/cart",            element: <Wrap><CartPage /></Wrap>           },
+  { path: "/checkout",        element: <Wrap><CheckoutPage /></Wrap>       },
+  { path: "/order-confirmed", element: <Wrap><OrderConfirmedPage /></Wrap> },
+  { path: "/wishlist",        element: <Wrap><WishlistPage /></Wrap>       },
+  { path: "/profile",         element: <Wrap><ProfilePage /></Wrap>        },
+  { path: "/faq",             element: <Wrap><FAQPage /></Wrap>            },
+  { path: "/contact",         element: <Wrap><ContactPage /></Wrap>        },
+  { path: "/about",           element: <Wrap><AboutPage /></Wrap>          },
+  { path: "/blog",            element: <Wrap><BlogPage /></Wrap>           },
+  { path: "/careers",         element: <Wrap><CareersPage /></Wrap>        },
+  { path: "/press-media",     element: <Wrap><PressMediaPage /></Wrap>     },
+  { path: "/returns-policy",  element: <Wrap><ReturnsPolicyPage /></Wrap>  },
+  { path: "/privacy-policy",  element: <Wrap><PrivacyPolicyPage /></Wrap>  },
+  { path: "/terms-conditions",element: <Wrap><TermsPage /></Wrap>          },
+  { path: "/cookie-policy",   element: <Wrap><CookiePolicyPage /></Wrap>   },
+  { path: "/sitemap",         element: <Wrap><SitemapPage /></Wrap>        },
 ]);
 
-const AppLayout = () => <RouterProvider router={approuter} />;
-
+const AppLayout = () => <RouterProvider router={router} />;
 export default AppLayout;
