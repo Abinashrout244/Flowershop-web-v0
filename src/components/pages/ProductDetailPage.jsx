@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Thumbs, Navigation, FreeMode } from "swiper/modules";
 import { Heart, ShoppingBag, Star, Truck, RefreshCw, Shield, ChevronRight, Minus, Plus, Share2 } from "lucide-react";
-import { getProductById, products } from "../../data/products";
+import { getProductById, products } from "../../Data/products";
 import { addToCart } from "../../utils/cartSlice";
 import { toggleWishlist, selectIsWishlisted } from "../../utils/wishlistSlice";
 import NavHeader from "../homepage/NavHeader";

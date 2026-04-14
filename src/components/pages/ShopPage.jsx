@@ -5,7 +5,7 @@ import {
   Heart, Star, ShoppingCart, SlidersHorizontal,
   ChevronRight, ChevronLeft, Search, X, Check, Sparkles,
 } from "lucide-react";
-import { products } from "../../data/products";
+import { products } from "../../Data/products";
 import { addToCart } from "../../utils/cartSlice";
 import { toggleWishlist, selectIsWishlisted } from "../../utils/wishlistSlice";
 import NavHeader from "../homepage/NavHeader";

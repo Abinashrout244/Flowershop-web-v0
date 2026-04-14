@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { Search, MapPin, Heart, ShoppingBag, User, ChevronDown, Menu, X, Megaphone } from "lucide-react";
 import { selectCartCount } from "../../utils/cartSlice";
 import { selectWishlistCount } from "../../utils/wishlistSlice";
-import { searchProducts } from "../../data/products";
+import { searchProducts } from "../../Data/products";
 
 const navLinks = [
   { label: "Flowers",  href: "/flowers"  },

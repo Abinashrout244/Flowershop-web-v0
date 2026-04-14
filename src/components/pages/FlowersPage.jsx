@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Heart, Star, ShoppingCart, SlidersHorizontal, ChevronRight } from "lucide-react";
-import { products, categories, getProductsByCategory } from "../../data/products";
+import { products, categories, getProductsByCategory } from "../../Data/products";
 import { addToCart } from "../../utils/cartSlice";
 import { toggleWishlist, selectIsWishlisted } from "../../utils/wishlistSlice";
 import NavHeader from "../homepage/NavHeader";

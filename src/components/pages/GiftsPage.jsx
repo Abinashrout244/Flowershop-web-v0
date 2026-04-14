@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Heart, ShoppingCart, Star, Gift } from "lucide-react";
 import { addToCart } from "../../utils/cartSlice";
 import { toggleWishlist, selectIsWishlisted } from "../../utils/wishlistSlice";
-import { products } from "../../data/products";
+import { products } from "../../Data/products";
 import NavHeader from "../homepage/NavHeader";
 import FlowerFooter from "../homepage/FlowerFooter";
 
