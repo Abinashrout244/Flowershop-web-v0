@@ -1,0 +1,91 @@
+const BrandStory = () => (
+  <section className="py-14 md:py-24 bg-[#f8f3ec]">
+    <div className="max-w-7xl mx-auto px-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 items-center">
+
+        {/* Left: Image */}
+        <div className="relative group">
+          <div className="relative overflow-hidden rounded-3xl aspect-[3/4] md:aspect-auto md:h-[540px] shadow-2xl">
+            <img
+              src="https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=800&q=80"
+              alt="Founder Anuja Joshi"
+              loading="lazy"
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+          </div>
+
+          {/* Floating quote card */}
+          <div className="absolute -bottom-6 -right-4 md:-right-10 bg-white rounded-2xl shadow-xl px-5 py-4 max-w-[200px]">
+            <p className="font-serif-display text-3xl text-[#c9a87c] leading-none mb-1">"</p>
+            <p className="text-xs text-gray-600 leading-relaxed font-light italic">
+              Every bloom tells a story only the heart can read.
+            </p>
+            <p className="text-[10px] font-semibold text-gray-400 mt-2 tracking-widest uppercase">— Anuja Joshi</p>
+          </div>
+
+          {/* Years badge */}
+          <div className="absolute -top-4 -left-4 md:-left-8 bg-[#c9a87c] text-white rounded-2xl px-5 py-4 text-center shadow-lg">
+            <p className="font-serif-display text-4xl font-light leading-none">100</p>
+            <p className="text-[10px] tracking-widest uppercase font-semibold opacity-90 mt-0.5">Years</p>
+          </div>
+        </div>
+
+        {/* Right: Content */}
+        <div className="md:pl-4">
+          <p className="text-xs font-semibold tracking-[0.3em] text-[#c9a87c] uppercase mb-4">Our Heritage</p>
+
+          <h2 className="font-serif-display text-3xl md:text-4xl lg:text-5xl font-light text-gray-900 leading-tight mb-6">
+            Celebrating <span className="text-[#c9a87c] italic">100</span> Incredible Years
+          </h2>
+
+          <div className="w-12 h-px bg-[#c9a87c] mb-6" />
+
+          <p className="text-gray-600 text-base leading-relaxed mb-5 font-light">
+            Since 1924, Flora & Bloom has been India's most beloved floral destination. What began as a small family garden in Pune has blossomed into a nationwide celebration of nature's most beautiful creations.
+          </p>
+          <p className="text-gray-500 text-sm leading-relaxed mb-8 font-light">
+            With over a century of craftsmanship, we've had the privilege of being part of millions of life's most meaningful moments — weddings, anniversaries, births, and quiet, everyday gestures of love.
+          </p>
+
+          {/* Milestones */}
+          <div className="grid grid-cols-3 gap-4 mb-10 py-6 border-y border-[#e8ddd1]">
+            {[
+              { value: "1924", label: "Est. Year" },
+              { value: "500+", label: "Expert Florists" },
+              { value: "10M+", label: "Happy Customers" },
+            ].map((m) => (
+              <div key={m.label} className="text-center">
+                <p className="font-serif-display text-2xl text-[#c9a87c]">{m.value}</p>
+                <p className="text-[10px] text-gray-500 tracking-wide mt-1 uppercase">{m.label}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Founder credit */}
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-full overflow-hidden ring-2 ring-[#c9a87c]/30 flex-shrink-0">
+              <img
+                src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=120&q=80"
+                alt="Anuja Joshi"
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+            </div>
+            <div>
+              <p className="font-semibold text-gray-900 text-sm">Anuja Joshi</p>
+              <p className="text-xs text-gray-400 tracking-wide">Founder & Creative Director</p>
+            </div>
+            <div className="ml-auto">
+              <button className="text-sm font-semibold text-[#c9a87c] tracking-wide hover:underline">
+                Read Our Story →
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+);
+
+export default BrandStory;

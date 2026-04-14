@@ -1,6 +1,3 @@
-import Header from "./components/Header";
-import Body from "./components/Body";
-import Footer from "./components/Footer";
 import Aboutus from "./components/Aboutusmain";
 import Workshop from "./components/Workshopmain";
 import Shop from "./components/Shopmain";
@@ -9,32 +6,39 @@ import ShopDetail from "./components/ShopDetails";
 import ScrollToTop from "./utils/Scrolltop";
 import Cart from "./components/Cart";
 import Error from "./components/Error";
+import HomePage from "./components/homepage/HomePage";
+import OldHeader from "./components/Header";
+import OldFooter from "./components/Footer";
 import { createHashRouter, Outlet, RouterProvider } from "react-router-dom";
 
-const App = () => {
-  return (
-    <>
-      <ScrollToTop />
-      <Header />
-      <Outlet />
-      <Footer />
-    </>
-  );
-};
+// Shell layout for legacy pages (About, Shop, etc.)
+const LegacyLayout = () => (
+  <>
+    <ScrollToTop />
+    <OldHeader />
+    <Outlet />
+    <OldFooter />
+  </>
+);
 
 const approuter = createHashRouter([
   {
+    // New premium homepage — no shared layout wrapper needed
     path: "/",
-    element: <App />,
+    element: <><ScrollToTop /><HomePage /></>,
+    errorElement: <Error />,
+  },
+  {
+    // Legacy pages share old header/footer
+    element: <LegacyLayout />,
     errorElement: <Error />,
     children: [
-      { path: "/", element: <Body /> },
-      { path: "/about", element: <Aboutus /> },
-      { path: "/workshop", element: <Workshop /> },
-      { path: "/shop", element: <Shop /> },
-      { path: "/shop/:id", element: <ShopDetail /> },
-      { path: "/contact", element: <Contact /> },
-      { path: "/cart", element: <Cart /> },
+      { path: "/about",      element: <Aboutus /> },
+      { path: "/workshop",   element: <Workshop /> },
+      { path: "/shop",       element: <Shop /> },
+      { path: "/shop/:id",   element: <ShopDetail /> },
+      { path: "/contact",    element: <Contact /> },
+      { path: "/cart",       element: <Cart /> },
     ],
   },
 ]);

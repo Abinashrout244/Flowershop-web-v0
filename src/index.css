@@ -1,8 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@theme {
-  --font-syne: "Poppins", sans-serif;
-  --font-head: "Story Script", sans-serif;
-  --font-paragraph: "SUSE Mono", sans-serif;
+
+
+/* ─── Base ─────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Jost', sans-serif;
+  background-color: #faf9f7;
+  color: #1a1a1a;
+  -webkit-font-smoothing: antialiased;
 }
+
+/* ─── Typography ────────────────────────────────────────── */
+.font-serif-display { font-family: 'Cormorant Garamond', serif; }
+.font-playfair      { font-family: 'Playfair Display', serif; }
+
+/* ─── Category Strip ────────────────────────────────────── */
+.cat-strip::-webkit-scrollbar { display: none; }
+.cat-strip { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ─── Swiper custom ─────────────────────────────────────── */
+.swiper-button-next,
+.swiper-button-prev {
+  color: #1a1a1a !important;
+  background: #fff;
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50%;
+  box-shadow: 0 2px 12px rgba(0,0,0,.12);
+}
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 14px !important;
+  font-weight: 700;
+}
+.swiper-pagination-bullet {
+  background: #c9a87c !important;
+  opacity: .4;
+}
+.swiper-pagination-bullet-active {
+  background: #c9a87c !important;
+  opacity: 1;
+}
+
+/* Hero swiper nav override */
+.hero-swiper .swiper-button-next,
+.hero-swiper .swiper-button-prev {
+  color: #fff !important;
+  background: rgba(255,255,255,.2);
+  backdrop-filter: blur(4px);
+}
+
+/* Dark swiper (reviews) */
+.dark-swiper .swiper-button-next,
+.dark-swiper .swiper-button-prev {
+  color: #c9a87c !important;
+  background: rgba(255,255,255,.08);
+}
+
+/* ─── Hover card lift ───────────────────────────────────── */
+.product-card {
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0,0,0,.12);
+}
+.product-card:hover .card-img {
+  transform: scale(1.06);
+}
+.card-img { transition: transform .4s ease; }
+
+/* ─── Banner parallax ───────────────────────────────────── */
+.banner-zoom {
+  transition: transform 6s ease;
+}
+.banner-wrapper:hover .banner-zoom {
+  transform: scale(1.04);
+}
+
+/* ─── Scrollbar global ──────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #f1f1f1; }
+::-webkit-scrollbar-thumb { background: #c9a87c; border-radius: 4px; }
+
+/* ─── Soft link hover ───────────────────────────────────── */
+.footer-link {
+  transition: color .2s;
+}
+.footer-link:hover { color: #c9a87c; }
+
+/* ─── Lazy image fade ───────────────────────────────────── */
+img.lazy { opacity: 0; transition: opacity .5s ease; }
+img.lazy.loaded { opacity: 1; }
