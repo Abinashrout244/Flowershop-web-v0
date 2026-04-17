@@ -6,7 +6,7 @@ const SummerBanner = () => {
     <section className="banner-wrapper  relative overflow-hidden h-80 md:h-[480px] lg:h-[520px] my-0">
       {/* Background image with zoom effect */}
       <img
-        src="https://images.unsplash.com/photo-1656390158319-a6943d57188d?w=1600&q=85"
+        src="https://images.unsplash.com/photo-1629385354811-aaf27a5862d5?w=1600&q=85"
         alt="Summer Blooms"
         loading="lazy"
         className="banner-zoom absolute inset-0 w-full h-full object-cover scale-105"
