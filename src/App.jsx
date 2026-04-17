@@ -60,7 +60,15 @@ const router = createHashRouter([
   { path: "/terms-conditions",element: <Wrap><TermsPage /></Wrap>          },
   { path: "/cookie-policy",   element: <Wrap><CookiePolicyPage /></Wrap>   },
   { path: "/sitemap",         element: <Wrap><SitemapPage /></Wrap>        },
-]);
+], {
+  future: {
+    v7_relativeSplatPath: true,
+    v7_fetcherPersist: true,
+    v7_normalizeFormMethod: true,
+    v7_partialHydration: true,
+    v7_skipActionErrorRevalidation: true,
+  }
+});
 
-const AppLayout = () => <RouterProvider router={router} />;
+const AppLayout = () => <RouterProvider router={router} future={{ v7_startTransition: true }} />;
 export default AppLayout;

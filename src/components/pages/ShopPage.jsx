@@ -292,15 +292,33 @@ const ShopPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const params = new URLSearchParams(location.search);
-
-  const [activeCollection, setActiveCollection] = useState(params.get("category") || "All");
+  const [activeCollection, setActiveCollection] = useState("All");
+  const [activeOccasion, setActiveOccasion] = useState("All Occasions");
   const [sort, setSort] = useState("popular");
   const [showSort, setShowSort] = useState(false);
-  const [activeOccasion, setActiveOccasion] = useState("All Occasions");
   const [searchQuery, setSearchQuery] = useState(params.get("search") || "");
   const [toast, setToast] = useState({ show: false, name: "" });
   const [heroIndex, setHeroIndex] = useState(0);
   const sortRef = useRef(null);
+  useEffect(() => {
+  const params = new URLSearchParams(location.search);
+
+  const categoryFromURL = params.get("category");
+  const occasionFromURL = params.get("occasion");
+
+  if (categoryFromURL) {
+    setActiveCollection(categoryFromURL);
+  } else {
+    setActiveCollection("All");
+  }
+
+  if (occasionFromURL) {
+    setActiveOccasion(occasionFromURL);
+  } else {
+    setActiveOccasion("All Occasions");
+  }
+
+}, [location.search]);
 
   /* Close sort dropdown on outside click */
   useEffect(() => {
