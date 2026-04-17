@@ -49,7 +49,3 @@ A polished React + Vite flower shop website built for a modern online flower bou
 - `src/Data/` - Product and FAQ content data
 
 ---
-
-## 📸 Screenshot
-
-![Homepage](src/assets/Screenshots/Home.png)
