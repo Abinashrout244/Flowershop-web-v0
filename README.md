@@ -18,6 +18,16 @@ A polished React + Vite flower shop website built for a modern online flower bou
 
 ---
 
+## 🧩 Workflow & Features
+
+- Browse curated flower collections, categories, and product details
+- Add items to cart, update quantities, and remove products seamlessly
+- Save favorites with the wishlist flow for later purchase decisions
+- Complete checkout journey with shipping, order review, and confirmation
+- Navigate between home, shop, product, support, and policy pages with smooth routing
+
+---
+
 ## 🛠️ Tech Stack
 
 - **Framework:** React
