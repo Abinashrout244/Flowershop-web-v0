@@ -1,61 +1,68 @@
-# üå∫ FlowerShop Web
+# FlowerShop Web
 
-A polished React + Vite flower shop website built for a modern online flower boutique. The project showcases responsive product browsing, smooth shopping interactions, wishlist support, and a multi-page storefront experience.
+React + Vite flower shop app with Redux Toolkit and React Router.
 
----
+## Project Structure
 
-## üöÄ Key Features
+```text
+src/
++-- app/
+¶   +-- App.jsx
+¶   +-- main.jsx
+¶   +-- routes.jsx
+¶   +-- providers/
+¶       +-- AppProviders.jsx
++-- pages/
+¶   +-- Home/
+¶   +-- Shop/
+¶   +-- Product/
+¶   +-- Cart/
+¶   +-- Checkout/
+¶   +-- NotFound/
+¶   +-- ...other route pages
++-- components/
+¶   +-- ui/
+¶   ¶   +-- Button/
+¶   ¶   +-- Card/
+¶   ¶   +-- Input/
+¶   +-- home/
+¶   +-- faq/
+¶   +-- product/
+¶   +-- layout/
++-- features/
+¶   +-- cart/
+¶   +-- products/
+¶   +-- user/
++-- store/
+¶   +-- store.js
+¶   +-- hooks.js
++-- services/
+¶   +-- apiClient.js
+¶   +-- productService.js
++-- data/
+¶   +-- flowers.js
+¶   +-- faq.js
+¶   +-- categories.js
++-- hooks/
+¶   +-- useCart.js
+¶   +-- useDebounce.js
+¶   +-- useScrollToTop.js
++-- utils/
+¶   +-- formatPrice.js
+¶   +-- constants.js
++-- assets/
+¶   +-- images/
+¶   +-- icons/
++-- styles/
+¶   +-- globals.css
+¶   +-- variables.css
+¶   +-- reset.css
++-- index.css
+```
 
-- Responsive store layout across mobile, tablet, and desktop
-- Product catalog with flower collections, categories, and detail pages
-- Shopping cart with add/remove and quantity controls
-- Wishlist support for saving favorite items
-- Checkout flow and order confirmation page
-- Dynamic navigation with React Router-powered page routing
-- FAQ section, contact page, and policy pages for a full storefront experience
-- Animated homepage sections and carousel-driven product highlights
-- Redux Toolkit state management for cart and wishlist data
+## Scripts
 
----
-
-## üß© Workflow & Features
-
-- Browse curated flower collections, categories, and product details
-- Add items to cart, update quantities, and remove products seamlessly
-- Save favorites with the wishlist flow for later purchase decisions
-- Complete checkout journey with shipping, order review, and confirmation
-- Navigate between home, shop, product, support, and policy pages with smooth routing
-
----
-
-## üõ†Ô∏è Tech Stack
-
-- **Framework:** React
-- **Bundler:** Vite
-- **Styling:** Tailwind CSS
-- **State Management:** Redux Toolkit, React Redux
-- **Routing:** React Router DOM
-- **Animations & UI:** Framer Motion, Swiper, React Slick
-- **Icons:** Lucide React, React Icons
-
----
-
-## üöÄ Scripts
-
-- `npm run dev` - Start development server
-- `npm run build` - Build production assets
-- `npm run preview` - Preview production build
-- `npm run lint` - Run ESLint checks
-
----
-
-## üìÅ Project Structure
-
-- `src/App.jsx` - Main application wrapper and routing
-- `src/main.jsx` - Application entry point
-- `src/components/homepage/` - Homepage sections and landing UI
-- `src/components/pages/` - Store pages, cart, checkout, product detail, and support pages
-- `src/utils/` - Redux slices and utility helpers
-- `src/Data/` - Product and FAQ content data
-
----
+- `npm run dev`
+- `npm run build`
+- `npm run preview`
+- `npm run lint`
