@@ -126,17 +126,39 @@ const NavHeader = () => {
 
             {/* Desktop search */}
             <div className="hidden md:flex flex-1 items-center gap-2 max-w-2xl mx-4">
-              {/* Location */}
-              <button className="flex items-center gap-1.5 flex-shrink-0 text-xs text-gray-600 border border-gray-200 rounded-full px-3 py-2.5 hover:border-[#c9a87c] transition-colors group">
-                <MapPin size={13} className="text-[#c9a87c]" />
-                <span className="font-semibold whitespace-nowrap hidden lg:block">
-                  Deliver to
-                </span>
-                <ChevronDown
-                  size={11}
-                  className="group-hover:rotate-180 transition-transform duration-200"
-                />
-              </button>
+                  <div className="flex items-center gap-2 px-3 py-2 rounded-full bg-green-50 border border-green-200 whitespace-nowrap">
+    
+    {/* SVG Icon */}
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="w-4 h-4 text-green-600"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth={2}
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M9 17h6M5 12h14M7 7h10M3 17h.01M21 17h.01"
+      />
+    </svg>
+
+    <span className="text-xs font-medium text-green-700">
+      Same-day delivery
+    </span>
+  </div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-full bg-green-50 border border-green-200">
+  
+  <svg className="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+    <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 11H9v-2h2v2zm0-4H9V5h2v4z" />
+  </svg>
+
+  <span className="text-xs font-medium text-green-700">
+    Fresh flowers guarantee
+  </span>
+</div>
+
 
               {/* Search with suggestions */}
               <div className="flex-1 relative" ref={desktopSearchRef}>

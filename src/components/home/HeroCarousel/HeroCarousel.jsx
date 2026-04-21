@@ -25,7 +25,7 @@ const slides = [
     badgeIcon: Sparkles,
     accent: "#be185d", // pink bg match
     image:
-      "https://images.unsplash.com/photo-1627682874285-f57cb3c36e41?q=80&w=2074&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1590651068516-3049d3b77672?q=80&w=2074&auto=format&fit=crop",
     textColor: "text-rose-950",
     overlay: "bg-rose-100/45",
     perks: [
