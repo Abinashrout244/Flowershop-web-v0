@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Sidebar = ({
   categories,
   activeCategory,
@@ -7,7 +9,10 @@ const Sidebar = ({
   <aside className="w-full lg:w-[250px] lg:flex-shrink-0">
     <div className="rounded-2xl border border-gray-200 bg-white p-3">
       <div className="mb-3 lg:hidden">
-        <label htmlFor="faq-category" className="mb-1 block text-xs font-semibold uppercase tracking-[0.2em] text-gray-400">
+        <label
+          htmlFor="faq-category"
+          className="mb-1 block text-xs font-semibold uppercase tracking-[0.2em] text-gray-400"
+        >
           FAQ Categories
         </label>
         <select
@@ -39,7 +44,10 @@ const Sidebar = ({
                     : "text-gray-600 hover:bg-gray-50"
                 }`}
               >
-                <Icon size={16} className={isActive ? "text-[#c9a87c]" : "text-gray-400"} />
+                <Icon
+                  size={16}
+                  className={isActive ? "text-[#c9a87c]" : "text-gray-400"}
+                />
                 <span>{item.label}</span>
               </button>
             </li>
@@ -48,13 +56,18 @@ const Sidebar = ({
       </ul>
 
       <div className="mt-4 rounded-xl bg-[#faf8f4] p-4">
-        <p className="text-sm font-medium text-gray-700">Didn&apos;t find your answer?</p>
+        <p className="text-sm font-medium text-gray-700">
+          Didn&apos;t find your answer?
+        </p>
         <p className="mt-1 text-xs text-gray-500">
           Our team is here to help with any order, delivery, or payment query.
         </p>
-        <button className="mt-3 w-full rounded-full bg-[#1a1a1a] px-4 py-2.5 text-xs font-semibold uppercase tracking-[0.15em] text-white transition-colors hover:bg-[#c9a87c]">
-          Contact Customer Service
-        </button>
+        <Link to="/contact">
+          {" "}
+          <button className="mt-3 w-full rounded-full bg-[#1a1a1a] px-4 py-2.5 text-xs font-semibold uppercase tracking-[0.15em] text-white transition-colors hover:bg-[#c9a87c]">
+            Contact Customer Service
+          </button>
+        </Link>
       </div>
     </div>
   </aside>

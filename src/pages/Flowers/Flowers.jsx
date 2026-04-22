@@ -1,12 +1,20 @@
-import { useState, useEffect } from "react";
-import { useNavigate, useLocation, Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { Heart, Star, ShoppingCart, SlidersHorizontal, ChevronRight } from "lucide-react";
-import { products, categories, getProductsByCategory } from "../../data/flowers";
-import { addToCart } from "../../features/cart/cartSlice";
-import { toggleWishlist, selectIsWishlisted } from "../../features/user/wishlistSlice";
+import { useState } from "react";
+import { useLocation, Link } from "react-router-dom";
+import {
+  ChevronRight,
+  Sparkles,
+  ArrowRight,
+  FlowerIcon,
+  SlidersHorizontal,
+} from "lucide-react";
+import {
+  products,
+  categories,
+  getProductsByCategory,
+} from "../../data/flowers";
 import NavHeader from "../../components/layout/Navbar/Navbar";
 import FlowerFooter from "../../components/layout/Footer/Footer";
+import ProductCard from "./ProductCard";
 
 const sortOptions = [
   { label: "Most Popular", value: "popular" },
@@ -14,80 +22,6 @@ const sortOptions = [
   { label: "Price: High to Low", value: "desc" },
   { label: "Best Rated", value: "rating" },
 ];
-
-const ProductCard = ({ product }) => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const isWished = useSelector(selectIsWishlisted(product.id));
-  const [added, setAdded] = useState(false);
-  const discount = Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100);
-
-  const handleAdd = (e) => {
-    e.stopPropagation();
-    dispatch(addToCart({
-      id: product.id, name: product.name, price: product.price,
-      image: product.images[0], size: "Medium", qty: 1,
-    }));
-    setAdded(true);
-    setTimeout(() => setAdded(false), 2000);
-  };
-
-  return (
-    <div
-      onClick={() => navigate(`/product/${product.id}`)}
-      className="product-card bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm cursor-pointer group"
-    >
-      <div className="relative overflow-hidden aspect-[4/5]">
-        <img src={product.images[0]} alt={product.name} loading="lazy" className="card-img w-full h-full object-cover" />
-
-        {/* Wishlist */}
-        <button
-          onClick={e => { e.stopPropagation(); dispatch(toggleWishlist({ id: product.id, name: product.name, price: product.price, image: product.images[0], category: product.category })); }}
-          className="absolute top-3 right-3 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-md hover:scale-110 transition-transform z-10"
-        >
-          <Heart size={13} className={isWished ? "fill-red-400 text-red-400" : "text-gray-400"} />
-        </button>
-
-        {product.badge && (
-          <span className="absolute top-3 left-3 bg-[#1a1a1a] text-white text-[9px] font-bold px-2.5 py-1 rounded-sm tracking-widest uppercase">
-            {product.badge}
-          </span>
-        )}
-        <span className="absolute bottom-3 left-3 bg-emerald-500 text-white text-[9px] font-bold px-2 py-0.5 rounded-full">
-          {discount}% OFF
-        </span>
-      </div>
-
-      <div className="p-3.5">
-        <p className="text-[9px] text-[#c9a87c] font-bold tracking-[0.25em] uppercase mb-1">{product.tag}</p>
-        <h3 className="font-serif-display text-[15px] font-medium text-gray-800 leading-snug mb-2">{product.name}</h3>
-
-        <div className="flex items-center gap-1.5 mb-3">
-          {[1,2,3,4,5].map(s => (
-            <Star key={s} size={10} className={s <= Math.round(product.rating) ? "fill-amber-400 text-amber-400" : "fill-gray-200 text-gray-200"} />
-          ))}
-          <span className="text-[11px] font-semibold text-gray-600">{product.rating}</span>
-          <span className="text-[11px] text-gray-400">({product.reviews.toLocaleString()})</span>
-        </div>
-
-        <div className="flex items-center justify-between">
-          <div>
-            <span className="text-base font-bold text-gray-900">₹{product.price.toLocaleString()}</span>
-            <span className="text-xs text-gray-400 line-through ml-2">₹{product.originalPrice.toLocaleString()}</span>
-          </div>
-          <button
-            onClick={handleAdd}
-            className={`flex items-center gap-1 text-[11px] font-bold px-3 py-1.5 rounded-full border transition-all
-              ${added ? "bg-emerald-500 border-emerald-500 text-white" : "text-[#c9a87c] border-[#c9a87c] hover:bg-[#c9a87c] hover:text-white"}`}
-          >
-            <ShoppingCart size={10} />
-            {added ? "✓" : "ADD"}
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 const FlowersPage = () => {
   const location = useLocation();
@@ -98,11 +32,15 @@ const FlowersPage = () => {
   const [sort, setSort] = useState("popular");
   const [showSort, setShowSort] = useState(false);
 
+  /* ── Filter & sort logic ── */
   let filtered = getProductsByCategory(activeCategory);
   if (searchQuery) {
-    filtered = filtered.filter(p =>
-      p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      p.occasions.some(o => o.toLowerCase().includes(searchQuery.toLowerCase()))
+    filtered = filtered.filter(
+      (p) =>
+        p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.occasions.some((o) =>
+          o.toLowerCase().includes(searchQuery.toLowerCase()),
+        ),
     );
   }
 
@@ -113,50 +51,104 @@ const FlowersPage = () => {
     return b.reviews - a.reviews;
   });
 
-  const currentSort = sortOptions.find(s => s.value === sort);
+  const currentSort = sortOptions.find((s) => s.value === sort);
 
   return (
     <div className="min-h-screen bg-[#faf9f7]">
       <NavHeader />
 
-      {/* Breadcrumb */}
-      <div className="max-w-7xl mx-auto px-4 py-3">
+      {/* ── Breadcrumb ── */}
+      <div className="mx-auto max-w-7xl px-4 py-4">
         <div className="flex items-center gap-2 text-xs text-gray-400">
-          <Link to="/" className="hover:text-[#c9a87c]">Home</Link>
+          <Link to="/" className="transition-colors hover:text-[#c9a87c]">
+            Home
+          </Link>
           <ChevronRight size={12} />
-          <span className="text-gray-600">Fresh Flowers</span>
+          <span className="font-medium text-gray-600">
+            {searchQuery ? `Search: "${searchQuery}"` : "Fresh Flowers"}
+          </span>
         </div>
       </div>
 
-      {/* Page hero */}
-      <div className="relative h-48 md:h-64 overflow-hidden mb-8">
+      {/* ── Hero Banner ── */}
+      <section className="relative mx-4 mb-10 overflow-hidden rounded-3xl md:mx-8 lg:mx-auto lg:max-w-7xl">
         <img
-          src="https://images.unsplash.com/photo-1561181286-d3fee7d55364?w=1400&q=80&auto=format"
-          alt="Flowers"
-          className="w-full h-full object-cover scale-105"
+          src="https://images.unsplash.com/photo-1533907650686-70576141c030?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          alt="Fresh Flowers"
+          className="h-64 w-full object-cover md:h-80 lg:h-[420px]"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/55 to-black/20 flex flex-col items-start justify-center px-8 md:px-16">
-          <p className="text-[#c9a87c] text-xs tracking-[0.4em] uppercase font-bold mb-2">Farm Fresh</p>
-          <h1 className="font-serif-display text-4xl md:text-5xl font-light text-white mb-2">
-            {searchQuery ? `Results for "${searchQuery}"` : "Fresh Flowers"}
-          </h1>
-          <p className="text-white/70 text-sm">Handpicked blooms · Delivered same day</p>
-        </div>
-      </div>
 
-      <div className="max-w-7xl mx-auto px-4 pb-16">
-        {/* Filters row */}
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/10" />
+
+        {/* Decorative blobs */}
+        <div className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-[#c9a87c] opacity-15 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-12 left-1/3 h-56 w-56 rounded-full bg-rose-400 opacity-10 blur-2xl" />
+
+        {/* Hero text */}
+        <div className="absolute inset-0 flex flex-col items-start justify-center px-8 md:px-14">
+          {/* Pill */}
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#c9a87c]/40 bg-[#c9a87c]/15 px-4 py-1.5 backdrop-blur-sm">
+            <Sparkles size={11} className="text-[#c9a87c]" />
+            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#c9a87c]">
+              Farm Fresh
+            </span>
+          </div>
+
+          <h1 className="font-serif text-4xl font-light leading-tight text-white md:text-5xl lg:text-6xl">
+            {searchQuery ? (
+              <>
+                Results for{" "}
+                <span className="italic text-[#c9a87c]">"{searchQuery}"</span>
+              </>
+            ) : (
+              <>
+                Fresh <span className="italic text-[#c9a87c]">Flowers</span>
+              </>
+            )}
+          </h1>
+
+          <p className="mt-3 max-w-md text-sm leading-relaxed text-white/70 md:text-base">
+            Handpicked blooms from the finest farms — delivered fresh to your
+            door, same day.
+          </p>
+
+          {/* Stats */}
+          <div className="mt-6 flex flex-wrap gap-6">
+            {[
+              { val: `${products.length}+`, label: "Varieties" },
+              { val: "Same Day", label: "Delivery" },
+              { val: "Farm", label: "Fresh" },
+            ].map((s) => (
+              <div key={s.label}>
+                <p className="font-serif text-xl font-light text-[#c9a87c]">
+                  {s.val}
+                </p>
+                <p className="text-[10px] uppercase tracking-wider text-white/60">
+                  {s.label}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Main Content ── */}
+      <main className="mx-auto max-w-7xl px-4 pb-20">
+        {/* Filter + Sort bar */}
+        <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           {/* Category pills */}
           <div className="flex flex-wrap gap-2">
-            {categories.map(c => (
+            {categories.map((c) => (
               <button
                 key={c}
                 onClick={() => setActiveCategory(c)}
-                className={`px-4 py-2 rounded-full text-xs font-bold tracking-wide transition-all
-                  ${activeCategory === c
-                    ? "bg-[#c9a87c] text-white shadow-md"
-                    : "bg-white border border-gray-200 text-gray-600 hover:border-[#c9a87c] hover:text-[#c9a87c]"}`}
+                className={`rounded-full px-4 py-2 text-xs font-bold tracking-wide transition-all duration-200
+                  ${
+                    activeCategory === c
+                      ? "bg-[#c9a87c] text-white shadow-md"
+                      : "border border-gray-200 bg-white text-gray-600 hover:border-[#c9a87c] hover:text-[#c9a87c]"
+                  }`}
               >
                 {c}
               </button>
@@ -164,23 +156,36 @@ const FlowersPage = () => {
           </div>
 
           {/* Sort dropdown */}
-          <div className="relative">
+          <div className="relative shrink-0">
             <button
               onClick={() => setShowSort(!showSort)}
-              className="flex items-center gap-2 text-sm text-gray-600 border border-gray-200 px-4 py-2 rounded-full hover:border-[#c9a87c] transition-colors bg-white"
+              className="flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2 text-xs font-medium text-gray-600 shadow-sm transition-all hover:border-[#c9a87c]"
             >
-              <SlidersHorizontal size={14} />
+              <SlidersHorizontal size={12} />
               {currentSort?.label}
-              <ChevronRight size={13} className={`transition-transform ${showSort ? "rotate-90" : ""}`} />
+              <ChevronRight
+                size={12}
+                className={`transition-transform duration-200 ${
+                  showSort ? "rotate-90" : ""
+                }`}
+              />
             </button>
+
             {showSort && (
-              <div className="absolute right-0 top-full mt-1 bg-white rounded-2xl shadow-xl border border-gray-100 z-20 min-w-[180px] overflow-hidden">
-                {sortOptions.map(opt => (
+              <div className="absolute right-0 top-full z-20 mt-1 w-48 overflow-hidden rounded-xl border border-gray-100 bg-white shadow-xl">
+                {sortOptions.map((opt) => (
                   <button
                     key={opt.value}
-                    onClick={() => { setSort(opt.value); setShowSort(false); }}
-                    className={`w-full text-left px-4 py-3 text-sm transition-colors border-b border-gray-50 last:border-0
-                      ${sort === opt.value ? "bg-[#fdf8f0] text-[#c9a87c] font-bold" : "text-gray-600 hover:bg-gray-50"}`}
+                    onClick={() => {
+                      setSort(opt.value);
+                      setShowSort(false);
+                    }}
+                    className={`block w-full border-b border-gray-50 px-4 py-2.5 text-left text-xs last:border-0 transition-colors hover:bg-[#fdf6ec] hover:text-[#c9a87c]
+                      ${
+                        sort === opt.value
+                          ? "bg-[#fdf6ec] font-semibold text-[#c9a87c]"
+                          : "text-gray-600"
+                      }`}
                   >
                     {opt.label}
                   </button>
@@ -191,26 +196,48 @@ const FlowersPage = () => {
         </div>
 
         {/* Results count */}
-        <p className="text-sm text-gray-400 mb-5">
-          Showing <span className="font-semibold text-gray-700">{sorted.length}</span> results
-          {activeCategory !== "All" && <> in <span className="font-semibold text-[#c9a87c]">{activeCategory}</span></>}
+        <p className="mb-5 text-xs text-gray-400">
+          Showing{" "}
+          <span className="font-semibold text-gray-700">{sorted.length}</span>{" "}
+          results
+          {activeCategory !== "All" && (
+            <>
+              in
+              <span className="font-semibold text-[#c9a87c]">
+                {activeCategory}
+              </span>
+            </>
+          )}
         </p>
 
-        {/* Product grid */}
+        {/* ── Product Grid or Empty state ── */}
         {sorted.length === 0 ? (
-          <div className="text-center py-20">
-            <p className="font-serif-display text-3xl font-light text-gray-400 mb-3">No flowers found</p>
-            <p className="text-gray-400 text-sm mb-6">Try a different category or search term</p>
-            <button onClick={() => setActiveCategory("All")} className="px-8 py-3 bg-[#c9a87c] text-white text-sm font-bold rounded-full hover:bg-[#b8966b] transition-colors">
+          <div className="flex flex-col items-center justify-center py-24 text-center">
+            <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#f7f1e8]">
+              <FlowerIcon size={28} className="text-[#c9a87c]" />
+            </div>
+            <h3 className="font-serif text-2xl font-light text-gray-700">
+              No flowers found
+            </h3>
+            <p className="mt-2 text-sm text-gray-400">
+              Try a different category or search term
+            </p>
+            <button
+              onClick={() => setActiveCategory("All")}
+              className="mt-6 flex items-center gap-2 rounded-full bg-[#c9a87c] px-8 py-3 text-xs font-bold uppercase tracking-widest text-white transition-all hover:bg-[#b8966b]"
+            >
               View All Flowers
+              <ArrowRight size={13} />
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5">
-            {sorted.map(p => <ProductCard key={p.id} product={p} />)}
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 md:gap-5">
+            {sorted.map((p) => (
+              <ProductCard key={p.id} product={p} />
+            ))}
           </div>
         )}
-      </div>
+      </main>
 
       <FlowerFooter />
     </div>
@@ -218,5 +245,3 @@ const FlowersPage = () => {
 };
 
 export default FlowersPage;
-
-
