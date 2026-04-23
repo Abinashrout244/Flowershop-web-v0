@@ -49,7 +49,7 @@ const CartPage = () => {
   };
 
   return (
-    <div className="min-h-screen  bg-[#faf9f7]">
+    <div className="min-h-screen bg-[#faf9f7]">
       <NavHeader />
 
       {/* Breadcrumb */}
@@ -73,7 +73,7 @@ const CartPage = () => {
 
         {items.length === 0 ? (
           <div className="text-center bg-[#faf9f7]">
-            <div className="max-w-7xl  mx-auto px-4 py-24 text-center">
+            <div className="max-w-7xl mx-auto px-4 py-24 text-center">
               <div className="w-24 h-24 rounded-full bg-[#fdf8f0] flex items-center justify-center mx-auto mb-6">
                 <ShoppingBag size={36} className="text-[#c9a87c]" />
               </div>
@@ -93,8 +93,8 @@ const CartPage = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* ── Cart Items ──────────────────────────── */}
-            <div className="lg:col-span-2 space-y-4">
+            {/* ── Cart Items (Scrollable) ──────────────────────────── */}
+            <div className="lg:col-span-2 space-y-4 max-h-[calc(100vh-200px)] overflow-y-auto pr-2">
               {items.map((item) => (
                 <div
                   key={item.key}
@@ -139,7 +139,7 @@ const CartPage = () => {
                         <button
                           onClick={() =>
                             dispatch(
-                              updateQty({ key: item.key, qty: item.qty - 1 }),
+                              updateQty({ key: item.key, qty: item.qty - 1 })
                             )
                           }
                           className="w-8 h-8 flex items-center justify-center text-gray-500 hover:bg-gray-50 transition-colors"
@@ -152,7 +152,7 @@ const CartPage = () => {
                         <button
                           onClick={() =>
                             dispatch(
-                              updateQty({ key: item.key, qty: item.qty + 1 }),
+                              updateQty({ key: item.key, qty: item.qty + 1 })
                             )
                           }
                           className="w-8 h-8 flex items-center justify-center text-gray-500 hover:bg-gray-50 transition-colors"
@@ -186,8 +186,8 @@ const CartPage = () => {
               </Link>
             </div>
 
-            {/* ── Order Summary ────────────────────────── */}
-            <div className="space-y-4">
+            {/* ── Order Summary (Sticky) ────────────────────────── */}
+            <div className="space-y-4 h-fit sticky top-4">
               {/* Promo code */}
               <div className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm">
                 <p className="text-sm font-bold text-gray-700 mb-3 flex items-center gap-2">
