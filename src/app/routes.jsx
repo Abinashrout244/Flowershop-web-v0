@@ -1,5 +1,6 @@
 import React, { Suspense, lazy } from "react";
 import { createHashRouter } from "react-router-dom";
+import PageLoader from "../components/ui/Loader/PageLoader";
 
 const Home = lazy(() => import("../pages/Home/Home"));
 const Shop = lazy(() => import("../pages/Shop/Shop"));
@@ -28,11 +29,6 @@ const NotFound = lazy(() => import("../pages/NotFound/NotFound"));
 
 import useScrollToTop from "../hooks/useScrollToTop";
 
-const PageLoader = () => (
-  <div className="flex items-center justify-center min-h-[60vh]">
-    <div className="w-12 h-12 border-4 border-gray-200 border-t-pink-500 rounded-full animate-spin"></div>
-  </div>
-);
 
 const RouteShell = ({ children }) => {
   useScrollToTop();

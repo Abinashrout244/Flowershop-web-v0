@@ -29,6 +29,7 @@ export default {
       animation: {
         'fade-up': 'fadeUp 0.6s ease forwards',
         'zoom-in': 'zoomIn 0.5s ease forwards',
+        'shimmer': 'shimmer 1.8s infinite linear',
       },
       keyframes: {
         fadeUp: {
@@ -38,6 +39,10 @@ export default {
         zoomIn: {
           '0%':   { opacity: '0', transform: 'scale(0.95)' },
           '100%': { opacity: '1', transform: 'scale(1)' },
+        },
+        shimmer: {
+          '0%':   { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(200%)' },
         },
       },
       backgroundImage: {
