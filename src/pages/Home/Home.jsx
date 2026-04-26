@@ -12,22 +12,15 @@ import AsSeenOn from "../../components/home/AsSeenOn/AsSeenOn";
 import CustomerReviews from "../../components/home/CustomerReviews/CustomerReviews";
 import ContentSection from "../../components/home/ContentSection/ContentSection";
 import Footer from "../../components/layout/Footer/Footer";
+import { useTheme } from "../../contexts/ThemeContext";
 
 const Home = () => {
+  const { isDark } = useTheme();
   return (
-    <div className="min-h-screen">
-      {/*
-        Navbar is route-aware:
-        - on "/" → floating glass pill (renders over dark hero, no spacer needed)
-        - on other pages → classic white header with spacer
-      */}
+    <div className={`min-h-screen transition-colors duration-500 ${isDark ? "bg-black" : "bg-[#faf9f7]"}`}>
       <Navbar />
-
-      {/* Full-viewport cinematic hero with its own glass nav inside */}
       <Hero />
-
-      {/* Shop sections — start immediately after hero */}
-      <div className="bg-[#faf9f7]">
+      <div className={`transition-colors duration-500 ${isDark ? "bg-black" : "bg-[#faf9f7]"}`}>
         <CategoryStrip />
         <BestsellingBlooms />
         <SummerBanner />

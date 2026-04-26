@@ -2,6 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─── Swiper mobile touch fix ──────────────────────────────── */
+/* touch-action:none lets Swiper own ALL touch so horizontal slide works on mobile */
+.swiper {
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.swiper-wrapper {
+  touch-action: none;
+}
+
+/* ─── Hide swiper nav arrows on mobile ─────────────────────── */
+@media (max-width: 767px) {
+  .swiper-button-next,
+  .swiper-button-prev {
+    display: none !important;
+  }
+}
+
+
 /* ─── AI Agency Theme Variables ──────────────────────────── */
 :root {
   --background: 213 45% 67%;

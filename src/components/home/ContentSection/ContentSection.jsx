@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
+import { useSectionTheme } from "../../../hooks/useSectionTheme";
 
 const fullText = `Sending flowers online has never been more elegant or effortless. Whether you're celebrating a joyful birthday, expressing heartfelt condolences, or simply saying "I'm thinking of you," Flora & Bloom ensures every bouquet arrives in peak perfection.
 
@@ -12,31 +14,29 @@ const shortText = fullText.slice(0, 380) + "...";
 
 const ContentSection = () => {
   const [expanded, setExpanded] = useState(false);
+  const { bg, heading, subheading, btnOutline, divider } = useSectionTheme();
 
   return (
-    <section className="py-14 md:py-20 bg-white border-t border-gray-100">
+    <section className={`py-14 md:py-20 relative ${bg}`}>
+      <div className={`absolute top-0 left-0 right-0 h-px ${divider}`} />
       <div className="max-w-3xl mx-auto px-4 text-center">
-        <p className="text-xs font-semibold tracking-[0.35em] text-[#c9a87c] uppercase mb-4">
-          Why Choose Flora & Bloom
-        </p>
-        <h2 className="font-serif-display text-2xl md:text-3xl font-light text-gray-900 mb-6">
-          Sending Flowers Online — Reimagined
-        </h2>
-        <div className="w-12 h-px bg-[#c9a87c] mx-auto mb-8" />
-        <p className="text-gray-500 text-sm md:text-base leading-loose font-light text-left whitespace-pre-line">
+        <motion.div initial={{ opacity: 0, y: 30, filter: "blur(10px)" }} whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.65 }}>
+          <p className="text-xs font-semibold tracking-[0.35em] text-[#c9a87c] uppercase mb-4">Why Choose Flora & Bloom</p>
+          <h2 className={`font-serif-display text-2xl md:text-3xl font-light mb-6 ${heading}`}>Sending Flowers Online — Reimagined</h2>
+          <div className="w-12 h-px bg-[#c9a87c] mx-auto mb-8" />
+        </motion.div>
+        <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.15 }}
+          className={`text-sm md:text-base leading-loose font-light text-left whitespace-pre-line ${subheading}`}>
           {expanded ? fullText : shortText}
-        </p>
-        <button
+        </motion.p>
+        <motion.button initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.3 }}
           onClick={() => setExpanded(!expanded)}
-          className="mt-8 px-10 py-3.5 border border-[#1a1a1a] text-sm font-semibold tracking-[0.2em] uppercase text-gray-800 rounded-full hover:bg-[#1a1a1a] hover:text-white transition-all duration-300"
-        >
+          className={`mt-8 px-10 py-3.5 text-sm font-semibold tracking-[0.2em] uppercase rounded-full transition-all duration-300 ${btnOutline}`}>
           {expanded ? "SHOW LESS" : "SHOW MORE"}
-        </button>
+        </motion.button>
       </div>
     </section>
   );
 };
 
 export default ContentSection;
-
-
