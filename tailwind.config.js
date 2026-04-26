@@ -11,6 +11,8 @@ export default {
         'playfair': ['"Playfair Display"', 'serif'],
         'jost': ['Jost', 'sans-serif'],
         'poppins': ['Poppins', 'sans-serif'],
+        'heading': ["'Instrument Serif'", 'serif'],
+        'body': ["'Barlow'", 'sans-serif'],
       },
       colors: {
         gold: {

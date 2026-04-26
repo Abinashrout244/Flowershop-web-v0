@@ -1,6 +1,6 @@
 import Navbar from "../../components/layout/Navbar/Navbar";
+import Hero from "../../components/home/landing/Hero";
 import CategoryStrip from "../../components/home/CategoryStrip/CategoryStrip";
-import HeroCarousel from "../../components/home/HeroCarousel/HeroCarousel";
 import BestsellingBlooms from "../../components/home/BestsellingBlooms/BestsellingBlooms";
 import SummerBanner from "../../components/home/SummerBanner/SummerBanner";
 import WorldwideDelivery from "../../components/home/WorldwideDelivery/WorldwideDelivery";
@@ -15,21 +15,32 @@ import Footer from "../../components/layout/Footer/Footer";
 
 const Home = () => {
   return (
-    <div className="min-h-screen bg-[#faf9f7]">
+    <div className="min-h-screen">
+      {/*
+        Navbar is route-aware:
+        - on "/" → floating glass pill (renders over dark hero, no spacer needed)
+        - on other pages → classic white header with spacer
+      */}
       <Navbar />
-      <CategoryStrip />
-      <HeroCarousel />
-      <BestsellingBlooms />
-      <SummerBanner />
-      <WorldwideDelivery />
-      <SoftSentiments />
-      <CuratedCollections />
-      <InTheSpotlight />
-      <BrandStory />
-      <AsSeenOn />
-      <CustomerReviews />
-      <ContentSection />
-      <Footer />
+
+      {/* Full-viewport cinematic hero with its own glass nav inside */}
+      <Hero />
+
+      {/* Shop sections — start immediately after hero */}
+      <div className="bg-[#faf9f7]">
+        <CategoryStrip />
+        <BestsellingBlooms />
+        <SummerBanner />
+        <WorldwideDelivery />
+        <SoftSentiments />
+        <CuratedCollections />
+        <InTheSpotlight />
+        <BrandStory />
+        <AsSeenOn />
+        <CustomerReviews />
+        <ContentSection />
+        <Footer />
+      </div>
     </div>
   );
 };

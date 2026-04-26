@@ -14,8 +14,10 @@ export const products = [
     reviews: 3241,
     tag: "Same Day Delivery",
     badge: "Best Seller",
-    description: "Fifty hand-selected premium red roses, elegantly arranged in our signature Flora & Bloom wrap. Each stem is cut fresh the same morning and paired with baby's breath and lush eucalyptus foliage.",
-    longDescription: "Our Eternal Red Rose Bouquet is the pinnacle of romantic gifting. Sourced from high-altitude farms in Ooty, these roses bloom with an intense fragrance that lingers for days. The bouquet arrives in our signature kraft wrap with a personalised card.",
+    description:
+      "Fifty hand-selected premium red roses, elegantly arranged in our signature Flora & Bloom wrap. Each stem is cut fresh the same morning and paired with baby's breath and lush eucalyptus foliage.",
+    longDescription:
+      "Our Eternal Red Rose Bouquet is the pinnacle of romantic gifting. Sourced from high-altitude farms in Ooty, these roses bloom with an intense fragrance that lingers for days. The bouquet arrives in our signature kraft wrap with a personalised card.",
     occasions: ["Anniversary", "Valentine's Day", "I Love You"],
     sizes: [
       { label: "Small", stems: 12, price: 799 },
@@ -46,8 +48,10 @@ export const products = [
     reviews: 1876,
     tag: "Same Day Delivery",
     badge: "Popular",
-    description: "Soft pink roses arranged in a luxurious dome bouquet, perfect for celebrating milestones with elegance.",
-    longDescription: "Delicate blush pink roses from our premium farm partners, set in a classic dome arrangement. Perfect for birthdays, baby showers, and heartfelt thank-yous.",
+    description:
+      "Soft pink roses arranged in a luxurious dome bouquet, perfect for celebrating milestones with elegance.",
+    longDescription:
+      "Delicate blush pink roses from our premium farm partners, set in a classic dome arrangement. Perfect for birthdays, baby showers, and heartfelt thank-yous.",
     occasions: ["Birthday", "Thank You", "Baby Shower"],
     sizes: [
       { label: "Small", stems: 12, price: 699 },
@@ -77,8 +81,10 @@ export const products = [
     reviews: 932,
     tag: "Same Day Delivery",
     badge: "Premium",
-    description: "Rare lavender roses paired with white wax flowers — a bouquet that whispers sophistication.",
-    longDescription: "Sourced exclusively from specialized farms, our lavender roses have a rare hue that makes them truly unique. Paired with delicate white wax flowers and wrapped in our signature silk ribbon.",
+    description:
+      "Rare lavender roses paired with white wax flowers — a bouquet that whispers sophistication.",
+    longDescription:
+      "Sourced exclusively from specialized farms, our lavender roses have a rare hue that makes them truly unique. Paired with delicate white wax flowers and wrapped in our signature silk ribbon.",
     occasions: ["Anniversary", "Apology", "Grand Gesture"],
     sizes: [
       { label: "Small", stems: 12, price: 999 },
@@ -111,8 +117,10 @@ export const products = [
     reviews: 2156,
     tag: "Same Day Delivery",
     badge: null,
-    description: "Bright and cheerful sunflowers wrapped with seasonal greens — sunshine in a bouquet.",
-    longDescription: "Nothing says joy like a bunch of golden sunflowers. Harvested fresh each morning and bunched with seasonal greens and wheat stalks for a rustic, country-garden feel.",
+    description:
+      "Bright and cheerful sunflowers wrapped with seasonal greens — sunshine in a bouquet.",
+    longDescription:
+      "Nothing says joy like a bunch of golden sunflowers. Harvested fresh each morning and bunched with seasonal greens and wheat stalks for a rustic, country-garden feel.",
     occasions: ["Birthday", "Get Well Soon", "Congratulations"],
     sizes: [
       { label: "Small", stems: 6, price: 499 },
@@ -143,7 +151,8 @@ export const products = [
     reviews: 1234,
     tag: "Same Day Delivery",
     badge: "Trending",
-    description: "A vibrant mix of sunflowers and garden roses — the perfect cheerful statement.",
+    description:
+      "A vibrant mix of sunflowers and garden roses — the perfect cheerful statement.",
     occasions: ["Birthday", "Congratulations", "Friendship"],
     sizes: [
       { label: "Small", stems: 10, price: 799 },
@@ -175,7 +184,8 @@ export const products = [
     reviews: 1543,
     tag: "Same Day Delivery",
     badge: null,
-    description: "Pure white Casablanca lilies — timeless, fragrant, and absolutely elegant.",
+    description:
+      "Pure white Casablanca lilies — timeless, fragrant, and absolutely elegant.",
     occasions: ["Sympathy", "Get Well Soon", "Anniversary"],
     sizes: [
       { label: "Small", stems: 5, price: 699 },
@@ -206,7 +216,8 @@ export const products = [
     reviews: 876,
     tag: "Same Day Delivery",
     badge: "New",
-    description: "Dramatic pink stargazer lilies with their signature speckled petals and intoxicating fragrance.",
+    description:
+      "Dramatic pink stargazer lilies with their signature speckled petals and intoxicating fragrance.",
     occasions: ["Birthday", "Anniversary", "Grand Gesture"],
     sizes: [
       { label: "Small", stems: 5, price: 899 },
@@ -238,7 +249,8 @@ export const products = [
     reviews: 687,
     tag: "Scheduled Delivery",
     badge: "Luxury",
-    description: "A regal potted purple Phalaenopsis orchid in our signature ceramic pot — a gift that keeps on giving.",
+    description:
+      "A regal potted purple Phalaenopsis orchid in our signature ceramic pot — a gift that keeps on giving.",
     occasions: ["Anniversary", "Corporate Gift", "Housewarming"],
     sizes: [
       { label: "Single Stem", stems: 1, price: 1299 },
@@ -267,7 +279,8 @@ export const products = [
     reviews: 456,
     tag: "Scheduled Delivery",
     badge: "Premium",
-    description: "Pure white Phalaenopsis orchids — minimalist luxury at its finest.",
+    description:
+      "Pure white Phalaenopsis orchids — minimalist luxury at its finest.",
     occasions: ["Sympathy", "Corporate", "Housewarming"],
     sizes: [
       { label: "Single Stem", stems: 1, price: 1099 },
@@ -299,7 +312,8 @@ export const products = [
     reviews: 1102,
     tag: "Same Day Delivery",
     badge: "Trending",
-    description: "A joyful rainbow medley of imported Dutch tulips — the happiest bouquet you'll ever send.",
+    description:
+      "A joyful rainbow medley of imported Dutch tulips — the happiest bouquet you'll ever send.",
     occasions: ["Birthday", "Congratulations", "Spring Gifting"],
     sizes: [
       { label: "Small", stems: 10, price: 799 },
@@ -332,7 +346,8 @@ export const products = [
     reviews: 2341,
     tag: "Same Day Delivery",
     badge: "Best Seller",
-    description: "A lush seasonal mix of roses, gerberas, and seasonal blooms — captured straight from a spring garden.",
+    description:
+      "A lush seasonal mix of roses, gerberas, and seasonal blooms — captured straight from a spring garden.",
     occasions: ["Birthday", "Anniversary", "Thank You"],
     sizes: [
       { label: "Small", stems: 15, price: 999 },
@@ -363,7 +378,8 @@ export const products = [
     reviews: 1567,
     tag: "Same Day Delivery",
     badge: "Premium",
-    description: "Soft peach, ivory, and blush blooms in a waterfall arrangement — pure romantic luxury.",
+    description:
+      "Soft peach, ivory, and blush blooms in a waterfall arrangement — pure romantic luxury.",
     occasions: ["Anniversary", "Wedding", "Romantic"],
     sizes: [
       { label: "Small", stems: 15, price: 1099 },
@@ -397,7 +413,8 @@ export const products = [
     reviews: 2876,
     tag: "Same Day Delivery",
     badge: "Best Seller",
-    description: "12 premium red roses paired with Ferrero Rocher chocolates — the classic declaration of love.",
+    description:
+      "12 premium red roses paired with Ferrero Rocher chocolates — the classic declaration of love.",
     occasions: ["Valentine's Day", "Anniversary", "Birthday"],
     sizes: [
       { label: "Classic", stems: 12, price: 1999 },
@@ -427,19 +444,20 @@ export const products = [
     reviews: 1234,
     tag: "Same Day Delivery",
     badge: "Luxury",
-    description: "Flowers, aromatic candle, bath oils, and a handwritten card — an entire self-care experience in one box.",
+    description:
+      "Flowers, aromatic candle, bath oils, and a handwritten card — an entire self-care experience in one box.",
     occasions: ["Birthday", "Pamper", "Appreciation"],
     sizes: [
       { label: "Standard", stems: 12, price: 2499 },
       { label: "Premium", stems: 24, price: 3499 },
     ],
     images: [
-    `${BASE}photo-1582794543139-8ac9cb0f7b11?w=800&q=85&auto=format`,
-  `${BASE}photo-1525310072745-f49212b5ac6d?w=800&q=85&auto=format`,
-  `${BASE}photo-1538998073820-4dfa76300194?w=800&q=85&auto=format`,
-  `${BASE}photo-1615280825886-fa817c0a06cc?w=800&q=85&auto=format`,
-  `${BASE}photo-1613539246066-78db6ec4ff0f?w=800&q=85&auto=format`,
-  `${BASE}photo-1516205651411-aef33a44f7c2?w=800&q=85&auto=format`
+      `${BASE}photo-1582794543139-8ac9cb0f7b11?w=800&q=85&auto=format`,
+      `${BASE}photo-1525310072745-f49212b5ac6d?w=800&q=85&auto=format`,
+      `${BASE}photo-1538998073820-4dfa76300194?w=800&q=85&auto=format`,
+      `${BASE}photo-1615280825886-fa817c0a06cc?w=800&q=85&auto=format`,
+      `${BASE}photo-1613539246066-78db6ec4ff0f?w=800&q=85&auto=format`,
+      `${BASE}photo-1516205651411-aef33a44f7c2?w=800&q=85&auto=format`,
     ],
     deliveryInfo: "Same-day delivery available",
     freshness: "Flowers: 7–10 days",
@@ -457,7 +475,8 @@ export const products = [
     reviews: 987,
     tag: "Same Day Delivery",
     badge: "New",
-    description: "Sunflowers, a cuddly teddy bear, and a balloon — the perfect birthday trio.",
+    description:
+      "Sunflowers, a cuddly teddy bear, and a balloon — the perfect birthday trio.",
     occasions: ["Birthday", "Kids Gift", "Fun"],
     sizes: [
       { label: "Standard", stems: 10, price: 1699 },
@@ -488,7 +507,8 @@ export const products = [
     reviews: 789,
     tag: "Pre-Order",
     badge: "Seasonal",
-    description: "Lush garden peonies in soft blush — available only during the short season.",
+    description:
+      "Lush garden peonies in soft blush — available only during the short season.",
     occasions: ["Anniversary", "Wedding", "Birthday"],
     sizes: [
       { label: "Small", stems: 8, price: 1299 },
@@ -518,7 +538,8 @@ export const products = [
     reviews: 543,
     tag: "Same Day Delivery",
     badge: null,
-    description: "Dramatic red anthuriums — a bold, modern statement for the contemporary gifter.",
+    description:
+      "Dramatic red anthuriums — a bold, modern statement for the contemporary gifter.",
     occasions: ["Corporate", "Housewarming", "Modern Decor"],
     sizes: [
       { label: "Small", stems: 5, price: 899 },
@@ -537,7 +558,6 @@ export const products = [
     inStock: true,
   },
 
-
   // ── PLANTS ────────────────────────────────────────────
   {
     id: 19,
@@ -551,7 +571,8 @@ export const products = [
     reviews: 2134,
     tag: "Low Maintenance",
     badge: "Best Seller",
-    description: "The Peace Lily is one of the most popular indoor plants. It thrives in low-light conditions and produces beautiful white blooms seasonally.",
+    description:
+      "The Peace Lily is one of the most popular indoor plants. It thrives in low-light conditions and produces beautiful white blooms seasonally.",
     occasions: ["Housewarming", "Sympathy", "Corporate Gift"],
     sizes: [
       { label: "Small Pot", stems: 1, price: 599 },
@@ -581,7 +602,8 @@ export const products = [
     reviews: 3456,
     tag: "Easy Care",
     badge: "Popular",
-    description: "The Money Plant (Pothos) is believed to bring prosperity and good luck. It's virtually indestructible, making it perfect for beginners.",
+    description:
+      "The Money Plant (Pothos) is believed to bring prosperity and good luck. It's virtually indestructible, making it perfect for beginners.",
     occasions: ["Housewarming", "New Office", "Gift"],
     sizes: [
       { label: "Small Pot", stems: 1, price: 349 },
@@ -611,7 +633,8 @@ export const products = [
     reviews: 1876,
     tag: "Air Purifier",
     badge: null,
-    description: "The Snake Plant (Sansevieria) is NASA-certified as an air purifier. It tolerates low light and thrives with minimal watering.",
+    description:
+      "The Snake Plant (Sansevieria) is NASA-certified as an air purifier. It tolerates low light and thrives with minimal watering.",
     occasions: ["Housewarming", "Office Gift", "Bedroom Decor"],
     sizes: [
       { label: "Small Pot", stems: 1, price: 449 },
@@ -641,12 +664,13 @@ export const products = [
     reviews: 654,
     tag: "Expert Care",
     badge: "Premium",
-    description: "A handcrafted Ficus Bonsai, shaped over years by our master horticulturists. Arrives in a traditional ceramic bonsai pot.",
+    description:
+      "A handcrafted Ficus Bonsai, shaped over years by our master horticulturists. Arrives in a traditional ceramic bonsai pot.",
     occasions: ["Corporate Gift", "Anniversary", "Birthday"],
     sizes: [
-      { label: "Mini (6\")", stems: 1, price: 1299 },
-      { label: "Medium (10\")", stems: 1, price: 1999 },
-      { label: "Large (14\")", stems: 1, price: 2999 },
+      { label: 'Mini (6")', stems: 1, price: 1299 },
+      { label: 'Medium (10")', stems: 1, price: 1999 },
+      { label: 'Large (14")', stems: 1, price: 2999 },
     ],
     images: [
       `${BASE}photo-1521494336933-47acc656abc1?w=800&q=85&auto=format`,
@@ -671,7 +695,8 @@ export const products = [
     reviews: 2987,
     tag: "Drought Tolerant",
     badge: null,
-    description: "A charming arrangement of 5 assorted succulents in a wooden tray. Perfect for desks and window sills.",
+    description:
+      "A charming arrangement of 5 assorted succulents in a wooden tray. Perfect for desks and window sills.",
     occasions: ["Birthday", "Office Decor", "Gift"],
     sizes: [
       { label: "3-Pack", stems: 3, price: 249 },
@@ -701,7 +726,8 @@ export const products = [
     reviews: 4312,
     tag: "Medicinal",
     badge: "New",
-    description: "Fresh Aloe Vera plant known for its soothing gel used for skin care, burns, and hair. Easy to grow indoors.",
+    description:
+      "Fresh Aloe Vera plant known for its soothing gel used for skin care, burns, and hair. Easy to grow indoors.",
     occasions: ["Housewarming", "Wellness Gift", "Birthday"],
     sizes: [
       { label: "Small Pot", stems: 1, price: 249 },
@@ -710,11 +736,11 @@ export const products = [
     ],
     images: [
       `${BASE}photo-1596547609652-9cf5d8d76921?w=1200&q=85&auto=format`,
-  `${BASE}photo-1671166739837-b175ef95cb48?w=1200&q=85&auto=format`,
-  `${BASE}photo-1709716341475-323bdcbeb637?w=1200&q=85&auto=format`,
-  `${BASE}photo-1644585951614-0c2b3a7bbe9b?w=1200&q=85&auto=format`,
-  `${BASE}photo-1644585949224-cbe48d2cc2d6?w=1200&q=85&auto=format`,
-  `${BASE}photo-1684912950515-926f6dd5d5c7?w=1200&q=85&auto=format`
+      `${BASE}photo-1671166739837-b175ef95cb48?w=1200&q=85&auto=format`,
+      `${BASE}photo-1709716341475-323bdcbeb637?w=1200&q=85&auto=format`,
+      `${BASE}photo-1644585951614-0c2b3a7bbe9b?w=1200&q=85&auto=format`,
+      `${BASE}photo-1644585949224-cbe48d2cc2d6?w=1200&q=85&auto=format`,
+      `${BASE}photo-1684912950515-926f6dd5d5c7?w=1200&q=85&auto=format`,
     ],
     deliveryInfo: "Delivered in 1–2 days",
     freshness: "Perennial",
@@ -732,12 +758,13 @@ export const products = [
     reviews: 1543,
     tag: "Easy Care",
     badge: "Trending",
-    description: "The iconic Swiss Cheese Plant with its distinctive split leaves. A statement piece for any modern interior.",
+    description:
+      "The iconic Swiss Cheese Plant with its distinctive split leaves. A statement piece for any modern interior.",
     occasions: ["Housewarming", "Home Decor", "Birthday"],
     sizes: [
-      { label: "Small (12\")", stems: 1, price: 899 },
-      { label: "Medium (18\")", stems: 1, price: 1299 },
-      { label: "Large (24\")", stems: 1, price: 1999 },
+      { label: 'Small (12")', stems: 1, price: 899 },
+      { label: 'Medium (18")', stems: 1, price: 1299 },
+      { label: 'Large (24")', stems: 1, price: 1999 },
     ],
     images: [
       `${BASE}photo-1614594975525-e45190c55d0b?w=800&q=85&auto=format`,
@@ -762,12 +789,13 @@ export const products = [
     reviews: 876,
     tag: "Bright Light",
     badge: null,
-    description: "A designer favourite, the Fiddle Leaf Fig with its large violin-shaped leaves makes a bold statement in any living room.",
+    description:
+      "A designer favourite, the Fiddle Leaf Fig with its large violin-shaped leaves makes a bold statement in any living room.",
     occasions: ["Housewarming", "Home Decor", "Corporate Gift"],
     sizes: [
-      { label: "Small (18\")", stems: 1, price: 999 },
-      { label: "Medium (24\")", stems: 1, price: 1599 },
-      { label: "Large (36\")", stems: 1, price: 2499 },
+      { label: 'Small (18")', stems: 1, price: 999 },
+      { label: 'Medium (24")', stems: 1, price: 1599 },
+      { label: 'Large (36")', stems: 1, price: 2499 },
     ],
     images: [
       `${BASE}photo-1522441815192-d9f04eb0615c?w=800&q=85&auto=format`,
@@ -783,17 +811,26 @@ export const products = [
 ];
 
 /* ── Helper exports ─────────────────────────────────────── */
-export const getProductById = (id) => products.find(p => p.id === Number(id));
-export const getProductBySlug = (slug) => products.find(p => p.slug === slug);
+export const getProductById = (id) => products.find((p) => p.id === Number(id));
+export const getProductBySlug = (slug) => products.find((p) => p.slug === slug);
 export const getProductsByCategory = (cat) =>
-  cat === "All" ? products : products.filter(p => p.category === cat);
+  cat === "All" ? products : products.filter((p) => p.category === cat);
 export const categories = [
-  "All", "Roses", "Sunflowers", "Lilies", "Orchids",
-  "Tulips", "Mixed", "Gifts", "Seasonal", "Tropical",
+  "All",
+  "Roses",
+  "Sunflowers",
+  "Lilies",
+  "Orchids",
+  "Tulips",
+  "Mixed",
+  "Gifts",
+  "Seasonal",
+  "Tropical",
 ];
 export const searchProducts = (query) =>
-  products.filter(p =>
-    p.name.toLowerCase().includes(query.toLowerCase()) ||
-    p.category.toLowerCase().includes(query.toLowerCase()) ||
-    p.occasions.some(o => o.toLowerCase().includes(query.toLowerCase()))
+  products.filter(
+    (p) =>
+      p.name.toLowerCase().includes(query.toLowerCase()) ||
+      p.category.toLowerCase().includes(query.toLowerCase()) ||
+      p.occasions.some((o) => o.toLowerCase().includes(query.toLowerCase())),
   );

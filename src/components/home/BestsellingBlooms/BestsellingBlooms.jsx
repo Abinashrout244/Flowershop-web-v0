@@ -5,7 +5,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, A11y } from "swiper/modules";
 import { Heart, Star, ShoppingCart } from "lucide-react";
 import { addToCart } from "../../../features/cart/cartSlice";
-import { toggleWishlist, selectIsWishlisted } from "../../../features/user/wishlistSlice";
+import {
+  toggleWishlist,
+  selectIsWishlisted,
+} from "../../../features/user/wishlistSlice";
 import "swiper/css";
 import "swiper/css/navigation";
 
@@ -25,6 +28,30 @@ const products = [
   },
   {
     id: 2,
+    name: "Pink Peony Paradise",
+    price: 1599,
+    originalPrice: 2199,
+    rating: 4.9,
+    reviews: 987,
+    tag: "Same Day Delivery",
+    image:
+      "https://images.unsplash.com/photo-1531874824027-2a0d33bd6338?w=600&q=85&auto=format",
+    badge: "Premium",
+  },
+  {
+    id: 3,
+    name: "Lavender Dreams",
+    price: 999,
+    originalPrice: 1399,
+    rating: 4.6,
+    reviews: 1432,
+    tag: "Same Day Delivery",
+    image:
+      "https://images.unsplash.com/photo-1566114310145-37ac933c6c69?w=600&q=85&auto=format",
+    badge: null,
+  },
+  {
+    id: 4,
     name: "Sunflower Bliss Bunch",
     price: 799,
     originalPrice: 1099,
@@ -36,79 +63,7 @@ const products = [
     badge: "Popular",
   },
   {
-    id: 3,
-    name: "Pink Peony Paradise",
-    price: 1599,
-    originalPrice: 2199,
-    rating: 4.9,
-    reviews: 987,
-    tag: "Same Day Delivery",
-    image:
-      "https://images.unsplash.com/photo-1519378058457-4c29a0a2efac?w=600&q=85&auto=format",
-    badge: "Premium",
-  },
-  {
-    id: 4,
-    name: "Lavender Dreams",
-    price: 999,
-    originalPrice: 1399,
-    rating: 4.6,
-    reviews: 1432,
-    tag: "Same Day Delivery",
-    image:
-      "https://images.unsplash.com/photo-1471086569966-db3eebc25a59?w=600&q=85&auto=format",
-    badge: null,
-  },
-  {
-    id: 5,
-    name: "Tulip Rainbow Mix",
-    price: 1199,
-    originalPrice: 1699,
-    rating: 4.8,
-    reviews: 765,
-    tag: "Same Day Delivery",
-    image:
-      "https://images.unsplash.com/photo-1554631221-f9603e6808be?w=600&q=85&auto=format",
-    badge: "Trending",
-  },
-  {
     id: 6,
-    name: "Red Rose Romance",
-    price: 1899,
-    originalPrice: 2499,
-    rating: 4.9,
-    reviews: 3210,
-    tag: "Same Day Delivery",
-    image:
-      "https://images.unsplash.com/photo-1615678790117-8b46c38435ef?w=600&q=85&auto=format",
-    badge: "Best Seller",
-  },
-  {
-    id: 7,
-    name: "Orchid Elegance",
-    price: 2299,
-    originalPrice: 2999,
-    rating: 4.9,
-    reviews: 543,
-    tag: "Same Day Delivery",
-    image:
-      "https://images.unsplash.com/photo-1533616688419-b3a58eeb09b8?w=600&q=85&auto=format",
-    badge: "Luxury",
-  },
-  {
-    id: 8,
-    name: "Daisy Garden Hamper",
-    price: 899,
-    originalPrice: 1249,
-    rating: 4.5,
-    reviews: 1102,
-    tag: "Same Day Delivery",
-    image:
-      "https://images.unsplash.com/photo-1457089328109-e5d9f56adce9?w=600&q=85&auto=format",
-    badge: null,
-  },
-  {
-    id: 9,
     name: "White Lily Serenity",
     price: 1349,
     originalPrice: 1849,
@@ -116,19 +71,55 @@ const products = [
     reviews: 892,
     tag: "Same Day Delivery",
     image:
-      "https://images.unsplash.com/photo-1508610048659-a06b669e3321?w=600&q=85&auto=format",
+      "https://images.unsplash.com/photo-1486102515046-44130769cb25?w=600&q=85&auto=format",
     badge: "New",
   },
   {
+    id: 8,
+    name: "Orchid Elegance",
+    price: 2299,
+    originalPrice: 2999,
+    rating: 4.9,
+    reviews: 543,
+    tag: "Same Day Delivery",
+    image:
+      "https://images.unsplash.com/photo-1605996370592-b6f7a81e382e?w=600&q=85&auto=format",
+    badge: "Luxury",
+  },
+  {
     id: 10,
-    name: "Wildflower Meadow Bunch",
+    name: "Tulip Rainbow Mix",
+    price: 1199,
+    originalPrice: 1699,
+    rating: 4.8,
+    reviews: 765,
+    tag: "Same Day Delivery",
+    image:
+      "https://images.unsplash.com/photo-1587316830148-c9b01df2da38?w=600&q=85&auto=format",
+    badge: "Trending",
+  },
+  {
+    id: 11,
+    name: "Mixed Bouquets",
     price: 849,
     originalPrice: 1199,
     rating: 4.6,
     reviews: 1674,
     tag: "Same Day Delivery",
     image:
-      "https://images.unsplash.com/photo-1462275646964-a0e3386b89fa?w=600&q=85&auto=format",
+      "https://images.unsplash.com/photo-1607035508682-b59eb92d77e8?w=600&q=85&auto=format",
+    badge: null,
+  },
+  {
+    id: 24,
+    name: "Indoor Plants",
+    price: 899,
+    originalPrice: 1249,
+    rating: 4.5,
+    reviews: 1102,
+    tag: "Same Day Delivery",
+    image:
+      "https://images.unsplash.com/photo-1596547609652-9cf5d8d76921?w=600&q=85&auto=format",
     badge: null,
   },
 ];
@@ -342,5 +333,3 @@ const BestsellingBlooms = () => {
 };
 
 export default BestsellingBlooms;
-
-

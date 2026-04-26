@@ -1,68 +1,99 @@
-# FlowerShop Web
+ï»¿# ðŸŒ¸ FlowerShop â€” Premium Floral E-Commerce Web App
 
-React + Vite flower shop app with Redux Toolkit and React Router.
+A polished floral storefront built with **React 19**, **Redux Toolkit**, **React Router v6**, **Vite 7**, and **Tailwind CSS v3**. It showcases a complete shopping experience with product browsing, cart and wishlist flows, checkout, and rich informational content pages.
+
+---
+
+## Key Features
+
+- Browsable catalog for **Flowers**, **Plants**, **Gifts**, and **Weddings**
+- Product detail page with **image carousel**, **quantity controls**, and **wishlist support**
+- Cart with **item controls**, **sticky summary**, and **promo-style checkout preview**
+- **Multi-step checkout** flow: shipping, payment, review
+- Optional **address autocomplete** via **LocationIQ API**
+- **Profile** and **wishlist** pages for user interactions
+- Rich homepage sections and modern UI elements
+- Fully **responsive**, **animated**, and **mobile-friendly**
+- **Lazy-loaded routes** and **skeleton page loader** for smoother transitions
+
+---
+
+## Tech Stack
+
+- React 19
+- Vite 7
+- Redux Toolkit
+- React Router DOM v6
+- Tailwind CSS v3
+- Framer Motion
+- Swiper 12
+- React Slick
+- Lucide React / React Icons
+- ESLint 9
+
+---
 
 ## Project Structure
 
-```text
-src/
-+-- app/
-¦   +-- App.jsx
-¦   +-- main.jsx
-¦   +-- routes.jsx
-¦   +-- providers/
-¦       +-- AppProviders.jsx
-+-- pages/
-¦   +-- Home/
-¦   +-- Shop/
-¦   +-- Product/
-¦   +-- Cart/
-¦   +-- Checkout/
-¦   +-- NotFound/
-¦   +-- ...other route pages
-+-- components/
-¦   +-- ui/
-¦   ¦   +-- Button/
-¦   ¦   +-- Card/
-¦   ¦   +-- Input/
-¦   +-- home/
-¦   +-- faq/
-¦   +-- product/
-¦   +-- layout/
-+-- features/
-¦   +-- cart/
-¦   +-- products/
-¦   +-- user/
-+-- store/
-¦   +-- store.js
-¦   +-- hooks.js
-+-- services/
-¦   +-- apiClient.js
-¦   +-- productService.js
-+-- data/
-¦   +-- flowers.js
-¦   +-- faq.js
-¦   +-- categories.js
-+-- hooks/
-¦   +-- useCart.js
-¦   +-- useDebounce.js
-¦   +-- useScrollToTop.js
-+-- utils/
-¦   +-- formatPrice.js
-¦   +-- constants.js
-+-- assets/
-¦   +-- images/
-¦   +-- icons/
-+-- styles/
-¦   +-- globals.css
-¦   +-- variables.css
-¦   +-- reset.css
-+-- index.css
+```
+web-flowershop-v0/
+â”œâ”€â”€ public/
+â”œâ”€â”€ src/
+â”‚   â”œâ”€â”€ app/
+â”‚   â”œâ”€â”€ assets/
+â”‚   â”œâ”€â”€ components/
+â”‚   â”œâ”€â”€ data/
+â”‚   â”œâ”€â”€ features/
+â”‚   â”œâ”€â”€ hooks/
+â”‚   â”œâ”€â”€ pages/
+â”‚   â”œâ”€â”€ services/
+â”‚   â”œâ”€â”€ store/
+â”‚   â”œâ”€â”€ styles/
+â”‚   â””â”€â”€ utils/
+â”œâ”€â”€ .env
+â”œâ”€â”€ package.json
+â”œâ”€â”€ tailwind.config.js
+â”œâ”€â”€ postcss.config.js
+â”œâ”€â”€ vite.config.js
+â””â”€â”€ eslint.config.js
 ```
 
-## Scripts
+---
 
-- `npm run dev`
-- `npm run build`
-- `npm run preview`
-- `npm run lint`
+## Getting Started
+
+### Prerequisites
+- Node.js >= 18
+- npm >= 9
+
+### Install
+
+```bash
+git clone https://github.com/Abinashrout244/Flowershop-web-v0.git
+cd Flowershop-web-v0
+npm install
+```
+
+### Environment
+
+Create a `.env` file in the project root if you want to enable address autocomplete:
+
+```env
+VITE_LOCATIONIQ_API_KEY=your_api_key_here
+```
+
+### Available Scripts
+
+```bash
+npm run dev      # Start local dev server
+npm run build    # Build production app
+npm run preview  # Preview production build
+npm run lint     # Run ESLint checks
+```
+
+---
+
+## Notes
+
+- The `.env` file is not committed, so API keys should be added manually.
+- This repository is optimized for a luxe flower shop UI with rich interactions, animated carousels, and mobile-first responsive design.
