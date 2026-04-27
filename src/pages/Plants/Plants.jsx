@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import {
   ChevronRight,
@@ -17,7 +18,9 @@ import PlantCard from "./PlantCard";
 const plants = products.filter((p) => p.category === "Plants");
 
 /* ── Page ── */
-const PlantsPage = () => (
+const PlantsPage = () => {
+  const navigate = useNavigate();
+return(
   <div className="min-h-screen bg-[#faf9f7]">
     <NavHeader />
 
@@ -85,7 +88,7 @@ const PlantsPage = () => (
         </div>
 
         {/* CTA */}
-        <button className="mt-7 flex items-center gap-2 rounded-full bg-white px-7 py-3 text-xs font-bold uppercase tracking-widest text-gray-900 shadow-lg transition-all duration-300 hover:bg-emerald-500 hover:text-white">
+        <button onClick={() => navigate("/shop")} className="mt-7 flex items-center gap-2 rounded-full bg-white px-7 py-3 text-xs font-bold uppercase tracking-widest text-gray-900 shadow-lg transition-all duration-300 hover:bg-emerald-500 hover:text-white">
           Shop Now
           <ArrowRight size={13} />
         </button>
@@ -172,6 +175,6 @@ const PlantsPage = () => (
 
     <FlowerFooter />
   </div>
-);
+)};
 
 export default PlantsPage;

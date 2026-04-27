@@ -12,7 +12,7 @@ import AsSeenOn from "../../components/home/AsSeenOn/AsSeenOn";
 import CustomerReviews from "../../components/home/CustomerReviews/CustomerReviews";
 import ContentSection from "../../components/home/ContentSection/ContentSection";
 import Footer from "../../components/layout/Footer/Footer";
-import { useTheme } from "../../contexts/ThemeContext";
+import { useTheme } from "../../contexts/useTheme";
 
 const Home = () => {
   const { isDark } = useTheme();
