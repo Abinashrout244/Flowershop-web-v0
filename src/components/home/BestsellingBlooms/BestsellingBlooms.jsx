@@ -133,6 +133,9 @@ const BestsellingBlooms = () => {
           modules={[Navigation, A11y]}
           slidesPerView={1.2}
           spaceBetween={16}
+          touchStartPreventDefault={false}
+          touchReleaseOnEdges
+          touchAngle={60}
           navigation
           loop
           grabCursor

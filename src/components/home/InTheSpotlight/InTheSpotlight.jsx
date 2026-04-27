@@ -33,6 +33,9 @@ const InTheSpotlight = () => {
         </div>
 
         <Swiper modules={[Navigation, A11y]} slidesPerView={1.2} spaceBetween={8} navigation grabCursor loop
+          touchStartPreventDefault={false}
+          touchReleaseOnEdges
+          touchAngle={60}
           breakpoints={{ 480: { slidesPerView: 2, spaceBetween: 16 }, 768: { slidesPerView: 3, spaceBetween: 20 }, 1024: { slidesPerView: 3.5, spaceBetween: 24 } }}>
           {spotlightItems.map((item) => (
             <SwiperSlide key={item.id}>

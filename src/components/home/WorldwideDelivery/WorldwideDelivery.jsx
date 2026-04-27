@@ -63,6 +63,9 @@ const WorldwideDelivery = () => {
         </motion.div>
 
         <Swiper modules={[Navigation, A11y]} slidesPerView={2} spaceBetween={14} navigation loop grabCursor
+          touchStartPreventDefault={false}
+          touchReleaseOnEdges
+          touchAngle={60}
           breakpoints={{ 480: { slidesPerView: 3 }, 768: { slidesPerView: 4 }, 1024: { slidesPerView: 5 } }}>
           {countries.map((country, i) => (
             <SwiperSlide key={country.name}>

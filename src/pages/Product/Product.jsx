@@ -186,6 +186,9 @@ const ProductDetailPage = () => {
                       : null,
                 }}
                 modules={[Thumbs, Navigation]}
+                touchStartPreventDefault={false}
+                touchReleaseOnEdges
+                touchAngle={60}
                 navigation
                 loop
                 className="aspect-square product-detail-swiper"
@@ -235,6 +238,9 @@ const ProductDetailPage = () => {
               slidesPerView={5}
               spaceBetween={10}
               freeMode
+              touchStartPreventDefault={false}
+              touchReleaseOnEdges
+              touchAngle={60}
               watchSlidesProgress
               className="thumbs-swiper !p-0"
             >

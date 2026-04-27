@@ -105,6 +105,9 @@ const HeroCarousel = () => {
           disableOnInteraction: false,
           pauseOnMouseEnter: true,
         }}
+        touchStartPreventDefault={false}
+        touchReleaseOnEdges
+        touchAngle={60}
         loop
         pagination={{ clickable: true, dynamicBullets: true }}
         navigation
@@ -191,5 +194,4 @@ const HeroCarousel = () => {
 };
 
 export default HeroCarousel;
-
 

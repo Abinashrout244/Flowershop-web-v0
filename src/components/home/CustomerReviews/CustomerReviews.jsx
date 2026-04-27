@@ -41,6 +41,9 @@ const CustomerReviews = () => {
         </motion.div>
 
         <Swiper modules={[Navigation, A11y]} slidesPerView={1.1} spaceBetween={16} navigation grabCursor loop
+          touchStartPreventDefault={false}
+          touchReleaseOnEdges
+          touchAngle={60}
           breakpoints={{ 640: { slidesPerView: 2, spaceBetween: 20 }, 1024: { slidesPerView: 3, spaceBetween: 24 } }}>
           {reviews.map((review) => (
             <SwiperSlide key={review.id}>
