@@ -38,7 +38,7 @@ const SoftSentiments = () => {
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.6, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
               onClick={() => navigate(item.href)}
-              className="group relative overflow-hidden rounded-3xl cursor-pointer aspect-[3/4] border border-white/8 hover:border-[#c9a87c]/30 transition-colors duration-300"
+              className="group relative overflow-hidden rounded-3xl cursor-pointer aspect-[3/4] border border-white/[0.12] hover:border-[#c9a87c]/40 hover:shadow-[0_0_40px_rgba(201,168,124,0.18),0_12px_48px_rgba(0,0,0,0.55)] transition-all duration-300"
             >
               <img src={item.image} alt={item.title} loading="lazy" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />

@@ -46,7 +46,7 @@ const CategoryStrip = () => {
       </p>
 
       {/* Scrollable category strip */}
-      <div className="flex items-center gap-3 overflow-x-auto px-6 pb-1 cat-strip">
+      <div className="flex items-center gap-3 overflow-x-auto px-6 pb-1 pt-5 cat-strip">
         {categories.map((cat, i) => {
           const isActive = active === i;
           return (
@@ -58,8 +58,8 @@ const CategoryStrip = () => {
               className={`relative flex-shrink-0 flex flex-col items-center gap-2 rounded-2xl px-3 py-3 min-w-[90px] transition-all duration-300 group ${
                 isDark
                   ? isActive
-                    ? "bg-white/10 backdrop-blur-xl ring-1 ring-[#c9a87c]/40 shadow-[0_4px_24px_rgba(201,168,124,0.12)]"
-                    : "bg-white/5 backdrop-blur-md hover:bg-white/10 hover:ring-1 hover:ring-white/20"
+                    ? "bg-white/10 backdrop-blur-xl ring-1 ring-[#c9a87c]/40 shadow-[0_0_28px_rgba(201,168,124,0.2),0_4px_24px_rgba(0,0,0,0.5)]"
+                    : "bg-white/5 backdrop-blur-md hover:bg-white/10 hover:ring-1 hover:ring-[#c9a87c]/30 hover:shadow-[0_0_28px_rgba(201,168,124,0.16),0_4px_20px_rgba(0,0,0,0.45)]"
                   : isActive
                     ? "bg-white ring-1 ring-[#c9a87c]/50 shadow-[0_4px_20px_rgba(0,0,0,0.10)]"
                     : "bg-white/70 hover:bg-white hover:shadow-md"

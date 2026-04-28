@@ -52,14 +52,14 @@ const SummerBanner = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.3 }}
           onClick={() => navigate("/flowers")}
-          className="group liquid-glass-strong rounded-full px-10 py-4 border border-white/20 text-white text-sm font-semibold tracking-[0.25em] uppercase flex items-center gap-2 hover:border-[#c9a87c]/50 hover:text-[#c9a87c] transition-all duration-400"
+          className="group liquid-glass-strong rounded-full px-10 py-4 border border-white/20 text-white text-sm font-semibold tracking-[0.25em] uppercase flex items-center gap-2 hover:border-[#c9a87c]/50 hover:text-[#c9a87c] hover:shadow-[0_0_32px_rgba(201,168,124,0.22)] transition-all duration-300"
         >
           EXPLORE COLLECTION
           <span className="group-hover:translate-x-1 transition-transform">→</span>
         </motion.button>
 
         {/* Floating badge */}
-        <div className="absolute bottom-6 right-6 md:right-12 liquid-glass border border-white/10 text-white rounded-2xl px-5 py-3 text-center hidden md:block">
+        <div className="absolute bottom-6 right-6 md:right-12 liquid-glass border border-white/[0.15] text-white rounded-2xl px-5 py-3 text-center hidden md:block hover:border-[#c9a87c]/40 hover:shadow-[0_0_24px_rgba(201,168,124,0.18)] transition-all duration-300">
           <p className="text-xl font-bold font-serif-display">40%</p>
           <p className="text-[10px] tracking-widest opacity-80 uppercase">Off Today</p>
         </div>

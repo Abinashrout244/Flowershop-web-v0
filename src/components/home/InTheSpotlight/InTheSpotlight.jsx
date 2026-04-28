@@ -40,7 +40,7 @@ const InTheSpotlight = () => {
           {spotlightItems.map((item) => (
             <SwiperSlide key={item.id}>
               <a href={item.videoUrl} target="_blank" rel="noopener noreferrer"
-                className="group cursor-pointer block rounded-[26px] overflow-hidden border border-white/8 hover:border-[#c9a87c]/30 transition-colors duration-300"
+                className="group cursor-pointer block rounded-[26px] overflow-hidden border border-white/[0.12] hover:border-[#c9a87c]/40 hover:shadow-[0_0_40px_rgba(201,168,124,0.18),0_12px_48px_rgba(0,0,0,0.55)] transition-all duration-300"
               >
                 <div className="relative aspect-[4/5] md:aspect-[3/4] overflow-hidden">
                   <img src={item.image} alt={item.title} loading="lazy" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />

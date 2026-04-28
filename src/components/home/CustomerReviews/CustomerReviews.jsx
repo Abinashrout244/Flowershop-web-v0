@@ -47,9 +47,9 @@ const CustomerReviews = () => {
           breakpoints={{ 640: { slidesPerView: 2, spaceBetween: 20 }, 1024: { slidesPerView: 3, spaceBetween: 24 } }}>
           {reviews.map((review) => (
             <SwiperSlide key={review.id}>
-              <div className={`rounded-2xl p-6 h-full flex flex-col transition-all duration-300 ${isDark ? "bg-white/4 border border-white/8 hover:bg-white/7 hover:border-[#c9a87c]/25" : "bg-white border border-[#f1e8de] shadow-sm hover:shadow-md hover:border-[#c9a87c]/30"}`}>
+              <div className={`rounded-2xl p-6 h-full flex flex-col transition-all duration-300 ${isDark ? "bg-white/4 border border-white/[0.12] hover:bg-white/7 hover:border-[#c9a87c]/40" : "bg-white border border-[#f1e8de] shadow-sm hover:shadow-md hover:border-[#c9a87c]/30"}`}>
                 <div className="flex items-center gap-3 mb-5">
-                  <div className={`w-14 h-14 rounded-xl overflow-hidden flex-shrink-0 border ${isDark ? "border-white/10" : "border-gray-100"}`}>
+                  <div className={`w-14 h-14 rounded-xl overflow-hidden flex-shrink-0 border ${isDark ? "border-white/[0.15]" : "border-gray-100"}`}>
                     <img src={review.image} alt={review.product} loading="lazy" className="w-full h-full object-cover" />
                   </div>
                   <div>
@@ -59,7 +59,7 @@ const CustomerReviews = () => {
                   </div>
                 </div>
                 <p className={`text-sm leading-relaxed flex-1 font-light italic ${body}`}>"{review.text}"</p>
-                <div className={`flex items-center justify-between mt-5 pt-4 border-t ${isDark ? "border-white/8" : "border-gray-100"}`}>
+                <div className={`flex items-center justify-between mt-5 pt-4 border-t ${isDark ? "border-white/[0.12]" : "border-gray-100"}`}>
                   <div>
                     <p className={`font-semibold text-sm ${heading}`}>{review.name}</p>
                     <p className={`text-[11px] ${isDark ? "text-white/35" : "text-gray-400"}`}>📍 {review.location}</p>

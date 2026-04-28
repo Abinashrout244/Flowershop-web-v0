@@ -56,7 +56,7 @@ const ProductCard = ({ product, idx }) => {
     className={`group relative rounded-[26px] overflow-hidden cursor-pointer transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]
   ${
     isDark
-      ? "bg-[#0f0f0f]/70 backdrop-blur-xl border border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.45)] hover:bg-[#141414]/80 hover:border-[#c9a87c]/30 hover:shadow-[0_25px_80px_rgba(0,0,0,0.6)]"
+      ? "bg-[#0f0f0f]/70 backdrop-blur-xl border border-white/[0.12] shadow-[0_10px_40px_rgba(0,0,0,0.45)] hover:bg-[#141414]/80 hover:border-[#c9a87c]/40 hover:shadow-[0_0_40px_rgba(201,168,124,0.18),0_20px_60px_rgba(0,0,0,0.6)]"
       : "bg-[#fbf6ef]/90 backdrop-blur-md border border-[#eadfce] shadow-[0_10px_35px_rgba(0,0,0,0.08)] hover:bg-[#fdf8f0] hover:border-[#e6d3b8]/70 hover:shadow-[0_25px_70px_rgba(0,0,0,0.12)]"
   }`}
     >
@@ -68,12 +68,12 @@ const ProductCard = ({ product, idx }) => {
         </div>
         <button
           onClick={(e) => { e.stopPropagation(); dispatch(toggleWishlist({ id: product.id, name: product.name, price: product.price, image: product.image, category: "Mixed" })); }}
-          className={`absolute top-3 right-3 w-9 h-9 backdrop-blur border flex items-center justify-center rounded-full hover:scale-110 transition ${isDark ? "bg-black/50 border-white/20" : "bg-white/90 border-gray-100 shadow-sm"}`}
+          className={`absolute top-3 right-3 w-9 h-9 backdrop-blur border flex items-center justify-center rounded-full hover:scale-110 transition ${isDark ? "bg-black/50 border-white/[0.22]" : "bg-white/90 border-gray-100 shadow-sm"}`}
         >
           <Heart size={14} className={isWished ? "fill-red-400 text-red-400" : isDark ? "text-white/70" : "text-gray-500"} />
         </button>
         {product.badge && (
-          <span className={`absolute top-3 left-3 text-[9px] tracking-[0.18em] uppercase px-3 py-1 rounded-full ${isDark ? "bg-black/70 border border-white/10 text-white backdrop-blur" : "bg-black/80 text-white"}`}>
+          <span className={`absolute top-3 left-3 text-[9px] tracking-[0.18em] uppercase px-3 py-1 rounded-full ${isDark ? "bg-black/70 border border-white/[0.15] text-white backdrop-blur" : "bg-black/80 text-white"}`}>
             {product.badge}
           </span>
         )}

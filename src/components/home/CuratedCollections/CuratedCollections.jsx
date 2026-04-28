@@ -44,7 +44,7 @@ const CuratedCollections = () => {
               viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 0.55, delay: (i % 4) * 0.09, ease: [0.22, 1, 0.36, 1] }}
               onClick={() => navigate(col.href)}
-              className="group relative overflow-hidden rounded-3xl cursor-pointer border border-white/8 hover:border-[#c9a87c]/30 transition-colors duration-300"
+              className="group relative overflow-hidden rounded-3xl cursor-pointer border border-white/[0.12] hover:border-[#c9a87c]/40 hover:shadow-[0_0_40px_rgba(201,168,124,0.18),0_12px_48px_rgba(0,0,0,0.55)] transition-all duration-300"
             >
               <div className="aspect-[4/5] overflow-hidden">
                 <img src={col.image} alt={col.label} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />

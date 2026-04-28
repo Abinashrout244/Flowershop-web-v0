@@ -23,31 +23,37 @@ export const useSectionTheme = () => {
     label: "text-[#c9a87c]", // always gold
 
     // Borders
-    border: isDark ? "border-white/8" : "border-[#f1e8de]",
-    borderAccent: isDark ? "border-[#c9a87c]/30" : "border-[#c9a87c]/50",
-    divider: isDark ? "bg-gradient-to-r from-transparent via-white/8 to-transparent" : "bg-gradient-to-r from-transparent via-[#c9a87c]/15 to-transparent",
+    border: isDark ? "border-white/[0.16]" : "border-[#f1e8de]",
+    borderAccent: isDark ? "border-[#c9a87c]/40" : "border-[#c9a87c]/50",
 
-    // Cards
+    // Section separator lines: opacity /8 → /18 so they don't vanish on OLED at low brightness
+    divider: isDark
+      ? "bg-gradient-to-r from-transparent via-white/[0.18] to-transparent"
+      : "bg-gradient-to-r from-transparent via-[#c9a87c]/15 to-transparent",
+
+    // Cards — hover: gold border + warm gold backlight glow from behind
     card: isDark
-      ? "bg-white/4 border border-white/8 hover:bg-white/7 hover:border-[#c9a87c]/25"
-      : "bg-white border border-[#f1e8de] shadow-[0_8px_30px_rgba(0,0,0,0.06)] hover:shadow-[0_25px_60px_rgba(0,0,0,0.12)]",
+      ? "bg-white/4 border border-white/[0.12] hover:bg-white/7 hover:border-[#c9a87c]/40 hover:shadow-[0_0_40px_rgba(201,168,124,0.18),0_12px_48px_rgba(0,0,0,0.55)] transition-all duration-300"
+      : "bg-white border border-[#f1e8de] shadow-[0_8px_30px_rgba(0,0,0,0.06)] hover:shadow-[0_25px_60px_rgba(0,0,0,0.12)] transition-all duration-300",
 
     // Buttons
     btnOutline: isDark
-      ? "border border-white/20 text-white hover:border-[#c9a87c] hover:text-[#c9a87c]"
+      ? "border border-white/20 text-white hover:border-[#c9a87c] hover:text-[#c9a87c] hover:shadow-[0_0_20px_rgba(201,168,124,0.14)]"
       : "border border-[#1a1a1a] text-gray-800 hover:bg-[#1a1a1a] hover:text-white",
 
     // Star colors
     starEmpty: isDark ? "fill-white/10 text-white/10" : "fill-gray-200 text-gray-200",
 
-    // Country name text  
+    // Country name text
     countryName: isDark ? "text-white/60 group-hover:text-[#c9a87c]" : "text-gray-800 group-hover:text-[#c9a87c]",
 
-    // Stat card
+    // Stat card — hover: gold border + soft glow
     statCard: isDark
-      ? "border border-white/8 bg-white/3 hover:border-[#c9a87c]/30"
-      : "border border-[#f3e9dc] bg-white/80",
-    statValue: isDark ? "text-[#c9a87c]" : "text-[#8b6f47]",
+      ? "border border-white/[0.12] bg-white/3 hover:border-[#c9a87c]/35 hover:shadow-[0_0_28px_rgba(201,168,124,0.16)] transition-all duration-300"
+      : "border border-[#f3e9dc] bg-white/80 transition-colors duration-300",
+
+    // Stat numbers: font-semibold for better contrast on mobile/OLED
+    statValue: isDark ? "text-[#c9a87c] font-semibold" : "text-[#8b6f47] font-semibold",
     statLabel: isDark ? "text-white/50" : "text-gray-500",
 
     // Logo / brand text on home page when scrolled

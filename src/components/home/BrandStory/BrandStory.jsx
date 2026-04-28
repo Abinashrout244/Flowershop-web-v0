@@ -17,7 +17,7 @@ const BrandStory = () => {
             transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
             className="relative group"
           >
-            <div className="relative overflow-hidden rounded-3xl aspect-[3/4] md:aspect-auto md:h-[540px] border border-white/8 shadow-2xl">
+            <div className="relative overflow-hidden rounded-3xl aspect-[3/4] md:aspect-auto md:h-[540px] border border-white/[0.12] shadow-2xl">
               <img src="https://images.unsplash.com/photo-1685798066531-543166f5f425?w=800&q=80" alt="Founder Anuja Joshi" loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
             </div>
@@ -51,7 +51,7 @@ const BrandStory = () => {
             <p className={`text-sm leading-relaxed mb-8 font-light ${bodyMuted}`}>With over a century of craftsmanship, we've had the privilege of being part of millions of life's most meaningful moments — weddings, anniversaries, births, and quiet, everyday gestures of love.</p>
 
             {/* Milestones */}
-            <div className={`grid grid-cols-3 gap-4 mb-10 py-6 border-y ${divider.includes("white") ? "border-white/8" : "border-[#e8ddd1]"}`}>
+            <div className={`grid grid-cols-3 gap-4 mb-10 py-6 border-y ${divider.includes("white") ? "border-white/[0.18]" : "border-[#e8ddd1]"}`}>
               {[{ value: "1924", label: "Est. Year" }, { value: "500+", label: "Expert Florists" }, { value: "10M+", label: "Happy Customers" }].map((m) => (
                 <div key={m.label} className="text-center">
                   <p className="font-serif-display text-2xl text-[#c9a87c]">{m.value}</p>
