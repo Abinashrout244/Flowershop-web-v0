@@ -63,6 +63,7 @@ web-flowershop-v0/
 ## Getting Started
 
 ### Prerequisites
+
 - Node.js >= 18
 - npm >= 9
 
@@ -87,8 +88,6 @@ VITE_LOCATIONIQ_API_KEY=your_api_key_here
 ```bash
 npm run dev      # Start local dev server
 npm run build    # Build production app
-npm run preview  # Preview production build
-npm run lint     # Run ESLint checks
 ```
 
 ---
