@@ -14,14 +14,39 @@ const injectFonts = () => {
 };
 
 /* ─── Canvas particle palette ───────────────────────────────── */
-const GOLD = [[224, 185, 106], [240, 205, 130], [200, 160, 80], [253, 235, 190], [180, 130, 60], [255, 220, 150]];
-const PINK = [[210, 170, 200], [230, 190, 215], [180, 140, 170]];
-const LIGHT_PETAL = [[255, 182, 193], [255, 160, 180], [255, 200, 210], [240, 150, 160], [255, 220, 230]];
-const LIGHT_GOLD = [[201, 168, 124], [214, 185, 140], [188, 150, 100]];
+const GOLD = [
+  [224, 185, 106],
+  [240, 205, 130],
+  [200, 160, 80],
+  [253, 235, 190],
+  [180, 130, 60],
+  [255, 220, 150],
+];
+const PINK = [
+  [210, 170, 200],
+  [230, 190, 215],
+  [180, 140, 170],
+];
+const LIGHT_PETAL = [
+  [255, 182, 193],
+  [255, 160, 180],
+  [255, 200, 210],
+  [240, 150, 160],
+  [255, 220, 230],
+];
+const LIGHT_GOLD = [
+  [201, 168, 124],
+  [214, 185, 140],
+  [188, 150, 100],
+];
 
 class Petal {
   constructor(W, H, init = true, lightMode = false) {
-    this.W = W; this.H = H; this.ox = 0; this.oy = 0; this.lightMode = lightMode;
+    this.W = W;
+    this.H = H;
+    this.ox = 0;
+    this.oy = 0;
+    this.lightMode = lightMode;
     this.reset(init);
   }
   reset(init) {
@@ -32,11 +57,19 @@ class Petal {
     this.vx = (Math.random() - 0.5) * 0.25;
     this.rot = Math.random() * Math.PI * 2;
     this.rs = (Math.random() - 0.5) * 0.014;
-    this.alpha = this.lightMode ? 0.12 + Math.random() * 0.55 : 0.07 + Math.random() * 0.42;
+    this.alpha = this.lightMode
+      ? 0.12 + Math.random() * 0.55
+      : 0.07 + Math.random() * 0.42;
     if (this.lightMode) {
-      this.col = Math.random() > 0.4 ? LIGHT_PETAL[Math.floor(Math.random() * LIGHT_PETAL.length)] : LIGHT_GOLD[Math.floor(Math.random() * LIGHT_GOLD.length)];
+      this.col =
+        Math.random() > 0.4
+          ? LIGHT_PETAL[Math.floor(Math.random() * LIGHT_PETAL.length)]
+          : LIGHT_GOLD[Math.floor(Math.random() * LIGHT_GOLD.length)];
     } else {
-      this.col = Math.random() > 0.3 ? GOLD[Math.floor(Math.random() * GOLD.length)] : PINK[Math.floor(Math.random() * PINK.length)];
+      this.col =
+        Math.random() > 0.3
+          ? GOLD[Math.floor(Math.random() * GOLD.length)]
+          : PINK[Math.floor(Math.random() * PINK.length)];
     }
     this.shape = Math.random() > 0.45 ? "petal" : "dot";
   }
@@ -44,14 +77,16 @@ class Petal {
     this.y += this.vy;
     this.x += this.vx + Math.sin(this.y * 0.007 + this.rot) * 0.18;
     this.rot += this.rs;
-    const dx = mouse.x - this.x, dy = mouse.y - this.y;
+    const dx = mouse.x - this.x,
+      dy = mouse.y - this.y;
     const d = Math.sqrt(dx * dx + dy * dy);
     if (d < 110) {
       const f = ((110 - d) / 110) * 1.5;
       this.ox += (-dx / d) * f;
       this.oy += (-dy / d) * f;
     }
-    this.ox *= 0.91; this.oy *= 0.91;
+    this.ox *= 0.91;
+    this.oy *= 0.91;
     if (this.y > this.H + 16) this.reset(false);
   }
   draw(ctx) {
@@ -76,16 +111,24 @@ class Petal {
 
 class Bloom {
   constructor(x, y, lightMode = false) {
-    this.x = x; this.y = y; this.r = 0; this.a = 0.65; this.dead = false; this.lightMode = lightMode;
+    this.x = x;
+    this.y = y;
+    this.r = 0;
+    this.a = 0.65;
+    this.dead = false;
+    this.lightMode = lightMode;
   }
   update() {
-    this.r += 3.8; this.a -= 0.02;
+    this.r += 3.8;
+    this.a -= 0.02;
     if (this.a <= 0) this.dead = true;
   }
   draw(ctx) {
     ctx.save();
     ctx.globalAlpha = this.a;
-    ctx.strokeStyle = this.lightMode ? "rgba(201,168,124,1)" : "rgba(224,185,106,1)";
+    ctx.strokeStyle = this.lightMode
+      ? "rgba(201,168,124,1)"
+      : "rgba(224,185,106,1)";
     ctx.lineWidth = 0.5;
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
@@ -102,27 +145,29 @@ class Bloom {
 
 const STATS = [
   { n: "12k+", l: "Bouquets Delivered" },
-  { n: "98%",  l: "Happy Clients" },
+  { n: "98%", l: "Happy Clients" },
   { n: "Daily", l: "Fresh Sourcing" },
-  { n: "4hr",  l: "Same-Day Delivery" },
+  { n: "4hr", l: "Same-Day Delivery" },
 ];
 
 /* ─── Component ─────────────────────────────────────────────── */
 const Hero = () => {
   const navigate = useNavigate();
   const { isDark } = useTheme();
-  const canvasRef  = useRef(null);
-  const heroRef    = useRef(null);
-  const mouseRef   = useRef({ x: 0, y: 0 });
-  const petalsRef  = useRef([]);
-  const bloomsRef  = useRef([]);
-  const rafRef     = useRef(null);
-  const isDarkRef  = useRef(isDark);
+  const canvasRef = useRef(null);
+  const heroRef = useRef(null);
+  const mouseRef = useRef({ x: 0, y: 0 });
+  const petalsRef = useRef([]);
+  const bloomsRef = useRef([]);
+  const rafRef = useRef(null);
+  const isDarkRef = useRef(isDark);
   const [hoveredStat, setHoveredStat] = useState(null);
-  const [btnHover,    setBtnHover]    = useState(null);
+  const [btnHover, setBtnHover] = useState(null);
   const [scrollHover, setScrollHover] = useState(false);
 
-  useEffect(() => { isDarkRef.current = isDark; }, [isDark]);
+  useEffect(() => {
+    isDarkRef.current = isDark;
+  }, [isDark]);
 
   /* inject fonts + keyframes */
   useEffect(() => {
@@ -150,16 +195,19 @@ const Hero = () => {
   /* canvas loop */
   useEffect(() => {
     const canvas = canvasRef.current;
-    const hero   = heroRef.current;
+    const hero = heroRef.current;
     if (!canvas || !hero) return;
     const ctx = canvas.getContext("2d");
     let W, H;
 
     const resize = () => {
       const r = hero.getBoundingClientRect();
-      W = canvas.width  = r.width;
+      W = canvas.width = r.width;
       H = canvas.height = r.height;
-      petalsRef.current = Array.from({ length: 100 }, () => new Petal(W, H, true, !isDarkRef.current));
+      petalsRef.current = Array.from(
+        { length: 100 },
+        () => new Petal(W, H, true, !isDarkRef.current),
+      );
     };
     resize();
     window.addEventListener("resize", resize);
@@ -172,15 +220,24 @@ const Hero = () => {
 
     const onClick = (e) => {
       const r = hero.getBoundingClientRect();
-      const x = e.clientX - r.left, y = e.clientY - r.top;
-      for (let i = 0; i < 4; i++) bloomsRef.current.push(new Bloom(x, y, !isDarkRef.current));
+      const x = e.clientX - r.left,
+        y = e.clientY - r.top;
+      for (let i = 0; i < 4; i++)
+        bloomsRef.current.push(new Bloom(x, y, !isDarkRef.current));
     };
     hero.addEventListener("click", onClick);
 
     const loop = () => {
       ctx.clearRect(0, 0, W, H);
-      petalsRef.current.forEach((p) => { p.update(mouseRef.current); p.draw(ctx); });
-      bloomsRef.current = bloomsRef.current.filter((b) => { b.update(); b.draw(ctx); return !b.dead; });
+      petalsRef.current.forEach((p) => {
+        p.update(mouseRef.current);
+        p.draw(ctx);
+      });
+      bloomsRef.current = bloomsRef.current.filter((b) => {
+        b.update();
+        b.draw(ctx);
+        return !b.dead;
+      });
       rafRef.current = requestAnimationFrame(loop);
     };
     loop();
@@ -194,77 +251,81 @@ const Hero = () => {
   }, [isDark]);
 
   /* ── Theme tokens (dynamic — must stay as inline styles) ── */
-  const T = isDark ? {
-    heroBg: "#0a0603",
-    ov1: "radial-gradient(ellipse 80% 65% at 50% 45%, transparent 28%, rgba(6,3,1,0.72) 100%)",
-    ov2: "linear-gradient(180deg, rgba(6,3,1,0.42) 0%, transparent 35%, rgba(6,3,1,0.6) 100%)",
-    eyeText: "rgba(224,185,106,0.75)",
-    eyeLine: "rgba(224,185,106,0.45)",
-    titleColor: "#fdf8f0",
-    titleGold: "#e0b96a",
-    divLine: "rgba(224,185,106,0.35)",
-    divDot: "rgba(224,185,106,0.65)",
-    sub: "rgba(253,248,240,0.52)",
-    accent: "#e0b96a",
-    btnGoldBg: "#e0b96a",
-    btnGoldBgHover: "#f0cc88",
-    btnGoldColor: "#1a1005",
-    btnOutlineBorder: "rgba(253,248,240,0.22)",
-    btnOutlineBorderHover: "rgba(224,185,106,0.55)",
-    btnOutlineColor: "rgba(253,248,240,0.62)",
-    btnOutlineColorHover: "#fdf8f0",
-    btnOutlineBgHover: "rgba(253,248,240,0.06)",
-    statsBarBg: "rgba(10,6,3,0.85)",
-    statsBarBorder: "rgba(224,185,106,0.28)",
-    statDivider: "rgba(224,185,106,0.12)",
-    statDividerHover: "rgba(224,185,106,0.45)",
-    statN: "#e0b96a",
-    statNHover: "#f5d080",
-    statL: "rgba(253,248,240,0.32)",
-    statLHover: "rgba(253,248,240,0.7)",
-    statHoverBg: "rgba(224,185,106,0.05)",
-    scrollTxt: "rgba(224,185,106,0.4)",
-    scrollTxtHover: "rgba(224,185,106,0.9)",
-    scrollBar: "linear-gradient(to bottom, rgba(224,185,106,0.7), transparent)",
-    scrollTrackBg: "rgba(224,185,106,0.12)",
-    scrollChevron: "rgba(224,185,106,0.5)",
-    scrollChevronHover: "rgba(224,185,106,1)",
-  } : {
-    heroBg: "#fdf6ee",
-    ov1: "radial-gradient(ellipse 80% 65% at 50% 45%, transparent 20%, rgba(253,240,225,0.5) 100%)",
-    ov2: "linear-gradient(180deg, rgba(253,240,225,0.35) 0%, transparent 40%, rgba(253,240,225,0.45) 100%)",
-    eyeText: "rgba(160,110,60,0.9)",
-    eyeLine: "rgba(201,168,124,0.7)",
-    titleColor: "#2d1a0e",
-    titleGold: "#c9823c",
-    divLine: "rgba(201,168,124,0.5)",
-    divDot: "rgba(201,168,124,0.7)",
-    sub: "rgba(80,50,25,0.65)",
-    accent: "#c9823c",
-    btnGoldBg: "#c9823c",
-    btnGoldBgHover: "#d9923e",
-    btnGoldColor: "#fff8f2",
-    btnOutlineBorder: "rgba(80,50,25,0.3)",
-    btnOutlineBorderHover: "rgba(80,50,25,0.6)",
-    btnOutlineColor: "rgba(80,50,25,0.7)",
-    btnOutlineColorHover: "rgba(80,50,25,1)",
-    btnOutlineBgHover: "rgba(80,50,25,0.05)",
-    statsBarBg: "rgba(255,245,235,0.85)",
-    statsBarBorder: "rgba(201,168,124,0.25)",
-    statDivider: "rgba(201,168,124,0.15)",
-    statDividerHover: "rgba(201,168,124,0.35)",
-    statN: "#c9823c",
-    statNHover: "#d9923e",
-    statL: "rgba(80,50,25,0.45)",
-    statLHover: "rgba(80,50,25,0.8)",
-    statHoverBg: "rgba(201,168,124,0.08)",
-    scrollTxt: "rgba(160,110,60,0.55)",
-    scrollTxtHover: "rgba(160,110,60,1)",
-    scrollBar: "linear-gradient(to bottom, rgba(201,168,124,0.8), transparent)",
-    scrollTrackBg: "rgba(201,168,124,0.15)",
-    scrollChevron: "rgba(201,168,124,0.5)",
-    scrollChevronHover: "rgba(160,110,60,1)",
-  };
+  const T = isDark
+    ? {
+        heroBg: "#0a0603",
+        ov1: "radial-gradient(ellipse 80% 65% at 50% 45%, transparent 28%, rgba(6,3,1,0.72) 100%)",
+        ov2: "linear-gradient(180deg, rgba(6,3,1,0.42) 0%, transparent 35%, rgba(6,3,1,0.6) 100%)",
+        eyeText: "rgba(224,185,106,0.75)",
+        eyeLine: "rgba(224,185,106,0.45)",
+        titleColor: "#fdf8f0",
+        titleGold: "#e0b96a",
+        divLine: "rgba(224,185,106,0.35)",
+        divDot: "rgba(224,185,106,0.65)",
+        sub: "rgba(253,248,240,0.52)",
+        accent: "#e0b96a",
+        btnGoldBg: "#e0b96a",
+        btnGoldBgHover: "#f0cc88",
+        btnGoldColor: "#1a1005",
+        btnOutlineBorder: "rgba(253,248,240,0.22)",
+        btnOutlineBorderHover: "rgba(224,185,106,0.55)",
+        btnOutlineColor: "rgba(253,248,240,0.62)",
+        btnOutlineColorHover: "#fdf8f0",
+        btnOutlineBgHover: "rgba(253,248,240,0.06)",
+        statsBarBg: "rgba(10,6,3,0.85)",
+        statsBarBorder: "rgba(224,185,106,0.28)",
+        statDivider: "rgba(224,185,106,0.12)",
+        statDividerHover: "rgba(224,185,106,0.45)",
+        statN: "#e0b96a",
+        statNHover: "#f5d080",
+        statL: "rgba(253,248,240,0.32)",
+        statLHover: "rgba(253,248,240,0.7)",
+        statHoverBg: "rgba(224,185,106,0.05)",
+        scrollTxt: "rgba(224,185,106,0.4)",
+        scrollTxtHover: "rgba(224,185,106,0.9)",
+        scrollBar:
+          "linear-gradient(to bottom, rgba(224,185,106,0.7), transparent)",
+        scrollTrackBg: "rgba(224,185,106,0.12)",
+        scrollChevron: "rgba(224,185,106,0.5)",
+        scrollChevronHover: "rgba(224,185,106,1)",
+      }
+    : {
+        heroBg: "#fdf6ee",
+        ov1: "radial-gradient(ellipse 80% 65% at 50% 45%, transparent 20%, rgba(253,240,225,0.5) 100%)",
+        ov2: "linear-gradient(180deg, rgba(253,240,225,0.35) 0%, transparent 40%, rgba(253,240,225,0.45) 100%)",
+        eyeText: "rgba(160,110,60,0.9)",
+        eyeLine: "rgba(201,168,124,0.7)",
+        titleColor: "#2d1a0e",
+        titleGold: "#c9823c",
+        divLine: "rgba(201,168,124,0.5)",
+        divDot: "rgba(201,168,124,0.7)",
+        sub: "rgba(80,50,25,0.65)",
+        accent: "#c9823c",
+        btnGoldBg: "#c9823c",
+        btnGoldBgHover: "#d9923e",
+        btnGoldColor: "#fff8f2",
+        btnOutlineBorder: "rgba(80,50,25,0.3)",
+        btnOutlineBorderHover: "rgba(80,50,25,0.6)",
+        btnOutlineColor: "rgba(80,50,25,0.7)",
+        btnOutlineColorHover: "rgba(80,50,25,1)",
+        btnOutlineBgHover: "rgba(80,50,25,0.05)",
+        statsBarBg: "rgba(255,245,235,0.85)",
+        statsBarBorder: "rgba(201,168,124,0.25)",
+        statDivider: "rgba(201,168,124,0.15)",
+        statDividerHover: "rgba(201,168,124,0.35)",
+        statN: "#c9823c",
+        statNHover: "#d9923e",
+        statL: "rgba(80,50,25,0.45)",
+        statLHover: "rgba(80,50,25,0.8)",
+        statHoverBg: "rgba(201,168,124,0.08)",
+        scrollTxt: "rgba(160,110,60,0.55)",
+        scrollTxtHover: "rgba(160,110,60,1)",
+        scrollBar:
+          "linear-gradient(to bottom, rgba(201,168,124,0.8), transparent)",
+        scrollTrackBg: "rgba(201,168,124,0.15)",
+        scrollChevron: "rgba(201,168,124,0.5)",
+        scrollChevronHover: "rgba(160,110,60,1)",
+      };
 
   return (
     /* ── Section ── position/size/layout → Tailwind; bg/transition → inline (dynamic) */
@@ -283,32 +344,47 @@ const Hero = () => {
       <canvas ref={canvasRef} className="absolute inset-0 z-0" />
 
       {/* Overlays — bg is dynamic gradient so stays inline */}
-      <div className="absolute inset-0 z-[1] pointer-events-none transition-[background] duration-500"
-           style={{ background: T.ov1 }} />
-      <div className="absolute inset-0 z-[1] pointer-events-none transition-[background] duration-500"
-           style={{ background: T.ov2 }} />
+      <div
+        className="absolute inset-0 z-[1] pointer-events-none transition-[background] duration-500"
+        style={{ background: T.ov1 }}
+      />
+      <div
+        className="absolute inset-0 z-[1] pointer-events-none transition-[background] duration-500"
+        style={{ background: T.ov2 }}
+      />
 
       {/* ── Hero Content ── */}
       <div
         className="relative z-10 w-full box-border"
-        style={{ padding: "0 clamp(16px, 5vw, 40px)", maxWidth: "min(700px, 92vw)" }}
+        style={{
+          padding: "0 clamp(16px, 5vw, 40px)",
+          maxWidth: "min(700px, 92vw)",
+        }}
       >
         {/* Eyebrow */}
         <div
           className="pt-10 md:pt-3 inline-flex items-center mb-7"
-          style={{ gap: 14, opacity: 0, animation: "fleurUp 0.7s 0.15s ease forwards" }}
+          style={{
+            gap: 14,
+            opacity: 0,
+            animation: "fleurUp 0.7s 0.15s ease forwards",
+          }}
         >
           {/* sub-pixel height lines must stay inline */}
-          <div className="w-8 transition-[background] duration-[400ms]"
-               style={{ height: "0.5px", background: T.eyeLine }} />
+          <div
+            className="w-8 transition-[background] duration-[400ms]"
+            style={{ height: "0.5px", background: T.eyeLine }}
+          />
           <span
             className="text-[10px] font-light uppercase tracking-[0.3em] transition-colors duration-[400ms]"
             style={{ color: T.eyeText }}
           >
-            Artisan Floral Studio · Est. 2018
+            Artisan Floral Studio · Est. 2026
           </span>
-          <div className="w-8 transition-[background] duration-[400ms]"
-               style={{ height: "0.5px", background: T.eyeLine }} />
+          <div
+            className="w-8 transition-[background] duration-[400ms]"
+            style={{ height: "0.5px", background: T.eyeLine }}
+          />
         </div>
 
         {/* Title */}
@@ -327,7 +403,10 @@ const Hero = () => {
           <br />
           <span
             className="block font-semibold italic transition-colors duration-[400ms]"
-            style={{ fontFamily: "'Playfair Display', serif", color: T.titleGold }}
+            style={{
+              fontFamily: "'Playfair Display', serif",
+              color: T.titleGold,
+            }}
           >
             Speak Your Heart
           </span>
@@ -336,14 +415,24 @@ const Hero = () => {
         {/* Divider */}
         <div
           className="flex items-center justify-center mx-auto w-fit my-6"
-          style={{ gap: 14, opacity: 0, animation: "fleurUp 0.6s 0.75s ease forwards" }}
+          style={{
+            gap: 14,
+            opacity: 0,
+            animation: "fleurUp 0.6s 0.75s ease forwards",
+          }}
         >
-          <div className="w-9 transition-[background] duration-[400ms]"
-               style={{ height: "0.5px", background: T.divLine }} />
-          <div className="w-[5px] h-[5px] rounded-full transition-[background] duration-[400ms]"
-               style={{ background: T.divDot }} />
-          <div className="w-9 transition-[background] duration-[400ms]"
-               style={{ height: "0.5px", background: T.divLine }} />
+          <div
+            className="w-9 transition-[background] duration-[400ms]"
+            style={{ height: "0.5px", background: T.divLine }}
+          />
+          <div
+            className="w-[5px] h-[5px] rounded-full transition-[background] duration-[400ms]"
+            style={{ background: T.divDot }}
+          />
+          <div
+            className="w-9 transition-[background] duration-[400ms]"
+            style={{ height: "0.5px", background: T.divLine }}
+          />
         </div>
 
         {/* Subtitle */}
@@ -371,7 +460,8 @@ const Hero = () => {
               background: btnHover === "gold" ? T.btnGoldBgHover : T.btnGoldBg,
               color: T.btnGoldColor,
               transform: btnHover === "gold" ? "translateY(-2px)" : "none",
-              boxShadow: btnHover === "gold" ? `0 8px 24px ${T.accent}33` : "none",
+              boxShadow:
+                btnHover === "gold" ? `0 8px 24px ${T.accent}33` : "none",
             }}
             onMouseEnter={() => setBtnHover("gold")}
             onMouseLeave={() => setBtnHover(null)}
@@ -384,8 +474,12 @@ const Hero = () => {
           <button
             className="rounded-full uppercase tracking-[0.2em] text-[10px] px-5 py-3 sm:px-8 sm:py-[15px] sm:text-[11px] transition-all duration-300 cursor-pointer"
             style={{
-              background: btnHover === "outline" ? T.btnOutlineBgHover : "transparent",
-              color: btnHover === "outline" ? T.btnOutlineColorHover : T.btnOutlineColor,
+              background:
+                btnHover === "outline" ? T.btnOutlineBgHover : "transparent",
+              color:
+                btnHover === "outline"
+                  ? T.btnOutlineColorHover
+                  : T.btnOutlineColor,
               border: `1px solid ${btnHover === "outline" ? T.btnOutlineBorderHover : T.btnOutlineBorder}`,
               transform: btnHover === "outline" ? "translateY(-2px)" : "none",
             }}
@@ -405,7 +499,8 @@ const Hero = () => {
           bottom: "clamp(60px, 8vh, 90px)",
           transform: "translateX(-50%)",
           opacity: 0,
-          animation: "fleurUp 1s 1.85s ease forwards, fleurBob 2.4s 2.85s ease-in-out infinite",
+          animation:
+            "fleurUp 1s 1.85s ease forwards, fleurBob 2.4s 2.85s ease-in-out infinite",
         }}
         onMouseEnter={() => setScrollHover(true)}
         onMouseLeave={() => setScrollHover(false)}
@@ -424,7 +519,10 @@ const Hero = () => {
         >
           <div
             className="absolute inset-x-0 top-0 h-full"
-            style={{ background: T.scrollBar, animation: "drip 2s ease-in-out infinite" }}
+            style={{
+              background: T.scrollBar,
+              animation: "drip 2s ease-in-out infinite",
+            }}
           />
         </div>
 
@@ -458,15 +556,20 @@ const Hero = () => {
             onMouseLeave={() => setHoveredStat(null)}
             style={{
               background: hoveredStat === i ? T.statHoverBg : "transparent",
-              borderRight: i === STATS.length - 1
-                ? "none"
-                : `1px solid ${hoveredStat === i ? T.statDividerHover : T.statDivider}`,
-              transform: hoveredStat === i ? "translateY(-2px)" : "translateY(0)",
+              borderRight:
+                i === STATS.length - 1
+                  ? "none"
+                  : `1px solid ${hoveredStat === i ? T.statDividerHover : T.statDivider}`,
+              transform:
+                hoveredStat === i ? "translateY(-2px)" : "translateY(0)",
             }}
           >
             <span
               className="hero-stat-num block mb-1 font-[500] italic transition-colors duration-300"
-              style={{ fontFamily: "'Playfair Display', serif", color: hoveredStat === i ? T.statNHover : T.statN }}
+              style={{
+                fontFamily: "'Playfair Display', serif",
+                color: hoveredStat === i ? T.statNHover : T.statN,
+              }}
             >
               {s.n}
             </span>
