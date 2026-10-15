@@ -9,11 +9,6 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-.swiper-slide,
-.swiper-slide * {
-  touch-action: pan-y;
-}
-
 /* ─── Hide swiper nav arrows on mobile ─────────────────────── */
 @media (max-width: 767px) {
   .swiper-button-next,

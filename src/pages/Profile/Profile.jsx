@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   User,
   Package,
@@ -11,6 +11,8 @@ import {
 } from "lucide-react";
 import NavHeader from "../../components/layout/Navbar/Navbar";
 import FlowerFooter from "../../components/layout/Footer/Footer";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../features/user/authSlice";
 
 const TABS = ["My Orders", "Addresses", "Settings"];
 
@@ -18,12 +20,14 @@ const ProfilePage = () => {
   const [activeTab, setActiveTab] = useState(0);
   const orders = JSON.parse(localStorage.getItem("flora_orders") || "[]");
 
-  const user = {
-    name: "Abinash Rout",
-    email: "Abinash@example.com",
-    phone: "+91 8249281685",
-    since: "Member since Jan 2024",
-    avatar: "A",
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.auth.user);
+  console.log(user);
+  const hnaldeLogout = (e) => {
+    e.preventDefault();
+    dispatch(logout());
+    navigate("/", { replace: true });
   };
 
   return (
@@ -35,7 +39,7 @@ const ProfilePage = () => {
         <div className="max-w-7xl mx-auto px-4 py-10">
           <div className="flex items-center gap-5">
             <div className="w-20 h-20 rounded-full bg-[#c9a87c] flex items-center justify-center text-white text-3xl font-serif-display font-light shadow-lg">
-              {user.avatar}
+              {user.name.charAt(0)}
             </div>
             <div>
               <h1 className="font-serif-display text-3xl font-light text-gray-900">
@@ -75,12 +79,12 @@ const ProfilePage = () => {
               })}
 
               <div className="border-t border-gray-100 mt-3 pt-3">
-                <Link
-                  to="/"
+                <button
+                  onClick={hnaldeLogout}
                   className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-red-400 hover:bg-red-50 transition-colors"
                 >
                   <LogOut size={16} /> Sign Out
-                </Link>
+                </button>
               </div>
             </div>
           </div>
