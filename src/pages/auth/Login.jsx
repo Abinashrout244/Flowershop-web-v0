@@ -15,13 +15,18 @@ import { PanelImage } from "./PanelImage";
 import { SvgDefs } from "./SvgDefs";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { loginSucess } from "../../features/user/authSlice";
+import { loginSucess, signupSucess } from "../../features/user/authSlice";
+import { supabse } from "../../lib/supabaseClient";
 
 export default function Login() {
   const [mode, setMode] = useState("login"); // "login" or "signup"
-  const [signupPassword, setSignupPassword] = useState("");
+  const [signupPassword, setSignupPassword] = useState("Flower@1231");
+  const [signupEmail, setSignupEmail] = useState("demo@flower.com");
+  const [name, setName] = useState("Abinash");
   const [loginEmail, setLoginEmail] = useState("demo@flower.com");
-  const [loginPassword, setLoginPassword] = useState("Flower@123");
+  const [loginPassword, setLoginPassword] = useState("Flower@1231");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
   const [err, setError] = useState("");
 
   const isLogin = mode === "login";
@@ -33,28 +38,36 @@ export default function Login() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  function handleLogin(event) {
+  async function handleLogin(event) {
     event.preventDefault();
-
-    if (
-      loginEmail.trim() === "demo@flower.com" &&
-      loginPassword === "Flower@123"
-    ) {
-      const userData = {
-        id: 1,
-        name: "Demo User",
+    setError(" ");
+    setIsSubmitting(true);
+    setSuccessMessage(" ");
+    try {
+      const { data, error } = await supabse.auth.signInWithPassword({
         email: loginEmail.trim(),
-      };
-
-      dispatch(loginSucess(userData));
-      navigate(location.state?.from?.pathname || "/shop", {
-        replace: true,
-        state: { celebration: "Welcome back!" },
+        password: loginPassword,
       });
+
+      if (error) {
+        console.error("Supabase login error:", error.message);
+        setError(error.message);
+        return;
+      }
+
+      console.log(data);
+
+      // dispatch(loginSucess());
+      // navigate(location.state?.from?.pathname || "/shop", {
+      //   replace: true,
+      //   state: { celebration: "Welcome back!" },
+      // });
       event.currentTarget.reset();
       setLoginPassword("");
-    } else {
-      setError("Invalid email or password.");
+    } catch (error) {
+      setError(error.message || "Invalid email or password.");
+    } finally {
+      setIsSubmitting(false);
     }
   }
 
@@ -62,12 +75,66 @@ export default function Login() {
     navigate("/");
   };
 
-  function handleSignup(event) {
+  async function handleSignup(event) {
     event.preventDefault();
+    setError("");
+    setSuccessMessage("");
+
     if (!allRulesPassed) return;
-    celebrate("Account created. Welcome to Bloom");
-    event.currentTarget.reset();
-    setSignupPassword("");
+
+    if (!name.trim() || !signupEmail.trim()) {
+      setError("Please enter your name and email.");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const { data, error } = await supabse.auth.signUp({
+        email: signupEmail.trim(),
+        password: signupPassword,
+        options: {
+          data: {
+            full_name: name.trim(),
+          },
+          emailRedirectTo: `${window.location.origin}/`,
+        },
+      });
+
+      if (error) {
+        console.error("Supabase login error:", error.message);
+        setError(error.message);
+        return;
+      }
+
+      if (data.session && data.user) {
+        dispatch(
+          signupSucess({
+            id: data.user.id,
+            name: data.user.user_metadata?.full_name || data.user.email,
+            email: data.user.email,
+          }),
+        );
+
+        navigate("/shop", {
+          replace: true,
+          state: { celebration: "Welcome to Bloom!" },
+        });
+      } else {
+        setSuccessMessage(
+          "Account created! Please check your email to confirm your account.",
+        );
+        setMode("login");
+        setLoginEmail(signupEmail.trim());
+        setSignupPassword("");
+        setName("");
+        setSignupEmail("");
+      }
+    } catch (error) {
+      setError(error.message || "Unable to create your account.");
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -134,11 +201,23 @@ export default function Login() {
 
             <button
               type="submit"
+              disabled={isSubmitting}
               className="w-full rounded-xl bg-stone-900 py-3 text-sm font-semibold text-white shadow-lg shadow-stone-900/20 transition hover:bg-stone-800 active:scale-95"
             >
-              Log in
+              {isSubmitting ? "Loading" : "Log in"}
             </button>
           </form>
+
+          {err && (
+            <p className="font-semibold text-red-500 p-2 text-wrap text-center">
+              {err}
+            </p>
+          )}
+          {successMessage && (
+            <p className="font-semibold text-red-500 p-2 text-wrap text-center">
+              {successMessage}
+            </p>
+          )}
 
           <p className="mt-6 text-center text-sm text-stone-600">
             New here?
@@ -174,8 +253,16 @@ export default function Login() {
               label="Full name"
               type="text"
               placeholder="Enter your name"
+              onChange={(e) => setName(e.target.value)}
+              value={name}
             />
-            <Field label="Email" type="email" placeholder="you@example.com" />
+            <Field
+              label="Email"
+              type="email"
+              placeholder="you@example.com"
+              onChange={(e) => setSignupEmail(e.target.value)}
+              value={signupEmail}
+            />
 
             <div>
               <label className="mb-1.5 block text-sm font-medium text-stone-800">
@@ -191,10 +278,10 @@ export default function Login() {
 
             <button
               type="submit"
-              disabled={!allRulesPassed}
+              disabled={!allRulesPassed || isSubmitting}
               className="w-full rounded-xl bg-stone-900 py-3 text-sm font-semibold text-white shadow-lg shadow-stone-900/20 transition hover:bg-stone-800 active:scale-95 disabled:cursor-not-allowed disabled:opacity-40 disabled:active:scale-100"
             >
-              Sign up
+              {isSubmitting ? "Loading" : "Sign up"}
             </button>
           </form>
 
