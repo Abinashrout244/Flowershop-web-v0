@@ -13,6 +13,7 @@ import NavHeader from "../../components/layout/Navbar/Navbar";
 import FlowerFooter from "../../components/layout/Footer/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../features/user/authSlice";
+import { supabse } from "../../lib/supabaseClient";
 
 const TABS = ["My Orders", "Addresses", "Settings"];
 
@@ -24,10 +25,18 @@ const ProfilePage = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
   console.log(user);
-  const hnaldeLogout = (e) => {
+  const hnaldeLogout = async (e) => {
     e.preventDefault();
+
+    const { error } = await supabse.auth.signOut();
+
+    if (error) {
+      console.error("Logout failed:", error.message);
+      return;
+    }
+
     dispatch(logout());
-    navigate("/", { replace: true });
+    navigate("/login", { replace: true });
   };
 
   return (
@@ -39,7 +48,8 @@ const ProfilePage = () => {
         <div className="max-w-7xl mx-auto px-4 py-10">
           <div className="flex items-center gap-5">
             <div className="w-20 h-20 rounded-full bg-[#c9a87c] flex items-center justify-center text-white text-3xl font-serif-display font-light shadow-lg">
-              {user.name.charAt(0)}
+              {/* {user.email.toUpperCase().charAt(0)} */}
+              {user.name?.toUpperCase().charAt(0)}
             </div>
             <div>
               <h1 className="font-serif-display text-3xl font-light text-gray-900">

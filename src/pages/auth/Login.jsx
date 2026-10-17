@@ -57,11 +57,18 @@ export default function Login() {
 
       console.log(data);
 
-      // dispatch(loginSucess());
-      // navigate(location.state?.from?.pathname || "/shop", {
-      //   replace: true,
-      //   state: { celebration: "Welcome back!" },
-      // });
+      dispatch(
+        loginSucess({
+          id: data?.user?.id,
+          email: data?.user?.email,
+          name: data?.user?.user_metadata?.full_name,
+        }),
+      );
+
+      navigate(location.state?.from?.pathname || "/shop", {
+        replace: true,
+        state: { celebration: "Welcome to Bloom!" },
+      });
       event.currentTarget.reset();
       setLoginPassword("");
     } catch (error) {
@@ -106,6 +113,7 @@ export default function Login() {
         setError(error.message);
         return;
       }
+      // console.log(data);
 
       if (data.session && data.user) {
         dispatch(
@@ -116,7 +124,7 @@ export default function Login() {
           }),
         );
 
-        navigate("/shop", {
+        navigate(location.state?.from?.pathname || "/shop", {
           replace: true,
           state: { celebration: "Welcome to Bloom!" },
         });

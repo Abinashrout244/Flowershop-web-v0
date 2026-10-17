@@ -6,13 +6,13 @@ const ProtectedRoute = ({ children }) => {
   console.log(isAuthenticated);
   const location = useLocation();
 
-  // if (isLoading) {
-  //   return (
-  //     <div className="flex min-h-screen items-center justify-center">
-  //       <p className="text-sm text-stone-500">Restoring your session...</p>
-  //     </div>
-  //   );
-  // }
+  if (isLoading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <p className="text-sm text-stone-500">Restoring your session...</p>
+      </div>
+    );
+  }
 
   if (!isAuthenticated) {
     return <Navigate to="/login" replace state={{ from: location }} />;
