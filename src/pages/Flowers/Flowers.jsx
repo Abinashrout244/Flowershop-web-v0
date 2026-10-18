@@ -10,6 +10,7 @@ import {
 import { categories, getProductsByCategory } from "../../data/flowers";
 import NavHeader from "../../components/layout/Navbar/Navbar";
 import FlowerFooter from "../../components/layout/Footer/Footer";
+import { ProductService } from "../../services/ProductService.js";
 import ProductCard from "./ProductCard";
 import HeroBanner from "./HeroBanner";
 
@@ -21,25 +22,12 @@ const sortOptions = [
 ];
 
 const FlowersPage = () => {
-  // const location = useLocation();
-  // const params = new URLSearchParams(location.search);
-  // const searchQuery = params.get("search") || "";
-
   const [activeCategory, setActiveCategory] = useState("All");
   const [sort, setSort] = useState("popular");
   const [showSort, setShowSort] = useState(false);
+  const { products, loading, error } = ProductService();
 
-  /* ── Filter & sort logic ── */
-  let filtered = getProductsByCategory(activeCategory);
-  // if (searchQuery) {
-  //   filtered = filtered.filter(
-  //     (p) =>
-  //       p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-  //       p.occasions.some((o) =>
-  //         o.toLowerCase().includes(searchQuery.toLowerCase()),
-  //       ),
-  //   );
-  // }
+  let filtered = getProductsByCategory(activeCategory, products);
 
   const sorted = [...filtered].sort((a, b) => {
     if (sort === "asc") return a.price - b.price;
@@ -66,7 +54,7 @@ const FlowersPage = () => {
       </div>
 
       {/* ── Hero Banner ── */}
-      <HeroBanner />
+      <HeroBanner productCount={products.length} />
 
       {/* ── Main Content ── */}
       <main className="mx-auto max-w-7xl px-4 pb-20">
@@ -145,18 +133,28 @@ const FlowersPage = () => {
           )}
         </p>
 
-        {/* ── Product Grid or Empty state ── */}
-        {sorted.length === 0 ? (
+        {loading ? (
+          <div className="py-20 text-center text-gray-500">
+            Loading flowers...
+          </div>
+        ) : error ? (
+          <div className="py-20 text-center text-red-500">
+            Failed to load flowers: {error}
+          </div>
+        ) : sorted.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-24 text-center">
             <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#f7f1e8]">
               <FlowerIcon size={28} className="text-[#c9a87c]" />
             </div>
+
             <h3 className="font-serif text-2xl font-light text-gray-700">
               No flowers found
             </h3>
+
             <p className="mt-2 text-sm text-gray-400">
               Try a different category or search term
             </p>
+
             <button
               onClick={() => setActiveCategory("All")}
               className="mt-6 flex items-center gap-2 rounded-full bg-[#c9a87c] px-8 py-3 text-xs font-bold uppercase tracking-widest text-white transition-all hover:bg-[#b8966b]"

@@ -1,30 +1,16 @@
 import React from "react";
 
-import {
-  HERO_SLIDES,
-  FLOWER_ONLY_IMAGES,
-  COLLECTIONS,
-  COLLECTION_IMAGES,
-} from "./ShopInfo";
+import { HERO_SLIDES, FLOWER_ONLY_IMAGES, COLLECTIONS } from "./ShopInfo";
 
 import { ChevronRight, ChevronLeft } from "lucide-react";
 
 const HeroBanner = ({ activeCollection, sorted, heroIndex, setHeroIndex }) => {
   const currentCollection = COLLECTIONS.find((c) => c.id === activeCollection);
+  const CollectionIcon = currentCollection?.icon;
   const activeSlide = HERO_SLIDES[heroIndex];
-  const collectionHeroImg =
-    COLLECTION_IMAGES[activeCollection] || COLLECTION_IMAGES["All"];
+
   return (
     <div className="relative hidden md:block md:h-[320px] lg:h-[400px] overflow-hidden">
-      <img
-        src={collectionHeroImg}
-        alt={activeCollection}
-        onError={(e) => {
-          e.currentTarget.src = FLOWER_ONLY_IMAGES.default[1];
-        }}
-        className="absolute inset-0 w-full h-full object-cover scale-105 blur-[2px] opacity-70"
-        style={{ objectPosition: "center 40%" }}
-      />
       <img
         src={activeSlide.image}
         alt={activeSlide.title}
@@ -36,7 +22,10 @@ const HeroBanner = ({ activeCollection, sorted, heroIndex, setHeroIndex }) => {
       />
       <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/50 to-black/20 flex flex-col items-start justify-center px-8 md:px-16">
         <p className="text-[#c9a87c] text-xs tracking-[0.4em] uppercase font-bold mb-2 drop-shadow">
-          {currentCollection?.icon} Flora & Bloom
+          {CollectionIcon && (
+            <CollectionIcon size={14} className="mr-1 inline-block" />
+          )}{" "}
+          Flora & Bloom
         </p>
         <p className="text-[10px] md:text-xs tracking-[0.32em] uppercase text-white/80 mb-1.5">
           {activeSlide.eyebrow}

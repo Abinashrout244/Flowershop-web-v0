@@ -15,11 +15,10 @@ import {
   toggleWishlist,
   selectIsWishlisted,
 } from "../../features/user/wishlistSlice";
-import { products } from "../../data/flowers";
+import { ProductService } from "../../services/ProductService.js";
 import NavHeader from "../../components/layout/Navbar/Navbar";
 import FlowerFooter from "../../components/layout/Footer/Footer";
 
-const gifts = products.filter((p) => p.category === "Gifts");
 
 /* ── Gift Card ── */
 const GiftCard = ({ product }) => {
@@ -164,7 +163,10 @@ const GiftCard = ({ product }) => {
 };
 
 /* ── Page ── */
-const GiftsPage = () => (
+const GiftsPage = () => {
+  const { products } = ProductService();
+  const gifts = products.filter((p) => p.category === "Gifts");
+  return (
   <div className="min-h-screen bg-[#faf9f7]">
     <NavHeader />
 
@@ -282,6 +284,7 @@ const GiftsPage = () => (
 
     <FlowerFooter />
   </div>
-);
+  );
+};
 
 export default GiftsPage;

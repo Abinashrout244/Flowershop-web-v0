@@ -15,7 +15,7 @@ import {
   Plus,
   Share2,
 } from "lucide-react";
-import { getProductById, products } from "../../data/flowers";
+import { ProductService } from "../../services/ProductService.js";
 import { addToCart } from "../../features/cart/cartSlice";
 import { toggleWishlist, selectIsWishlisted } from "../../features/user/wishlistSlice";
 import NavHeader from "../../components/layout/Navbar/Navbar";
@@ -80,13 +80,18 @@ const ProductDetailPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const product = getProductById(id);
+  const { products, loading } = ProductService();
+  const product = products.find((item) => item.id === Number(id));
 
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [selectedSize, setSelectedSize] = useState(0);
   const [qty, setQty] = useState(1);
   const [addedAnim, setAddedAnim] = useState(false);
   const isWished = useSelector(selectIsWishlisted(product?.id));
+
+  if (loading) {
+    return <div className="min-h-screen flex items-center justify-center">Loading product…</div>;
+  }
 
   if (!product) {
     return (

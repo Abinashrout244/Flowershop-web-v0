@@ -13,7 +13,7 @@ import {
   Check,
   Sparkles,
 } from "lucide-react";
-import { products } from "../../data/flowers";
+import { ProductService } from "../../services/ProductService.js";
 
 import NavHeader from "../../components/layout/Navbar/Navbar";
 import FlowerFooter from "../../components/layout/Footer/Footer";
@@ -23,7 +23,6 @@ import {
   FLOWER_ONLY_IMAGES,
   SORT_OPTIONS,
   OCCASIONS,
-  COLLECTION_IMAGES,
   HERO_SLIDES,
 } from "./ShopInfo";
 import HeroBanner from "./HeroBanner";
@@ -55,6 +54,7 @@ const Toast = ({ show, name }) => (
 /* ── Main Shop Page ──────────────────────────────────────────── */
 const ShopPage = () => {
   const location = useLocation();
+  const { products } = ProductService();
   const params = new URLSearchParams(location.search);
   const [activeCollection, setActiveCollection] = useState("All");
   const [activeOccasion, setActiveOccasion] = useState("All Occasions");
@@ -181,31 +181,51 @@ const ShopPage = () => {
             className="flex gap-1 overflow-x-auto scrollbar-hide py-2"
             style={{ scrollbarWidth: "none" }}
           >
-            {COLLECTIONS.map((col) => (
-              <button
-                key={col.id}
-                onClick={() => {
-                  setActiveCollection(col.id);
-                  setActiveOccasion("All Occasions");
-                }}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold 
-                whitespace-nowrap transition-all duration-200 flex-shrink-0
-                ${
-                  activeCollection === col.id
-                    ? "bg-[#c9a87c] text-white shadow-md"
-                    : "text-gray-600 hover:bg-[#fdf7ee] hover:text-[#c9a87c]"
-                }`}
-              >
-                <span className="text-sm">{col.icon}</span>
-                {col.label}
-                <span
-                  className={`px-1.5 py-0.5 rounded-full text-[9px] font-bold
-                  ${activeCollection === col.id ? "bg-white/20 text-white" : "bg-gray-100 text-gray-400"}`}
+            {COLLECTIONS.map((col) => {
+              const Icon = col.icon;
+
+              return (
+                <button
+                  key={col.id}
+                  onClick={() => {
+                    setActiveCollection(col.id);
+                    setActiveOccasion("All Occasions");
+                  }}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold
+        whitespace-nowrap transition-all duration-200 flex-shrink-0
+        ${
+          activeCollection === col.id
+            ? "bg-[#c9a87c] text-white shadow-md"
+            : "text-gray-600 hover:bg-[#fdf7ee] hover:text-[#c9a87c]"
+        }`}
                 >
-                  {col.count}
-                </span>
-              </button>
-            ))}
+                  <Icon
+                    size={17}
+                    strokeWidth={1.8}
+                    className={
+                      activeCollection === col.id
+                        ? "text-white"
+                        : "text-[#c9a87c]"
+                    }
+                  />
+
+                  {col.label}
+
+                  <span
+                    className={`px-1.5 py-0.5 rounded-full text-[9px] font-bold
+          ${
+            activeCollection === col.id
+              ? "bg-white/20 text-white"
+              : "bg-gray-100 text-gray-400"
+          }`}
+                  >
+                    {col.id === "All"
+                      ? products.length
+                      : products.filter((p) => p.category === col.id).length}
+                  </span>
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>

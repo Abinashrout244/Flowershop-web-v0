@@ -1,66 +1,26 @@
-import { products } from "../../data/flowers";
+﻿import {
+  LayoutGrid,
+  Flower2,
+  Sun,
+  Flower,
+  Sprout,
+  Gift,
+  Sparkles,
+  TreePalm,
+} from "lucide-react";
+
 export const COLLECTIONS = [
-  { id: "All", label: "All Products", icon: "🌸", count: products.length },
-  {
-    id: "Roses",
-    label: "Roses",
-    icon: "🌹",
-    count: products.filter((p) => p.category === "Roses").length,
-  },
-  {
-    id: "Sunflowers",
-    label: "Sunflowers",
-    icon: "🌻",
-    count: products.filter((p) => p.category === "Sunflowers").length,
-  },
-  {
-    id: "Lilies",
-    label: "Lilies",
-    icon: "💐",
-    count: products.filter((p) => p.category === "Lilies").length,
-  },
-  {
-    id: "Orchids",
-    label: "Orchids",
-    icon: "🌺",
-    count: products.filter((p) => p.category === "Orchids").length,
-  },
-  {
-    id: "Tulips",
-    label: "Tulips",
-    icon: "🌷",
-    count: products.filter((p) => p.category === "Tulips").length,
-  },
-  {
-    id: "Mixed",
-    label: "Mixed Bouquets",
-    icon: "💮",
-    count: products.filter((p) => p.category === "Mixed").length,
-  },
-  {
-    id: "Gifts",
-    label: "Gift Hampers",
-    icon: "🎁",
-    count: products.filter((p) => p.category === "Gifts").length,
-  },
-  {
-    id: "Plants",
-    label: "Plants",
-    icon: "🪴",
-    count: products.filter((p) => p.category === "Plants").length,
-  },
-  {
-    id: "Seasonal",
-    label: "Seasonal",
-    icon: "✨",
-    count: products.filter((p) => p.category === "Seasonal").length,
-  },
-  {
-    id: "Tropical",
-    label: "Tropical",
-    icon: "🌴",
-    count: products.filter((p) => p.category === "Tropical").length,
-  },
+  { id: "All", label: "All Products", icon: LayoutGrid, count: 0 },
+  { id: "Roses", label: "Roses", icon: Flower2, count: 0 },
+  { id: "Sunflowers", label: "Sunflowers", icon: Sun, count: 0 },
+  { id: "Lilies", label: "Lilies", icon: Flower, count: 0 },
+  { id: "Orchids", label: "Orchids", icon: Flower2, count: 0 },
+  { id: "Tulips", label: "Tulips", icon: Flower, count: 0 },
+  { id: "Mixed", label: "Mixed Bouquets", icon: Sparkles, count: 0 },
+  { id: "Gifts", label: "Gift Hampers", icon: Gift, count: 0 },
+  { id: "Plants", label: "Plants", icon: Sprout, count: 0 },
+  { id: "Seasonal", label: "Seasonal", icon: Sparkles, count: 0 },
+  { id: "Tropical", label: "Tropical", icon: TreePalm, count: 0 },
 ];
 
 export const SORT_OPTIONS = [
@@ -83,31 +43,6 @@ export const OCCASIONS = [
   "Housewarming",
   "Corporate Gift",
 ];
-
-/* ── Collection hero images ─────────────────────────────────── */
-export const COLLECTION_IMAGES = {
-  All: "https://images.unsplash.com/photo-1490750967868-88cb44cb271b?w=1600&q=85",
-  Roses:
-    "https://images.unsplash.com/photo-1490750967868-88cb44cb271b?w=1600&q=85",
-  Sunflowers:
-    "https://images.unsplash.com/photo-1464965257414-d44b44754a4f?w=1600&q=85",
-  Lilies:
-    "https://images.unsplash.com/photo-1508610048659-a06b669e3321?w=1600&q=85",
-  Orchids:
-    "https://images.unsplash.com/photo-1533616688419-b3a58eeb09b8?w=1600&q=85",
-  Tulips:
-    "https://images.unsplash.com/photo-1554631221-f9603e6808be?w=1600&q=85",
-  Mixed:
-    "https://images.unsplash.com/photo-1457089328109-e5d9f56adce9?w=1600&q=85",
-  Gifts:
-    "https://images.unsplash.com/photo-1519378058457-4c29a0a2efac?w=1600&q=85",
-  Plants:
-    "https://images.unsplash.com/photo-1462275646964-a0e3386b89fa?w=1600&q=85",
-  Seasonal:
-    "https://images.unsplash.com/photo-1597848212624-a19eb35e2651?w=1600&q=85",
-  Tropical:
-    "https://images.unsplash.com/photo-1471086569966-db3eebc25a59?w=1600&q=85",
-};
 
 export const HERO_SLIDES = [
   {
@@ -132,7 +67,7 @@ export const HERO_SLIDES = [
     eyebrow: "Bespoke Experience",
     title: "Elevate Celebrations With Couture Bouquets",
     subtitle:
-      "From intimate dinners to lavish soirées, find statement florals that define the moment.",
+      "From intimate dinners to lavish soirÃ©es, find statement florals that define the moment.",
   },
   {
     image:

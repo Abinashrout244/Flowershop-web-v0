@@ -1,8 +1,7 @@
 import React from "react";
-import { products } from "../../data/flowers";
 import { Sparkles } from "lucide-react";
 
-const HeroBanner = () => {
+const HeroBanner = ({ productCount = 0 }) => {
   return (
     <header className="relative mx-4 mb-10 overflow-hidden rounded-3xl md:mx-8 lg:mx-auto lg:max-w-7xl">
       <img
@@ -40,7 +39,7 @@ const HeroBanner = () => {
         {/* Stats */}
         <div className="mt-6 flex flex-wrap gap-6">
           {[
-            { val: `${products.length}+`, label: "Varieties" },
+            { val: `${productCount}+`, label: "Varieties" },
             { val: "Same Day", label: "Delivery" },
             { val: "Farm", label: "Fresh" },
           ].map((s) => (

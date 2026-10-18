@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import { selectCartCount } from "../../../features/cart/cartSlice";
 import { selectWishlistCount } from "../../../features/user/wishlistSlice";
-import { searchProducts } from "../../../data/flowers";
+import { ProductService } from "../../../services/ProductService.js";
 import logo from "../../../assets/images/logonew.png";
 import { useTheme } from "../../../contexts/useTheme";
 import MobileBottomNav from "./MobileBottomNav";
@@ -51,6 +51,7 @@ const Navbar = () => {
   const cartCount = useSelector(selectCartCount);
   const wishlistCount = useSelector(selectWishlistCount);
   const { isDark, toggleTheme } = useTheme();
+  const { products } = ProductService();
 
   const isHome = location.pathname === "/";
 
@@ -82,9 +83,21 @@ const Navbar = () => {
       setShowSugg(false);
       return;
     }
-    setSuggestions(searchProducts(query).slice(0, 6));
+    const normalizedQuery = query.toLowerCase();
+    setSuggestions(
+      products
+        .filter(
+          (product) =>
+            product.name.toLowerCase().includes(normalizedQuery) ||
+            product.category.toLowerCase().includes(normalizedQuery) ||
+            (product.occasions ?? []).some((occasion) =>
+              occasion.toLowerCase().includes(normalizedQuery),
+            ),
+        )
+        .slice(0, 6),
+    );
     setShowSugg(true);
-  }, [query]);
+  }, [query, products]);
 
   /* ── Close dropdown on outside click ── */
   useEffect(() => {

@@ -10,16 +10,17 @@ import {
   Sun,
 } from "lucide-react";
 
-import { products } from "../../data/flowers";
+import { ProductService } from "../../services/ProductService.js";
 import NavHeader from "../../components/layout/Navbar/Navbar";
 import FlowerFooter from "../../components/layout/Footer/Footer";
 import PlantCard from "./PlantCard";
 
-const plants = products.filter((p) => p.category === "Plants");
 
 /* ── Page ── */
 const PlantsPage = () => {
   const navigate = useNavigate();
+  const { products } = ProductService();
+  const plants = products.filter((p) => p.category === "Plants");
 return(
   <div className="min-h-screen bg-[#faf9f7]">
     <NavHeader />
