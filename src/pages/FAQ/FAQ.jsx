@@ -9,7 +9,7 @@ import {
   FAQ_CATEGORIES,
   FAQ_DATA,
   DEFAULT_FAQ_CATEGORY,
-} from "../../data/faq";
+} from "../../models/faqModel";
 
 const FAQPage = () => {
   const [activeCategory, setActiveCategory] = useState(DEFAULT_FAQ_CATEGORY);

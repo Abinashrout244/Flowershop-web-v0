@@ -13,7 +13,7 @@ import NavHeader from "../../components/layout/Navbar/Navbar";
 import FlowerFooter from "../../components/layout/Footer/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../features/user/authSlice";
-import { supabse } from "../../lib/supabaseClient";
+import { logoutUser } from "../../controllers/authController";
 
 const TABS = ["My Orders", "Addresses", "Settings"];
 
@@ -28,15 +28,13 @@ const ProfilePage = () => {
   const hnaldeLogout = async (e) => {
     e.preventDefault();
 
-    const { error } = await supabse.auth.signOut();
-
-    if (error) {
+    try {
+      await logoutUser();
+      dispatch(logout());
+      navigate("/login", { replace: true });
+    } catch (error) {
       console.error("Logout failed:", error.message);
-      return;
     }
-
-    dispatch(logout());
-    navigate("/login", { replace: true });
   };
 
   return (

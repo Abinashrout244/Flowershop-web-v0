@@ -36,26 +36,173 @@ A polished floral storefront built with **React 19**, **Redux Toolkit**, **React
 ## Project Structure
 
 ```
-web-flowershop-v0/
-├── public/
-├── src/
-│   ├── app/
-│   ├── assets/
-│   ├── components/
-│   ├── data/
-│   ├── features/
-│   ├── hooks/
-│   ├── pages/
-│   ├── services/
-│   ├── store/
-│   ├── styles/
-│   └── utils/
-├── .env
-├── package.json
-├── tailwind.config.js
-├── postcss.config.js
-├── vite.config.js
-└── eslint.config.js
+.
+├─ app
+│  ├─ providers
+│  │  └─ AppProviders.jsx
+│  ├─ App.jsx
+│  ├─ main.jsx
+│  ├─ routes.jsx
+│  └─ RouteShell.jsx
+├─ assets
+│  ├─ icons
+│  └─ images
+│     └─ logonew.png
+├─ components
+│  ├─ faq
+│  │  ├─ FAQItem
+│  │  │  └─ FAQItem.jsx
+│  │  ├─ FAQList
+│  │  │  └─ FAQList.jsx
+│  │  └─ Sidebar
+│  │     └─ Sidebar.jsx
+│  ├─ home
+│  │  ├─ AsSeenOn
+│  │  │  └─ AsSeenOn.jsx
+│  │  ├─ BestsellingBlooms
+│  │  │  └─ BestsellingBlooms.jsx
+│  │  ├─ BrandStory
+│  │  │  └─ BrandStory.jsx
+│  │  ├─ CategoryStrip
+│  │  │  └─ CategoryStrip.jsx
+│  │  ├─ ContentSection
+│  │  │  └─ ContentSection.jsx
+│  │  ├─ CuratedCollections
+│  │  │  └─ CuratedCollections.jsx
+│  │  ├─ CustomerReviews
+│  │  │  └─ CustomerReviews.jsx
+│  │  ├─ InTheSpotlight
+│  │  │  └─ InTheSpotlight.jsx
+│  │  ├─ landing
+│  │  │  └─ Hero.jsx
+│  │  ├─ SoftSentiments
+│  │  │  └─ SoftSentiments.jsx
+│  │  ├─ SummerBanner
+│  │  │  └─ SummerBanner.jsx
+│  │  └─ WorldwideDelivery
+│  │     └─ WorldwideDelivery.jsx
+│  ├─ layout
+│  │  ├─ Footer
+│  │  │  └─ Footer.jsx
+│  │  └─ Navbar
+│  │     ├─ MobileBottomNav.jsx
+│  │     └─ Navbar.jsx
+│  ├─ product
+│  └─ ui
+│     ├─ Loader
+│     │  ├─ Loader.jsx
+│     │  └─ PageLoader.jsx
+│     └─ FlowerCelebration.jsx
+├─ contexts
+│  ├─ ThemeContext.jsx
+│  └─ useTheme.js
+├─ controllers
+│  ├─ authController.js
+│  ├─ useCategoriesController.js
+│  └─ useProductsController.js
+├─ features
+│  ├─ cart
+│  │  └─ cartSlice.js
+│  └─ user
+│     ├─ authSlice.js
+│     └─ wishlistSlice.js
+├─ hooks
+│  ├─ useScrollToTop.js
+│  └─ useSectionTheme.js
+├─ lib
+│  └─ supabaseClient.js
+├─ models
+│  ├─ authModel.js
+│  ├─ categoryModel.js
+│  ├─ faqModel.js
+│  └─ productModel.js
+├─ pages
+│  ├─ About
+│  │  └─ About.jsx
+│  ├─ auth
+│  │  ├─ authConfig.js
+│  │  ├─ BackButton.jsx
+│  │  ├─ Field.jsx
+│  │  ├─ Login.jsx
+│  │  ├─ LoginArt .jsx
+│  │  ├─ PanelImage.jsx
+│  │  ├─ PasswordChecklist.jsx
+│  │  ├─ PasswordField.jsx
+│  │  ├─ SignupArt.jsx
+│  │  └─ SvgDefs.jsx
+│  ├─ Blog
+│  │  └─ Blog.jsx
+│  ├─ Careers
+│  │  └─ Careers.jsx
+│  ├─ Cart
+│  │  └─ Cart.jsx
+│  ├─ Checkout
+│  │  ├─ AddressLookup.jsx
+│  │  ├─ Checkout.jsx
+│  │  ├─ checkoutConstants.js
+│  │  ├─ CheckoutField.jsx
+│  │  ├─ CheckoutHeader.jsx
+│  │  ├─ checkoutHelpers.js
+│  │  ├─ CheckoutSidebar.jsx
+│  │  ├─ CheckoutStepper.jsx
+│  │  ├─ PaymentSection.jsx
+│  │  ├─ ReviewSection.jsx
+│  │  └─ ShippingSection.jsx
+│  ├─ Contact
+│  │  └─ Contact.jsx
+│  ├─ CookiePolicy
+│  │  └─ CookiePolicy.jsx
+│  ├─ FAQ
+│  │  └─ FAQ.jsx
+│  ├─ Flowers
+│  │  ├─ Flowers.jsx
+│  │  ├─ HeroBanner.jsx
+│  │  └─ ProductCard.jsx
+│  ├─ Gifts
+│  │  └─ Gifts.jsx
+│  ├─ Home
+│  │  └─ Home.jsx
+│  ├─ NotFound
+│  │  └─ NotFound.jsx
+│  ├─ OrderConfirmed
+│  │  └─ OrderConfirmed.jsx
+│  ├─ Plants
+│  │  ├─ PlantCard.jsx
+│  │  └─ Plants.jsx
+│  ├─ PressMedia
+│  │  └─ PressMedia.jsx
+│  ├─ PrivacyPolicy
+│  │  └─ PrivacyPolicy.jsx
+│  ├─ Product
+│  │  └─ Product.jsx
+│  ├─ Profile
+│  │  └─ Profile.jsx
+│  ├─ ReturnsPolicy
+│  │  └─ ReturnsPolicy.jsx
+│  ├─ Shop
+│  │  ├─ HeroBanner.jsx
+│  │  ├─ PromoBanner.jsx
+│  │  ├─ Shop.jsx
+│  │  ├─ ShopCard.jsx
+│  │  └─ ShopInfo.jsx
+│  ├─ Sitemap
+│  │  └─ Sitemap.jsx
+│  ├─ Terms
+│  │  └─ Terms.jsx
+│  ├─ Weddings
+│  │  └─ Weddings.jsx
+│  └─ Wishlist
+│     └─ Wishlist.jsx
+├─ store
+│  └─ store.js
+├─ styles
+│  ├─ globals.css
+│  ├─ reset.css
+│  └─ variables.css
+├─ utils
+│  └─ ProtectedRoute.jsx
+├─ ARCHITECTURE.md
+└─ index.css
 ```
 
 ---

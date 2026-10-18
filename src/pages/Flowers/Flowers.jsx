@@ -7,10 +7,13 @@ import {
   FlowerIcon,
   SlidersHorizontal,
 } from "lucide-react";
-import { categories, getProductsByCategory } from "../../data/flowers";
+import {
+  flowerCategories as categories,
+  getProductsByCategory,
+} from "../../models/productModel";
 import NavHeader from "../../components/layout/Navbar/Navbar";
 import FlowerFooter from "../../components/layout/Footer/Footer";
-import { ProductService } from "../../services/productService.js";
+import { useProductsController } from "../../controllers/useProductsController";
 import ProductCard from "./ProductCard";
 import HeroBanner from "./HeroBanner";
 import Loader from "../../components/ui/Loader/Loader";
@@ -26,9 +29,9 @@ const FlowersPage = () => {
   const [activeCategory, setActiveCategory] = useState("All");
   const [sort, setSort] = useState("popular");
   const [showSort, setShowSort] = useState(false);
-  const { products, loading, error } = ProductService();
+  const { products, loading, error } = useProductsController();
 
-  let filtered = getProductsByCategory(activeCategory, products);
+  let filtered = getProductsByCategory(products, activeCategory);
 
   const sorted = [...filtered].sort((a, b) => {
     if (sort === "asc") return a.price - b.price;

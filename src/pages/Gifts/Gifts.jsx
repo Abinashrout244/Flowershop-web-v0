@@ -15,7 +15,7 @@ import {
   toggleWishlist,
   selectIsWishlisted,
 } from "../../features/user/wishlistSlice";
-import { ProductService } from "../../services/productService.js";
+import { useProductsController } from "../../controllers/useProductsController";
 import NavHeader from "../../components/layout/Navbar/Navbar";
 import FlowerFooter from "../../components/layout/Footer/Footer";
 import Loader from "../../components/ui/Loader/Loader";
@@ -165,7 +165,7 @@ const GiftCard = ({ product }) => {
 
 /* ── Page ── */
 const GiftsPage = () => {
-  const { products, loading, error } = ProductService();
+  const { products, loading, error } = useProductsController();
   const gifts = products.filter((p) => p.category === "Gifts");
   return (
   <div className="min-h-screen bg-[#faf9f7]">

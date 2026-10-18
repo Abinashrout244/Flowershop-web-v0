@@ -13,7 +13,7 @@ import {
   Check,
   Sparkles,
 } from "lucide-react";
-import { ProductService } from "../../services/productService.js";
+import { useProductsController } from "../../controllers/useProductsController";
 
 import NavHeader from "../../components/layout/Navbar/Navbar";
 import FlowerFooter from "../../components/layout/Footer/Footer";
@@ -55,7 +55,7 @@ const Toast = ({ show, name }) => (
 /* ── Main Shop Page ──────────────────────────────────────────── */
 const ShopPage = () => {
   const location = useLocation();
-  const { products, loading, error } = ProductService();
+  const { products, loading, error } = useProductsController();
   const params = new URLSearchParams(location.search);
   const [activeCollection, setActiveCollection] = useState("All");
   const [activeOccasion, setActiveOccasion] = useState("All Occasions");

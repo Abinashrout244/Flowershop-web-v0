@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import { selectCartCount } from "../../../features/cart/cartSlice";
 import { selectWishlistCount } from "../../../features/user/wishlistSlice";
-import { ProductService } from "../../../services/productService.js";
+import { useProductsController } from "../../../controllers/useProductsController";
 import Loader from "../../ui/Loader/Loader";
 import logo from "../../../assets/images/logonew.png";
 import { useTheme } from "../../../contexts/useTheme";
@@ -52,7 +52,7 @@ const Navbar = () => {
   const cartCount = useSelector(selectCartCount);
   const wishlistCount = useSelector(selectWishlistCount);
   const { isDark, toggleTheme } = useTheme();
-  const { products, loading: productsLoading } = ProductService();
+  const { products, loading: productsLoading } = useProductsController();
 
   const isHome = location.pathname === "/";
 

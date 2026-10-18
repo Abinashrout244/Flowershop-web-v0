@@ -16,7 +16,7 @@ import { SvgDefs } from "./SvgDefs";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { loginSucess, signupSucess } from "../../features/user/authSlice";
-import { supabse } from "../../lib/supabaseClient";
+import { loginUser, registerUser } from "../../controllers/authController";
 
 export default function Login() {
   const [mode, setMode] = useState("login"); // "login" or "signup"
@@ -44,26 +44,11 @@ export default function Login() {
     setIsSubmitting(true);
     setSuccessMessage(" ");
     try {
-      const { data, error } = await supabse.auth.signInWithPassword({
+      const user = await loginUser({
         email: loginEmail.trim(),
         password: loginPassword,
       });
-
-      if (error) {
-        console.error("Supabase login error:", error.message);
-        setError(error.message);
-        return;
-      }
-
-      console.log(data);
-
-      dispatch(
-        loginSucess({
-          id: data?.user?.id,
-          email: data?.user?.email,
-          name: data?.user?.user_metadata?.full_name,
-        }),
-      );
+      dispatch(loginSucess(user));
 
       navigate(location.state?.from?.pathname || "/shop", {
         replace: true,
@@ -97,7 +82,7 @@ export default function Login() {
     setIsSubmitting(true);
 
     try {
-      const { data, error } = await supabse.auth.signUp({
+      const { user, needsEmailConfirmation } = await registerUser({
         email: signupEmail.trim(),
         password: signupPassword,
         options: {
@@ -108,27 +93,14 @@ export default function Login() {
         },
       });
 
-      if (error) {
-        console.error("Supabase login error:", error.message);
-        setError(error.message);
-        return;
-      }
-      // console.log(data);
-
-      if (data.session && data.user) {
-        dispatch(
-          signupSucess({
-            id: data.user.id,
-            name: data.user.user_metadata?.full_name || data.user.email,
-            email: data.user.email,
-          }),
-        );
+      if (user) {
+        dispatch(signupSucess(user));
 
         navigate(location.state?.from?.pathname || "/shop", {
           replace: true,
           state: { celebration: "Welcome to Bloom!" },
         });
-      } else {
+      } else if (needsEmailConfirmation) {
         setSuccessMessage(
           "Account created! Please check your email to confirm your account.",
         );

@@ -3,19 +3,13 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { router } from "./routes";
 import { restoreSession } from "../features/user/authSlice";
-import { supabse } from "../lib/supabaseClient";
+import { subscribeToAuthChanges } from "../controllers/authController";
 
 const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    let mounted = true;
-
-    const {
-      data: { subscription },
-    } = supabse.auth.onAuthStateChange((event, session) => {
-      if (!mounted) return;
-
+    const unsubscribe = subscribeToAuthChanges((event, user) => {
       if (
         event === "INITIAL_SESSION" ||
         event === "SIGNED_IN" ||
@@ -25,21 +19,14 @@ const App = () => {
       ) {
         dispatch(
           restoreSession(
-            session?.user
-              ? {
-                  id: session.user.id,
-                  email: session.user.email,
-                  name: session.user.user_metadata?.full_name,
-                }
-              : null,
+            user,
           ),
         );
       }
     });
 
     return () => {
-      mounted = false;
-      subscription.unsubscribe();
+      unsubscribe();
     };
   }, [dispatch]);
 

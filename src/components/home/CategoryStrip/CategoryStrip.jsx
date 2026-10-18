@@ -1,42 +1,15 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useSectionTheme } from "../../../hooks/useSectionTheme";
-import { supabse } from "../../../lib/supabaseClient";
+import { useCategoriesController } from "../../../controllers/useCategoriesController";
 import Loader from "../../ui/Loader/Loader";
 
 const CategoryStrip = () => {
   const navigate = useNavigate();
-  const [categories, setCategories] = useState([]);
+  const { categories, loading, error } = useCategoriesController();
   const [active, setActive] = useState(0);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
   const { isDark } = useSectionTheme();
-
-  useEffect(() => {
-    const fetchCategories = async () => {
-      const { data, error } = await supabse
-        .from("categories")
-        .select(
-          "id, name, image_url, filter_type, filter_value, parent_category, sort_order",
-        )
-        .eq("is_active", true)
-        .order("sort_order", { ascending: true });
-
-      if (error) {
-        console.error("Error fetching categories:", error);
-        setError("Unable to load categories.");
-      } else {
-        console.log(data);
-
-        setCategories(data ?? []);
-      }
-
-      setLoading(false);
-    };
-
-    fetchCategories();
-  }, []);
 
   const handleCategoryClick = (cat, index) => {
     setActive(index);

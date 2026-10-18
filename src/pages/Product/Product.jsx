@@ -15,7 +15,7 @@ import {
   Plus,
   Share2,
 } from "lucide-react";
-import { ProductService } from "../../services/productService.js";
+import { useProductsController } from "../../controllers/useProductsController";
 import { addToCart } from "../../features/cart/cartSlice";
 import { toggleWishlist, selectIsWishlisted } from "../../features/user/wishlistSlice";
 import NavHeader from "../../components/layout/Navbar/Navbar";
@@ -81,7 +81,7 @@ const ProductDetailPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { products, loading } = ProductService();
+  const { products, loading } = useProductsController();
   const product = products.find((item) => item.id === Number(id));
 
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
