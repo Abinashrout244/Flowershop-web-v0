@@ -13,7 +13,7 @@ import {
   Check,
   Sparkles,
 } from "lucide-react";
-import { ProductService } from "../../services/ProductService.js";
+import { ProductService } from "../../services/productService.js";
 
 import NavHeader from "../../components/layout/Navbar/Navbar";
 import FlowerFooter from "../../components/layout/Footer/Footer";
@@ -27,6 +27,7 @@ import {
 } from "./ShopInfo";
 import HeroBanner from "./HeroBanner";
 import PromoBanner from "./PromoBanner";
+import Loader from "../../components/ui/Loader/Loader";
 
 const getFlowerImageForProduct = (product) => {
   const categoryPool =
@@ -54,7 +55,7 @@ const Toast = ({ show, name }) => (
 /* ── Main Shop Page ──────────────────────────────────────────── */
 const ShopPage = () => {
   const location = useLocation();
-  const { products } = ProductService();
+  const { products, loading, error } = ProductService();
   const params = new URLSearchParams(location.search);
   const [activeCollection, setActiveCollection] = useState("All");
   const [activeOccasion, setActiveOccasion] = useState("All Occasions");
@@ -335,7 +336,13 @@ const ShopPage = () => {
         </div>
 
         {/* ── Product Grid or Empty State ─── */}
-        {sorted.length === 0 ? (
+        {loading ? (
+          <Loader />
+        ) : error ? (
+          <p className="py-16 text-center text-sm text-red-500">
+            Products could not be loaded. Please try again.
+          </p>
+        ) : sorted.length === 0 ? (
           <div className="text-center py-24">
             <div className="text-6xl mb-4">🌸</div>
             <h3 className="font-serif-display text-3xl font-light text-gray-400 mb-3">

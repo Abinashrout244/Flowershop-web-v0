@@ -15,9 +15,10 @@ import {
   toggleWishlist,
   selectIsWishlisted,
 } from "../../features/user/wishlistSlice";
-import { ProductService } from "../../services/ProductService.js";
+import { ProductService } from "../../services/productService.js";
 import NavHeader from "../../components/layout/Navbar/Navbar";
 import FlowerFooter from "../../components/layout/Footer/Footer";
+import Loader from "../../components/ui/Loader/Loader";
 
 
 /* ── Gift Card ── */
@@ -164,7 +165,7 @@ const GiftCard = ({ product }) => {
 
 /* ── Page ── */
 const GiftsPage = () => {
-  const { products } = ProductService();
+  const { products, loading, error } = ProductService();
   const gifts = products.filter((p) => p.category === "Gifts");
   return (
   <div className="min-h-screen bg-[#faf9f7]">
@@ -261,7 +262,13 @@ const GiftsPage = () => {
       </div>
 
       {/* Grid */}
-      {gifts.length > 0 ? (
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <p className="py-16 text-center text-sm text-red-500">
+          Gifts could not be loaded. Please try again.
+        </p>
+      ) : gifts.length > 0 ? (
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {gifts.map((p) => (
             <GiftCard key={p.id} product={p} />

@@ -10,16 +10,17 @@ import {
   Sun,
 } from "lucide-react";
 
-import { ProductService } from "../../services/ProductService.js";
+import { ProductService } from "../../services/productService.js";
 import NavHeader from "../../components/layout/Navbar/Navbar";
 import FlowerFooter from "../../components/layout/Footer/Footer";
 import PlantCard from "./PlantCard";
+import Loader from "../../components/ui/Loader/Loader";
 
 
 /* ── Page ── */
 const PlantsPage = () => {
   const navigate = useNavigate();
-  const { products } = ProductService();
+  const { products, loading, error } = ProductService();
   const plants = products.filter((p) => p.category === "Plants");
 return(
   <div className="min-h-screen bg-[#faf9f7]">
@@ -153,7 +154,13 @@ return(
       </div>
 
       {/* Grid */}
-      {plants.length > 0 ? (
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <p className="py-16 text-center text-sm text-red-500">
+          Plants could not be loaded. Please try again.
+        </p>
+      ) : plants.length > 0 ? (
         <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 md:gap-5">
           {plants.map((p) => (
             <PlantCard key={p.id} product={p} />

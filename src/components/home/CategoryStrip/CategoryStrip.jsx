@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useSectionTheme } from "../../../hooks/useSectionTheme";
 import { supabse } from "../../../lib/supabaseClient";
+import Loader from "../../ui/Loader/Loader";
 
 const CategoryStrip = () => {
   const navigate = useNavigate();
@@ -94,9 +95,7 @@ const CategoryStrip = () => {
       </p>
 
       {loading ? (
-        <div className="px-6 py-8 text-center text-sm text-[#c9a87c]">
-          Loading categories...
-        </div>
+        <Loader size="sm" className="py-8" />
       ) : error ? (
         <div className="px-6 py-8 text-center text-sm text-red-500">
           {error}

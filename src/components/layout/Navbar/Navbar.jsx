@@ -15,7 +15,8 @@ import {
 } from "lucide-react";
 import { selectCartCount } from "../../../features/cart/cartSlice";
 import { selectWishlistCount } from "../../../features/user/wishlistSlice";
-import { ProductService } from "../../../services/ProductService.js";
+import { ProductService } from "../../../services/productService.js";
+import Loader from "../../ui/Loader/Loader";
 import logo from "../../../assets/images/logonew.png";
 import { useTheme } from "../../../contexts/useTheme";
 import MobileBottomNav from "./MobileBottomNav";
@@ -51,7 +52,7 @@ const Navbar = () => {
   const cartCount = useSelector(selectCartCount);
   const wishlistCount = useSelector(selectWishlistCount);
   const { isDark, toggleTheme } = useTheme();
-  const { products } = ProductService();
+  const { products, loading: productsLoading } = ProductService();
 
   const isHome = location.pathname === "/";
 
@@ -269,9 +270,10 @@ const Navbar = () => {
                   className={`pl-8 pr-3 py-1.5 text-xs rounded-full border backdrop-blur-md transition-all duration-300 focus:outline-none focus:ring-2 focus:w-52 w-32 ${searchInputCls}`}
                 />
               </form>
-              {showSugg && suggestions.length > 0 && (
+              {showSugg && (productsLoading || suggestions.length > 0) && (
                 <SearchDropdown
                   suggestions={suggestions}
+                  loading={productsLoading}
                   query={query}
                   onSelect={handleSuggClick}
                   onViewAll={handleSearch}
@@ -367,9 +369,10 @@ const Navbar = () => {
                     />
                   </form>
 
-                  {showSugg && suggestions.length > 0 && (
+                  {showSugg && (productsLoading || suggestions.length > 0) && (
                     <SearchDropdown
                       suggestions={suggestions}
+                      loading={productsLoading}
                       query={query}
                       onSelect={handleSuggClick}
                       onViewAll={(e) => {
@@ -476,9 +479,10 @@ const Navbar = () => {
                     className="w-full pl-10 pr-4 py-2.5 rounded-full border border-white/70 text-sm focus:outline-none focus:border-[#c9a87c] focus:ring-2 focus:ring-[#c9a87c]/10 transition-all bg-white/50 backdrop-blur-md shadow-[inset_0_1px_2px_rgba(0,0,0,0.05)] hover:bg-white/80"
                   />
                 </form>
-                {showSugg && suggestions.length > 0 && (
+                {showSugg && (productsLoading || suggestions.length > 0) && (
                   <SearchDropdown
                     suggestions={suggestions}
+                    loading={productsLoading}
                     query={query}
                     onSelect={handleSuggClick}
                     onViewAll={handleSearch}
@@ -562,9 +566,10 @@ const Navbar = () => {
                   className="w-full pl-10 pr-4 py-2 rounded-full border border-white/70 text-sm focus:outline-none focus:border-[#c9a87c] bg-white/60 backdrop-blur-md shadow-[inset_0_1px_2px_rgba(0,0,0,0.05)]"
                 />
               </form>
-              {showSugg && suggestions.length > 0 && (
+              {showSugg && (productsLoading || suggestions.length > 0) && (
                 <SearchDropdown
                   suggestions={suggestions}
+                  loading={productsLoading}
                   query={query}
                   onSelect={handleSuggClick}
                   onViewAll={handleSearch}
@@ -626,9 +631,12 @@ const SearchDropdown = ({
   onSelect,
   onViewAll,
   compact,
+  loading,
 }) => (
   <div className="absolute top-full left-0 right-0 mt-2 bg-white/95 backdrop-blur-xl rounded-2xl shadow-[0_20px_50px_-12px_rgba(0,0,0,0.25)] border border-white/80 ring-1 ring-black/5 overflow-hidden z-50">
-    {suggestions.map((p) => (
+    {loading ? (
+      <Loader size="sm" className="py-5" />
+    ) : suggestions.map((p) => (
       <Link
         key={p.id}
         to={`/product/${p.id}`}

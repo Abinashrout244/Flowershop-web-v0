@@ -15,11 +15,12 @@ import {
   Plus,
   Share2,
 } from "lucide-react";
-import { ProductService } from "../../services/ProductService.js";
+import { ProductService } from "../../services/productService.js";
 import { addToCart } from "../../features/cart/cartSlice";
 import { toggleWishlist, selectIsWishlisted } from "../../features/user/wishlistSlice";
 import NavHeader from "../../components/layout/Navbar/Navbar";
 import FlowerFooter from "../../components/layout/Footer/Footer";
+import Loader from "../../components/ui/Loader/Loader";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
@@ -90,7 +91,7 @@ const ProductDetailPage = () => {
   const isWished = useSelector(selectIsWishlisted(product?.id));
 
   if (loading) {
-    return <div className="min-h-screen flex items-center justify-center">Loading product…</div>;
+    return <Loader fullScreen />;
   }
 
   if (!product) {

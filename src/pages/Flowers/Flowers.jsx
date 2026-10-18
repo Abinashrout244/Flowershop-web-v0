@@ -10,9 +10,10 @@ import {
 import { categories, getProductsByCategory } from "../../data/flowers";
 import NavHeader from "../../components/layout/Navbar/Navbar";
 import FlowerFooter from "../../components/layout/Footer/Footer";
-import { ProductService } from "../../services/ProductService.js";
+import { ProductService } from "../../services/productService.js";
 import ProductCard from "./ProductCard";
 import HeroBanner from "./HeroBanner";
+import Loader from "../../components/ui/Loader/Loader";
 
 const sortOptions = [
   { label: "Most Popular", value: "popular" },
@@ -134,9 +135,7 @@ const FlowersPage = () => {
         </p>
 
         {loading ? (
-          <div className="py-20 text-center text-gray-500">
-            Loading flowers...
-          </div>
+          <Loader />
         ) : error ? (
           <div className="py-20 text-center text-red-500">
             Failed to load flowers: {error}
