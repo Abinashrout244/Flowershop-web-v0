@@ -6,6 +6,7 @@ import {
   range,
   inputClass,
 } from "./authConfig";
+import { Link } from "react-router-dom";
 
 import { Field } from "./Field";
 import { PasswordField } from "./PasswordField";
@@ -171,12 +172,12 @@ export default function Login() {
                 onChange={(e) => setLoginPassword(e.target.value)}
                 placeholder="Enter your password"
               />
-              <a
-                href="#"
+              <Link
+                to="/forgot-password"
                 className="mt-2 block text-right text-xs text-stone-500 hover:text-stone-900"
               >
                 Forgot password?
-              </a>
+              </Link>
             </div>
 
             <button

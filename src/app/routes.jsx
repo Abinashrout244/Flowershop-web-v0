@@ -33,6 +33,8 @@ const CookiePolicy = lazy(() => import("../pages/CookiePolicy/CookiePolicy"));
 const Sitemap = lazy(() => import("../pages/Sitemap/Sitemap"));
 const NotFound = lazy(() => import("../pages/NotFound/NotFound"));
 const LogIn = lazy(() => import("../pages/auth/Login"));
+const ForgotPassword = lazy(() => import("../pages/auth/ForgotPassword"));
+const ResetPassword = lazy(() => import("../pages/auth/ResetPassword"));
 import ProtectedRoute from "../utils/ProtectedRoute";
 
 export const router = createHashRouter(
@@ -241,6 +243,15 @@ export const router = createHashRouter(
         </RouteShell>
       ),
     },
+    {
+      path: "/forgot-password",
+      element: <ForgotPassword />,
+    },
+    {
+      path: "/reset-password",
+      element: <ResetPassword />,
+    },
+
     {
       path: "*",
       element: (
