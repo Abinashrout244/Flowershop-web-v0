@@ -12,7 +12,7 @@ import {
 import NavHeader from "../../components/layout/Navbar/Navbar";
 import FlowerFooter from "../../components/layout/Footer/Footer";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../features/user/authSlice";
+import { logout, updatePhone } from "../../features/user/authSlice";
 import { logoutUser } from "../../controllers/authController";
 
 const TABS = ["My Orders", "Addresses", "Settings"];
@@ -25,6 +25,9 @@ const ProfilePage = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
   console.log(user);
+  const [phone, setPhone] = useState(() => localStorage.getItem("flora_profile_phone") || "");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
   const hnaldeLogout = async (e) => {
     e.preventDefault();
 
@@ -34,6 +37,22 @@ const ProfilePage = () => {
       navigate("/login", { replace: true });
     } catch (error) {
       console.error("Logout failed:", error.message);
+    }
+  };
+
+  const handleSaveChanges = () => {
+    if (phone && !/^[6-9]\d{9}$/.test(phone)) {
+      alert("Enter a valid 10-digit mobile number.");
+      return;
+    }
+
+    try {
+      localStorage.setItem("flora_profile_phone", phone.trim());
+      dispatch(updatePhone(phone.trim()));
+      setPhone(phone.trim());
+      setMessage("Phone number updated successfully!");
+    } catch (error) {
+      setMessage("Unable to save phone number.");
     }
   };
 
@@ -229,7 +248,7 @@ const ProfilePage = () => {
                       12, Rose Garden Apartments, MG Road, Mumbai - 400001,
                       Maharashtra
                     </p>
-                    <p className="text-xs text-gray-400 mt-1">{user.phone}</p>
+                    <p className="text-xs text-gray-400 mt-1">{phone}</p>
                   </div>
                   <button className="bg-white rounded-2xl border-2 border-dashed border-gray-200 p-5 flex flex-col items-center justify-center gap-2 text-gray-400 hover:border-[#c9a87c] hover:text-[#c9a87c] transition-colors min-h-[140px]">
                     <MapPin size={24} />
@@ -245,50 +264,75 @@ const ProfilePage = () => {
                 <h2 className="font-serif-display text-2xl font-light text-gray-900 mb-5">
                   Account Settings
                 </h2>
+
                 <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 space-y-5">
                   {[
-                    { label: "Full Name", value: user.name },
-                    { label: "Email Address", value: user.email },
-                    { label: "Phone Number", value: user.phone },
+                    { label: "Full Name", value: user?.name },
+                    { label: "Email Address", value: user?.email },
                   ].map(({ label, value }) => (
                     <div key={label}>
-                      <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5 block">
+                      <label className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1.5 block">
                         {label}
                       </label>
-                      <div className="flex items-center justify-between border border-gray-200 rounded-xl px-4 py-3">
-                        <span className="text-sm text-gray-800">{value}</span>
-                        <button className="text-xs text-[#c9a87c] font-semibold hover:underline">
-                          Edit
-                        </button>
+
+                      <div className="flex items-center justify-between border border-gray-200 bg-gray-100 rounded-xl px-4 py-3 cursor-not-allowed">
+                        <span className="text-sm text-gray-500 select-none">
+                          {value || "Not available"}
+                        </span>
+
+                        <span className="text-xs" aria-hidden="true">
+                          🔒
+                        </span>
                       </div>
                     </div>
                   ))}
 
-                  <div className="pt-4 border-t border-gray-100">
-                    <h3 className="text-sm font-semibold text-gray-700 mb-3">
-                      Preferences
-                    </h3>
-                    {[
-                      "Email me about exclusive offers",
-                      "SMS notifications for order updates",
-                      "Birthday reminder flowers",
-                    ].map((pref) => (
-                      <label
-                        key={pref}
-                        className="flex items-center justify-between py-2.5 border-b border-gray-50 cursor-pointer group"
-                      >
-                        <span className="text-sm text-gray-600 group-hover:text-gray-900 transition-colors">
-                          {pref}
-                        </span>
-                        <div className="w-10 h-5 bg-[#c9a87c] rounded-full relative">
-                          <div className="absolute right-0.5 top-0.5 w-4 h-4 bg-white rounded-full shadow" />
-                        </div>
-                      </label>
-                    ))}
+                  <div>
+                    <label
+                      htmlFor="profile-phone"
+                      className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5 block"
+                    >
+                      Phone Number
+                    </label>
+
+                    <input
+                      id="profile-phone"
+                      type="tel"
+                      inputMode="numeric"
+                      autoComplete="tel-national"
+                      value={phone}
+                      onChange={(e) => {
+                        setPhone(
+                          e.target.value.replace(/\D/g, "").slice(0, 10),
+                        );
+                        setMessage("");
+                      }}
+                      placeholder="Enter your 10-digit mobile number"
+                      maxLength={10}
+                      className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-800 outline-none transition-colors focus:border-[#c9a87c] focus:ring-2 focus:ring-[#c9a87c]/20"
+                    />
                   </div>
 
-                  <button className="w-full py-3.5 bg-[#c9a87c] text-white font-bold text-sm tracking-widest uppercase rounded-full hover:bg-[#b8966b] transition-all">
-                    Save Changes
+                  {message && (
+                    <p
+                      role="status"
+                      className={`text-sm ${
+                        message.includes("successfully")
+                          ? "text-green-600"
+                          : "text-red-500"
+                      }`}
+                    >
+                      {message}
+                    </p>
+                  )}
+
+                  <button
+                    type="button"
+                    onClick={handleSaveChanges}
+                    disabled={loading}
+                    className="w-full py-3.5 bg-[#c9a87c] text-white font-bold text-sm tracking-widest uppercase rounded-full hover:bg-[#b8966b] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {loading ? "Saving..." : "Save Changes"}
                   </button>
                 </div>
               </div>
