@@ -21,11 +21,11 @@ import { loginUser, registerUser } from "../../controllers/authController";
 
 export default function Login() {
   const [mode, setMode] = useState("login"); // "login" or "signup"
-  const [signupPassword, setSignupPassword] = useState("Flower@1231");
-  const [signupEmail, setSignupEmail] = useState("demo@flower.com");
-  const [name, setName] = useState("Abinash");
-  const [loginEmail, setLoginEmail] = useState("demo@flower.com");
-  const [loginPassword, setLoginPassword] = useState("Flower@1231");
+  const [signupPassword, setSignupPassword] = useState("");
+  const [signupEmail, setSignupEmail] = useState("");
+  const [name, setName] = useState("");
+  const [loginEmail, setLoginEmail] = useState("abinashrout.mail@gmail.com");
+  const [loginPassword, setLoginPassword] = useState("Abinash@1231");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [err, setError] = useState("");

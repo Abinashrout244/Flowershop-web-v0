@@ -306,7 +306,7 @@ const ProductDetailPage = () => {
             {/* Size Selector */}
             <div>
               <p className="text-sm font-semibold text-gray-700 mb-3">
-                Select Size:{" "}
+                Select Size:
                 <span className="text-[#c9a87c]">
                   {currentSize.label} ({currentSize.stems} stems)
                 </span>
