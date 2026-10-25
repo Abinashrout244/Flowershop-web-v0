@@ -27,6 +27,7 @@ const shopNavLinks = [
   { label: "Plants", href: "/plants" },
   { label: "Gifts", href: "/gifts" },
   { label: "Weddings", href: "/weddings" },
+  { label: "Shop", href: "/shop" },
 ];
 
 /* ─── Glass tokens (Tailwind-only) ───
@@ -636,41 +637,45 @@ const SearchDropdown = ({
   <div className="absolute top-full left-0 right-0 mt-2 bg-white/95 backdrop-blur-xl rounded-2xl shadow-[0_20px_50px_-12px_rgba(0,0,0,0.25)] border border-white/80 ring-1 ring-black/5 overflow-hidden z-50">
     {loading ? (
       <Loader size="sm" className="py-5" />
-    ) : suggestions.map((p) => (
-      <Link
-        key={p.id}
-        to={`/product/${p.id}`}
-        onMouseDown={(event) => event.stopPropagation()}
-        onClick={() => onSelect(p)}
-        className="w-full flex items-center gap-3 px-4 py-3 hover:bg-[#fdf8f0]/80 transition-colors text-left border-b border-gray-50 last:border-0"
-      >
-        <div
-          className={`rounded-xl overflow-hidden flex-shrink-0 ${compact ? "w-9 h-9" : "w-10 h-10"}`}
+    ) : (
+      suggestions.map((p) => (
+        <Link
+          key={p.id}
+          to={`/product/${p.id}`}
+          onMouseDown={(event) => event.stopPropagation()}
+          onClick={() => onSelect(p)}
+          className="w-full flex items-center gap-3 px-4 py-3 hover:bg-[#fdf8f0]/80 transition-colors text-left border-b border-gray-50 last:border-0"
         >
-          <img
-            src={p.images[0]}
-            alt=""
-            className="w-full h-full object-cover"
-          />
-        </div>
-        <div className="flex-1 min-w-0">
-          <p
-            className={`font-medium text-gray-800 truncate ${compact ? "text-xs" : "text-sm"}`}
+          <div
+            className={`rounded-xl overflow-hidden flex-shrink-0 ${compact ? "w-9 h-9" : "w-10 h-10"}`}
           >
-            {p.name}
+            <img
+              src={p.images[0]}
+              alt=""
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <div className="flex-1 min-w-0">
+            <p
+              className={`font-medium text-gray-800 truncate ${compact ? "text-xs" : "text-sm"}`}
+            >
+              {p.name}
+            </p>
+            <p
+              className={`text-gray-400 ${compact ? "text-[10px]" : "text-xs"}`}
+            >
+              {p.category}
+              {!compact && ` · ${p.tag}`}
+            </p>
+          </div>
+          <p
+            className={`font-bold text-[#c9a87c] flex-shrink-0 ${compact ? "text-xs" : "text-sm"}`}
+          >
+            ₹{p.price.toLocaleString()}
           </p>
-          <p className={`text-gray-400 ${compact ? "text-[10px]" : "text-xs"}`}>
-            {p.category}
-            {!compact && ` · ${p.tag}`}
-          </p>
-        </div>
-        <p
-          className={`font-bold text-[#c9a87c] flex-shrink-0 ${compact ? "text-xs" : "text-sm"}`}
-        >
-          ₹{p.price.toLocaleString()}
-        </p>
-      </Link>
-    ))}
+        </Link>
+      ))
+    )}
     <div className="px-4 py-2.5 bg-gray-50/80 border-t border-gray-100">
       <button
         onClick={onViewAll}
