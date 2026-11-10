@@ -18,9 +18,11 @@ import {
 import { FLOWER_ONLY_IMAGES, COLLECTIONS } from "./ShopInfo";
 
 // Public assets use BASE_URL so their paths also work on subpath deployments.
-const assetsBase = `${import.meta.env.BASE_URL}assets/images/`;
-const bouquet1 = `${assetsBase}bouquet1.png`;
-const bouquet2 = `${assetsBase}bouquet2.png`;
+// const assetsBase = `${import.meta.env.BASE_URL}assets/images/`;
+// const bouquet1 = `${assetsBase}bouquet1.png`;
+// const bouquet2 = `${assetsBase}bouquet2.png`;
+const bouquet1 = `https://res.cloudinary.com/dnxha9arx/image/upload/v1794297760/bouquet1_blatfa.png`;
+const bouquet2 = `https://res.cloudinary.com/dnxha9arx/image/upload/v1794297762/bouquet2_u6kxid.png`;
 
 const SLIDES = [
   {

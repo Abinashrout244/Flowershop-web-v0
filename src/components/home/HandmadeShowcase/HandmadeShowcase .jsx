@@ -15,12 +15,12 @@ import {
 } from "lucide-react";
 import { useSectionTheme } from "../../../hooks/useSectionTheme";
 
-const assetsBase = `${import.meta.env.BASE_URL}assets/images/`;
-const craft1 = `${assetsBase}craft1.jpg`;
-const craft2 = `${assetsBase}craft2.jpg`;
-const craft3 = `${assetsBase}craft3.jpg`;
-const craft4 = `${assetsBase}craft4.jpg`;
-const craft5 = `${assetsBase}craft5.jpg`;
+// const assetsBase = `${import.meta.env.BASE_URL}assets/images/`;
+// const craft1 = `${assetsBase}craft1.jpg`;
+// const craft2 = `${assetsBase}craft2.jpg`;
+// const craft3 = `${assetsBase}craft3.jpg`;
+// const craft4 = `${assetsBase}craft4.jpg`;
+// const craft5 = `${assetsBase}craft5.jpg`;
 
 const AUTOPLAY_MS = 3000;
 
@@ -37,7 +37,8 @@ const slides = [
     valueA: "Desks, Shelves & Vases",
     labelB: "Made In",
     valueB: "5 - 7 Days",
-    image: craft1,
+    image:
+      "https://res.cloudinary.com/dnxha9arx/image/upload/v1794297738/craft1_see6jz.jpg",
   },
   {
     id: 2,
@@ -51,7 +52,8 @@ const slides = [
     valueA: "Anniversaries & Birthdays",
     labelB: "Made In",
     valueB: "4 - 6 Days",
-    image: craft2,
+    image:
+      "https://res.cloudinary.com/dnxha9arx/image/upload/v1794297738/craft2_ixpa1y.jpg",
   },
   {
     id: 3,
@@ -64,7 +66,8 @@ const slides = [
     valueA: "Everyday & Weekend Carry",
     labelB: "Made In",
     valueB: "7 - 10 Days",
-    image: craft3,
+    image:
+      "https://res.cloudinary.com/dnxha9arx/image/upload/v1794297740/craft3_g9ut7k.jpg",
   },
   {
     id: 4,
@@ -77,7 +80,8 @@ const slides = [
     valueA: "Kids & Keepsakes",
     labelB: "Made In",
     valueB: "6 - 8 Days",
-    image: craft4,
+    image:
+      "https://res.cloudinary.com/dnxha9arx/image/upload/v1794297733/craft4_wthamr.jpg",
   },
   {
     id: 5,
@@ -91,7 +95,8 @@ const slides = [
     valueA: "Hair, Bags & Keychains",
     labelB: "Made In",
     valueB: "3 - 5 Days",
-    image: craft5,
+    image:
+      "https://res.cloudinary.com/dnxha9arx/image/upload/v1794297739/craft5_jzpsj7.jpg",
   },
 ];
 
