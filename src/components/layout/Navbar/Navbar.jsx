@@ -427,57 +427,148 @@ const Navbar = () => {
      ════════════════════════════════════════════════════════ */
   return (
     <>
-      <header className={`fixed inset-x-0 top-0 z-50 ${glassBar}`}>
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex items-center justify-between gap-3 h-16 md:h-[68px]">
-            {/* Logo */}
-            <Link to="/" className="flex-shrink-0">
-              {!imgError ? (
-                <img
-                  src={logo}
-                  alt="Flora & Bloom"
-                  className="h-12 w-auto object-contain"
-                  onError={() => setImgError(true)}
-                />
-              ) : (
-                <LogoText dark />
-              )}
-            </Link>
-
-            {/* Desktop search + badge */}
-            <div className="hidden md:flex flex-1 items-center gap-2 max-w-2xl mx-4">
-              <div className="hidden lg:flex items-center gap-2 px-3 py-2 rounded-full bg-green-50/70 backdrop-blur-md border border-green-200/70 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] whitespace-nowrap flex-shrink-0">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-4 h-4 text-green-600"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M9 17h6M5 12h14M7 7h10M3 17h.01M21 17h.01"
+      <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 md:px-6">
+        <div className="relative mx-auto max-w-7xl">
+          {/* ---------- floating pill ---------- */}
+          <div
+            className={`rounded-[28px] border border-white/80 bg-white/75 backdrop-blur-xl transition-all duration-300 md:rounded-full ${
+              scrolled
+                ? "shadow-[0_14px_44px_rgba(120,90,80,0.20)]"
+                : "shadow-[0_8px_28px_rgba(120,90,80,0.10)]"
+            }`}
+          >
+            <div
+              className={`flex items-center justify-between gap-3 px-4 transition-all duration-300 md:px-6 ${
+                scrolled ? "h-14 md:h-[58px]" : "h-16 md:h-[68px]"
+              }`}
+            >
+              {/* Logo */}
+              <Link to="/" className="flex-shrink-0">
+                {!imgError ? (
+                  <img
+                    src={logo}
+                    alt="Flora & Bloom"
+                    className={`w-auto object-contain transition-all duration-300 ${
+                      scrolled ? "h-9 md:h-10" : "h-10 md:h-12"
+                    }`}
+                    onError={() => setImgError(true)}
                   />
-                </svg>
-                <span className="text-xs font-medium text-green-700">
-                  Same-day delivery
-                </span>
+                ) : (
+                  <LogoText dark />
+                )}
+              </Link>
+
+              {/* Desktop search + badge */}
+              <div className="mx-2 hidden max-w-xl flex-1 items-center gap-2 md:flex">
+                <div className="relative flex-1" ref={desktopSearchRef}>
+                  <form onSubmit={handleSearch}>
+                    <Search
+                      size={15}
+                      className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+                    />
+                    <input
+                      value={query}
+                      onChange={(e) => setQuery(e.target.value)}
+                      onFocus={() =>
+                        suggestions.length > 0 && setShowSugg(true)
+                      }
+                      type="text"
+                      placeholder="Search flowers, occasions, gifts…"
+                      className="w-full rounded-full border border-[#efe4db] bg-[#faf6f2]/80 py-2.5 pl-10 pr-4 text-sm text-[#1a1416] transition-all placeholder:text-gray-400 hover:bg-white focus:border-[#c9a87c] focus:outline-none focus:ring-2 focus:ring-[#c9a87c]/15"
+                    />
+                  </form>
+                  {showSugg && (productsLoading || suggestions.length > 0) && (
+                    <SearchDropdown
+                      suggestions={suggestions}
+                      loading={productsLoading}
+                      query={query}
+                      onSelect={handleSuggClick}
+                      onViewAll={handleSearch}
+                    />
+                  )}
+                </div>
               </div>
-              <div className="flex-1 relative" ref={desktopSearchRef}>
+
+              {/* Desktop nav links */}
+              <nav className="hidden items-center gap-1 lg:flex">
+                {shopNavLinks.map(({ label, href }) => {
+                  const active = location.pathname === href;
+                  return (
+                    <Link
+                      key={label}
+                      to={href}
+                      className={`rounded-full px-3.5 py-2 text-sm font-medium tracking-wide transition-all duration-300 ${
+                        active
+                          ? "bg-[#c9a87c]/15 text-[#a07a45]"
+                          : "text-gray-700 hover:bg-[#c9a87c]/10 hover:text-[#a07a45]"
+                      }`}
+                    >
+                      {label}
+                    </Link>
+                  );
+                })}
+              </nav>
+
+              {/* Icons: Cart/Wishlist/Profile hidden on mobile (bottom nav) */}
+              <div className="flex items-center gap-0.5">
+                <Link
+                  to="/wishlist"
+                  aria-label="Wishlist"
+                  className="relative hidden rounded-full p-2.5 text-gray-700 transition-colors hover:bg-[#c9a87c]/10 hover:text-[#a07a45] md:flex"
+                >
+                  <Heart size={19} />
+                  {wishlistCount > 0 && (
+                    <span className="absolute right-0.5 top-0.5 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-[#c9507a] px-1 text-[9px] font-bold text-white">
+                      {wishlistCount}
+                    </span>
+                  )}
+                </Link>
+
+                <Link
+                  to="/cart"
+                  aria-label="Cart"
+                  className="relative hidden rounded-full p-2.5 text-gray-700 transition-colors hover:bg-[#c9a87c]/10 hover:text-[#a07a45] md:flex"
+                >
+                  <ShoppingBag size={19} />
+                  {cartCount > 0 && (
+                    <span className="absolute right-0.5 top-0.5 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-[#1a1416] px-1 text-[9px] font-bold text-white">
+                      {cartCount}
+                    </span>
+                  )}
+                </Link>
+
+                <Link
+                  to="/profile"
+                  aria-label="Profile"
+                  className="ml-1 hidden h-10 w-10 items-center justify-center rounded-full border border-[#efe4db] bg-white text-[#1a1416] transition-all hover:border-[#c9a87c] hover:text-[#a07a45] md:flex"
+                >
+                  <User size={18} />
+                </Link>
+
+                <button
+                  className="rounded-full p-2.5 text-gray-700 hover:bg-black/5 lg:hidden"
+                  onClick={() => setMenuOpen(!menuOpen)}
+                  aria-label="Toggle menu"
+                >
+                  {menuOpen ? <X size={21} /> : <Menu size={21} />}
+                </button>
+              </div>
+            </div>
+
+            {/* Mobile search */}
+            <div className="px-3 pb-3 md:hidden" ref={mobileSearchRef}>
+              <div className="relative">
                 <form onSubmit={handleSearch}>
                   <Search
-                    size={15}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
+                    size={14}
+                    className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400"
                   />
                   <input
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     onFocus={() => suggestions.length > 0 && setShowSugg(true)}
-                    type="text"
-                    placeholder="Search flowers, occasions, gifts…"
-                    className="w-full pl-10 pr-4 py-2.5 rounded-full border border-white/70 text-sm focus:outline-none focus:border-[#c9a87c] focus:ring-2 focus:ring-[#c9a87c]/10 transition-all bg-white/50 backdrop-blur-md shadow-[inset_0_1px_2px_rgba(0,0,0,0.05)] hover:bg-white/80"
+                    placeholder="Search flowers…"
+                    className="w-full rounded-full border border-[#efe4db] bg-[#faf6f2]/80 py-2.5 pl-10 pr-4 text-sm text-[#1a1416] placeholder:text-gray-400 focus:border-[#c9a87c] focus:outline-none"
                   />
                 </form>
                 {showSugg && (productsLoading || suggestions.length > 0) && (
@@ -487,125 +578,40 @@ const Navbar = () => {
                     query={query}
                     onSelect={handleSuggClick}
                     onViewAll={handleSearch}
+                    compact
                   />
                 )}
               </div>
             </div>
+          </div>
 
-            {/* Desktop nav links */}
-            <nav className="hidden lg:flex items-center gap-5">
+          {/* ---------- mobile menu: separate floating card ---------- */}
+          {menuOpen && (
+            <div className="absolute inset-x-0 top-full mt-2 space-y-0.5 rounded-3xl border border-white/80 bg-white/90 p-3 shadow-[0_20px_50px_rgba(120,90,80,0.18)] backdrop-blur-xl lg:hidden">
               {shopNavLinks.map(({ label, href }) => {
                 const active = location.pathname === href;
                 return (
                   <Link
                     key={label}
                     to={href}
-                    className={`text-sm font-medium tracking-wide relative group transition-colors ${active ? "text-[#c9a87c]" : "text-gray-700 hover:text-[#c9a87c]"}`}
+                    onClick={() => setMenuOpen(false)}
+                    className={`flex items-center rounded-2xl px-4 py-3 text-sm font-medium transition-colors ${
+                      active
+                        ? "bg-[#c9a87c]/15 text-[#a07a45]"
+                        : "text-gray-700 hover:bg-black/[0.03]"
+                    }`}
                   >
                     {label}
-                    <span
-                      className={`absolute -bottom-0.5 left-0 h-px bg-[#c9a87c] transition-all duration-300 ${active ? "w-full" : "w-0 group-hover:w-full"}`}
-                    />
                   </Link>
                 );
               })}
-            </nav>
-
-            {/* Icons — Cart/Wishlist/Profile hidden on mobile (use bottom nav) */}
-            <div className="flex items-center gap-1">
-              <Link
-                to="/wishlist"
-                className="hidden md:flex p-2 rounded-full text-gray-700 hover:text-[#c9a87c] hover:bg-white/70 transition-colors relative"
-              >
-                <Heart size={19} />
-                {wishlistCount > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-[#c9a87c] text-white text-[8px] rounded-full flex items-center justify-center font-bold">
-                    {wishlistCount}
-                  </span>
-                )}
-              </Link>
-              <Link
-                to="/cart"
-                className="hidden md:flex p-2 rounded-full text-gray-700 hover:text-[#c9a87c] hover:bg-white/70 transition-colors relative"
-              >
-                <ShoppingBag size={19} />
-                {cartCount > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-[#1a1a1a] text-white text-[8px] rounded-full flex items-center justify-center font-bold">
-                    {cartCount}
-                  </span>
-                )}
-              </Link>
-              <Link
-                to="/profile"
-                className="hidden md:block p-2 rounded-full text-gray-700 hover:text-[#c9a87c] hover:bg-white/70 transition-colors"
-              >
-                <User size={19} />
-              </Link>
-              <button
-                className="lg:hidden p-2 rounded-full text-gray-700 hover:bg-white/70"
-                onClick={() => setMenuOpen(!menuOpen)}
-                aria-label="Toggle menu"
-              >
-                {menuOpen ? <X size={21} /> : <Menu size={21} />}
-              </button>
             </div>
-          </div>
-
-          {/* Mobile search */}
-          <div className="md:hidden pb-3" ref={mobileSearchRef}>
-            <div className="relative">
-              <form onSubmit={handleSearch}>
-                <Search
-                  size={14}
-                  className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
-                />
-                <input
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  onFocus={() => suggestions.length > 0 && setShowSugg(true)}
-                  placeholder="Search flowers…"
-                  className="w-full pl-10 pr-4 py-2 rounded-full border border-white/70 text-sm focus:outline-none focus:border-[#c9a87c] bg-white/60 backdrop-blur-md shadow-[inset_0_1px_2px_rgba(0,0,0,0.05)]"
-                />
-              </form>
-              {showSugg && (productsLoading || suggestions.length > 0) && (
-                <SearchDropdown
-                  suggestions={suggestions}
-                  loading={productsLoading}
-                  query={query}
-                  onSelect={handleSuggClick}
-                  onViewAll={handleSearch}
-                  compact
-                />
-              )}
-            </div>
-          </div>
+          )}
         </div>
-
-        {/* Mobile menu — only category links (icons in bottom nav) */}
-        {menuOpen && (
-          <div className="lg:hidden border-t border-white/60 bg-white/80 px-4 py-3 space-y-0.5 shadow-[0_16px_32px_-12px_rgba(0,0,0,0.15)]">
-            {shopNavLinks.map(({ label, href }) => (
-              <Link
-                key={label}
-                to={href}
-                onClick={() => setMenuOpen(false)}
-                className={`flex items-center text-sm font-medium py-2.5 px-2 border-b border-gray-100/70 transition-colors ${location.pathname === href ? "text-[#c9a87c]" : "text-gray-700 hover:text-[#c9a87c]"}`}
-              >
-                {label}
-              </Link>
-            ))}
-            <button
-              onClick={toggleTheme}
-              className="flex w-full items-center gap-2 text-sm font-medium text-[#c9a87c] py-2.5 px-2 hover:opacity-80"
-            >
-              {isDark ? <Sun size={16} /> : <Moon size={16} />}
-              Switch to {isDark ? "Light" : "Dark"} Theme
-            </button>
-          </div>
-        )}
       </header>
-      {/* Spacer: top navbar height + bottom nav height on mobile */}
-      <div className="h-[116px] md:h-[68px]" />
+
+      {/* Spacer: floating pill + top gap */}
+      <div className="h-[140px] md:h-[92px]" />
       <MobileBottomNav />
     </>
   );

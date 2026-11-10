@@ -8,7 +8,8 @@ import SoftSentiments from "../../components/home/SoftSentiments/SoftSentiments"
 import CuratedCollections from "../../components/home/CuratedCollections/CuratedCollections";
 import InTheSpotlight from "../../components/home/InTheSpotlight/InTheSpotlight";
 import BrandStory from "../../components/home/BrandStory/BrandStory";
-import AsSeenOn from "../../components/home/AsSeenOn/AsSeenOn";
+// import AsSeenOn from "../../components/home/AsSeenOn/AsSeenOn";
+import HandmadeShowcase from "../../components/home/HandmadeShowcase/HandmadeShowcase ";
 import CustomerReviews from "../../components/home/CustomerReviews/CustomerReviews";
 import ContentSection from "../../components/home/ContentSection/ContentSection";
 import Footer from "../../components/layout/Footer/Footer";
@@ -17,10 +18,14 @@ import { useTheme } from "../../contexts/useTheme";
 const Home = () => {
   const { isDark } = useTheme();
   return (
-    <div className={`min-h-screen transition-colors duration-500 ${isDark ? "bg-black" : "bg-[#faf9f7]"}`}>
+    <div
+      className={`min-h-screen transition-colors duration-500 ${isDark ? "bg-black" : "bg-[#faf9f7]"}`}
+    >
       <Navbar />
       <Hero />
-      <div className={`transition-colors duration-500 ${isDark ? "bg-black" : "bg-[#faf9f7]"}`}>
+      <div
+        className={`transition-colors duration-500 ${isDark ? "bg-black" : "bg-[#faf9f7]"}`}
+      >
         <CategoryStrip />
         <BestsellingBlooms />
         <SummerBanner />
@@ -29,7 +34,8 @@ const Home = () => {
         <CuratedCollections />
         <InTheSpotlight />
         <BrandStory />
-        <AsSeenOn />
+        {/* <AsSeenOn /> */}
+        <HandmadeShowcase />
         <CustomerReviews />
         <ContentSection />
         <Footer />

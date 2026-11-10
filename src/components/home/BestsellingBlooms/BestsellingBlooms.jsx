@@ -10,7 +10,10 @@ import {
   ChevronLeft,
   ChevronRight,
   Truck,
+  ShoppingBag,
+  Check,
 } from "lucide-react";
+
 import { addToCart } from "../../../features/cart/cartSlice";
 import {
   toggleWishlist,
@@ -22,110 +25,128 @@ const products = [
   {
     id: 1,
     name: "Eternal Rose Bouquet",
+    description: "Velvety red roses hand-tied for love and celebration.",
+    category: "Roses",
     price: 1299,
     originalPrice: 1799,
     rating: 4.8,
     reviews: 2341,
     tag: "Same Day Delivery",
+    badge: "Best Seller",
     image:
       "https://images.unsplash.com/photo-1586082207282-3dcb61d25ebd?w=600&q=85&auto=format",
-    badge: "Best Seller",
   },
   {
     id: 2,
     name: "Pink Peony Paradise",
+    description: "Lush blush peonies, soft and full of romance.",
+    category: "Peonies",
     price: 1599,
     originalPrice: 2199,
     rating: 4.9,
     reviews: 987,
     tag: "Same Day Delivery",
+    badge: "Premium",
     image:
       "https://images.unsplash.com/photo-1531874824027-2a0d33bd6338?w=600&q=85&auto=format",
-    badge: "Premium",
   },
   {
     id: 3,
     name: "Lavender Dreams",
+    description: "Calming lavender stems with a gentle, lasting fragrance.",
+    category: "Bouquets",
     price: 999,
     originalPrice: 1399,
     rating: 4.6,
     reviews: 1432,
-    tag: "Same Day Delivery",
+    tag: "Free Delivery",
+    badge: null,
     image:
       "https://images.unsplash.com/photo-1566114310145-37ac933c6c69?w=600&q=85&auto=format",
-    badge: null,
   },
   {
     id: 4,
     name: "Sunflower Bliss Bunch",
+    description: "Bright, sunny blooms to lift anyone's day.",
+    category: "Sunflowers",
     price: 799,
     originalPrice: 1099,
     rating: 4.7,
     reviews: 1856,
     tag: "Same Day Delivery",
+    badge: "Popular",
     image:
       "https://images.unsplash.com/photo-1597848212624-a19eb35e2651?w=600&q=85&auto=format",
-    badge: "Popular",
   },
   {
     id: 6,
     name: "White Lily Serenity",
+    description: "Pure white lilies for peaceful, elegant moments.",
+    category: "Lilies",
     price: 1349,
     originalPrice: 1849,
     rating: 4.7,
     reviews: 892,
     tag: "Same Day Delivery",
+    badge: "New",
     image:
       "https://images.unsplash.com/photo-1486102515046-44130769cb25?w=600&q=85&auto=format",
-    badge: "New",
   },
   {
     id: 8,
     name: "Orchid Elegance",
+    description: "Graceful orchids in refined, gift-ready packaging.",
+    category: "Orchids",
     price: 2299,
     originalPrice: 2999,
     rating: 4.9,
     reviews: 543,
-    tag: "Same Day Delivery",
+    tag: "Premium Packaging",
+    badge: "Luxury",
     image:
       "https://images.unsplash.com/photo-1605996370592-b6f7a81e382e?w=600&q=85&auto=format",
-    badge: "Luxury",
   },
   {
     id: 10,
     name: "Tulip Rainbow Mix",
+    description: "A cheerful mix of fresh tulips in every color.",
+    category: "Tulips",
     price: 1199,
     originalPrice: 1699,
     rating: 4.8,
     reviews: 765,
     tag: "Same Day Delivery",
+    badge: "Trending",
     image:
       "https://images.unsplash.com/photo-1587316830148-c9b01df2da38?w=600&q=85&auto=format",
-    badge: "Trending",
   },
   {
     id: 11,
     name: "Mixed Bouquets",
+    description: "Seasonal blooms arranged into one lovely bouquet.",
+    category: "Bouquets",
     price: 849,
     originalPrice: 1199,
     rating: 4.6,
     reviews: 1674,
-    tag: "Same Day Delivery",
+    tag: "Free Delivery",
+    badge: null,
     image:
       "https://images.unsplash.com/photo-1607035508682-b59eb92d77e8?w=600&q=85&auto=format",
-    badge: null,
   },
   {
     id: 24,
     name: "Indoor Plants",
+    description: "Easy-care green plants to freshen any room.",
+    category: "Plants",
     price: 899,
     originalPrice: 1249,
     rating: 4.5,
     reviews: 1102,
-    tag: "Same Day Delivery",
+    tag: "Free Delivery",
+    badge: null,
     image:
       "https://images.unsplash.com/photo-1596547609652-9cf5d8d76921?w=600&q=85&auto=format",
-    badge: null,
   },
 ];
 
@@ -163,7 +184,8 @@ const ProductCard = ({ product }) => {
   const navigate = useNavigate();
   const isWished = useSelector(selectIsWishlisted(product.id));
   const [added, setAdded] = useState(false);
-  const { isDark, heading, body, bodyMuted } = useSectionTheme();
+  const { isDark } = useSectionTheme();
+
   const discount = Math.round(
     ((product.originalPrice - product.price) / product.originalPrice) * 100,
   );
@@ -198,122 +220,144 @@ const ProductCard = ({ product }) => {
   };
 
   return (
-    // Outer wrapper: w-[44%] gives Flipkart-style compact card sizing on phones
     <motion.div
       variants={cardVariants}
-      className="w-[44%] shrink-0 snap-start sm:w-[calc((100%-20px)/2)] md:w-[calc((100%-40px)/3)] lg:w-[calc((100%-60px)/4)]"
+      className="flex w-[44%] shrink-0 snap-start sm:w-[calc((100%-20px)/2)] md:w-[calc((100%-40px)/3)] lg:w-[calc((100%-60px)/4)]"
     >
-      {/* Inner card */}
       <div
         onClick={() => navigate(`/product/${product.id}`)}
-        className={`group relative h-full cursor-pointer overflow-hidden rounded-2xl sm:rounded-[26px] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1.5 ${
+        className={`group flex w-full cursor-pointer flex-col rounded-[20px] border p-2 transition-all duration-300 hover:-translate-y-1 sm:rounded-[28px] sm:p-4 ${
           isDark
-            ? "border border-white/[0.12] bg-[#0f0f0f]/70 shadow-[0_10px_40px_rgba(0,0,0,0.45)] backdrop-blur-xl hover:border-[#c9a87c]/40 hover:bg-[#141414]/80 hover:shadow-[0_0_40px_rgba(201,168,124,0.18),0_20px_60px_rgba(0,0,0,0.6)]"
-            : "border border-[#eadfce] bg-[#fbf6ef]/90 shadow-[0_10px_35px_rgba(0,0,0,0.08)] backdrop-blur-md hover:border-[#e6d3b8] hover:bg-[#fdf8f0] hover:shadow-[0_25px_70px_rgba(0,0,0,0.14)]"
+            ? "border-white/10 bg-[#161214] hover:border-[#c9a87c]/40 hover:shadow-[0_12px_40px_rgba(0,0,0,0.5)]"
+            : "border-[#efe4db] bg-[#fffaf6] hover:border-[#e3cdbb] hover:shadow-[0_12px_32px_rgba(120,90,80,0.12)]"
         }`}
       >
         {/* ---------- image ---------- */}
-        <div className="relative aspect-[4/5] overflow-hidden">
+        <div className="relative aspect-square overflow-hidden rounded-2xl sm:rounded-[20px]">
           <img
             src={product.image}
             alt={product.name}
             loading="lazy"
-            className="h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-110"
+            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
 
-          <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/50 to-transparent" />
-
+          {/* badge (optional, absolute so it never changes card height) */}
           {product.badge && (
-            <span className="absolute left-2 top-2 rounded-full border border-white/20 bg-black/65 px-2 py-0.5 text-[8px] sm:left-3 sm:top-3 sm:px-3 sm:py-1 sm:text-[9px] uppercase tracking-[0.15em] sm:tracking-[0.18em] text-white backdrop-blur">
+            <span className="absolute left-2 top-2 max-w-[60%] truncate rounded-full bg-white/95 px-2 py-0.5 text-[9px] font-bold text-[#1a1416] sm:left-3 sm:top-3 sm:px-3 sm:py-1 sm:text-xs">
               {product.badge}
             </span>
           )}
 
+          {/* wishlist */}
           <button
             onClick={handleWishlist}
             aria-label="Add to wishlist"
-            className={`absolute right-2 top-2 sm:right-3 sm:top-3 flex h-7 w-7 sm:h-9 sm:w-9 items-center justify-center rounded-full border backdrop-blur transition hover:scale-110 ${
-              isDark
-                ? "border-white/[0.22] bg-black/50"
-                : "border-white/60 bg-white/90 shadow-sm"
-            }`}
+            className="absolute right-2 top-2 flex h-7 w-7 items-center justify-center rounded-full bg-white/95 transition hover:scale-110 sm:right-3 sm:top-3 sm:h-9 sm:w-9"
           >
             <Heart
-              size={12}
-              className={
-                isWished
-                  ? "fill-red-400 text-red-400"
-                  : isDark
-                    ? "text-white/70"
-                    : "text-gray-500"
-              }
+              className={`h-3.5 w-3.5 sm:h-4 sm:w-4 ${
+                isWished ? "fill-rose-500 text-rose-500" : "text-[#1a1416]"
+              }`}
             />
           </button>
 
-          <span className="absolute bottom-2 left-2 sm:bottom-3 sm:left-3 rounded-full bg-[#c9a87c] px-2 py-0.5 sm:px-2.5 sm:py-1 text-[9px] sm:text-[10px] font-semibold text-white shadow-md">
+          {/* discount */}
+          <span className="absolute bottom-2 left-2 rounded-full bg-[#c9507a] px-2 py-0.5 text-[9px] font-bold text-white sm:bottom-3 sm:left-3 sm:px-3 sm:py-1 sm:text-xs">
             {discount}% OFF
           </span>
 
-          <span className="absolute bottom-3 right-3 hidden sm:flex translate-y-3 items-center gap-1 rounded-full bg-white/90 px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-stone-900 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
-            View <ArrowUpRight size={11} />
+          {/* arrow */}
+          <span className="absolute bottom-2 right-2 flex h-7 w-7 items-center justify-center rounded-full bg-white/95 text-[#1a1416] transition-all duration-300 group-hover:bg-[#c9a87c] group-hover:text-white sm:bottom-3 sm:right-3 sm:h-9 sm:w-9">
+            <ArrowUpRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
           </span>
         </div>
 
         {/* ---------- details ---------- */}
-        <div className="p-2.5 sm:p-5">
-          <p className="mb-1 flex items-center gap-1 text-[8px] sm:text-[10px] font-semibold uppercase tracking-[0.15em] sm:tracking-[0.22em] text-[#c9a87c]">
-            <Truck size={10} />
-            <span className="truncate">{product.tag}</span>
+        <div className="flex flex-1 flex-col px-0.5 pt-3 sm:px-1 sm:pt-5">
+          {/* tag */}
+          <p
+            className={`truncate text-[8px] font-semibold uppercase tracking-[0.14em] sm:text-[10px] sm:tracking-[0.2em] ${
+              isDark ? "text-[#c9a87c]" : "text-[#b0805f]"
+            }`}
+          >
+            {product.tag}
           </p>
 
+          {/* title: 1 line, no empty gap */}
           <h3
-            className={`mb-1 line-clamp-1 sm:line-clamp-2 min-h-0 sm:min-h-[2.75rem] font-serif-display text-[13px] sm:text-[16px] font-medium leading-snug ${heading}`}
+            className={`mt-1.5 line-clamp-1 text-[14px] font-bold leading-tight tracking-tight sm:mt-2 sm:text-xl ${
+              isDark ? "text-white" : "text-[#1a1416]"
+            }`}
           >
             {product.name}
           </h3>
 
-          <div className="flex items-center gap-1">
-            <StarRating
-              rating={product.rating}
-              emptyClass={
-                isDark
-                  ? "fill-white/10 text-white/10"
-                  : "fill-gray-200 text-gray-200"
-              }
-            />
-            <span className={`text-[10px] sm:text-[11px] font-medium ${body}`}>
+          {/* description: reserves 2 lines so every card matches */}
+          <p
+            className={`mt-1 line-clamp-2 min-h-[1.9rem] text-[10px] leading-snug sm:mt-1.5 sm:min-h-[2.6rem] sm:text-sm ${
+              isDark ? "text-white/55" : "text-[#7a716b]"
+            }`}
+          >
+            {product.description}
+          </p>
+
+          {/* rating */}
+          <div className="mb-3 mt-2 flex items-center gap-1 sm:mb-4 sm:mt-3">
+            <Star className="h-3 w-3 fill-[#e3b04b] text-[#e3b04b] sm:h-3.5 sm:w-3.5" />
+            <span
+              className={`text-[10px] font-semibold sm:text-xs ${
+                isDark ? "text-white/90" : "text-[#1a1416]"
+              }`}
+            >
               {product.rating}
             </span>
             <span
-              className={`hidden xs:inline text-[10px] sm:text-[11px] ${bodyMuted}`}
+              className={`text-[10px] sm:text-xs ${
+                isDark ? "text-white/45" : "text-[#9a918a]"
+              }`}
             >
               ({product.reviews.toLocaleString()})
             </span>
           </div>
 
+          {/* price + add, pinned to bottom */}
           <div
-            className={`mt-2.5 sm:mt-4 flex flex-col gap-1.5 xs:flex-row xs:items-center xs:justify-between border-t pt-2.5 sm:pt-4 ${isDark ? "border-white/10" : "border-[#eadfce]"}`}
+            className={`mt-auto flex items-center justify-between gap-2 border-t pt-3 sm:pt-4 ${
+              isDark ? "border-white/10" : "border-[#efe4db]"
+            }`}
           >
-            <div className="leading-tight">
-              <span className={`text-sm sm:text-lg font-semibold ${heading}`}>
-                ₹{product.price.toLocaleString()}
-              </span>
-              <span
-                className={`ml-1 text-[10px] sm:text-xs line-through ${bodyMuted}`}
+            <div className="min-w-0 leading-tight">
+              <p
+                className={`truncate text-[15px] font-extrabold tracking-tight sm:text-[22px] ${
+                  isDark ? "text-white" : "text-[#1a1416]"
+                }`}
               >
-                ₹{product.originalPrice.toLocaleString()}
-              </span>
+                Rs. {product.price.toLocaleString()}
+              </p>
+              <p
+                className={`mt-0.5 text-[10px] line-through sm:text-xs ${
+                  isDark ? "text-white/40" : "text-[#a89c94]"
+                }`}
+              >
+                Rs. {product.originalPrice.toLocaleString()}
+              </p>
             </div>
 
             <button
               onClick={handleAdd}
-              className={`flex items-center justify-center gap-1 rounded-full px-2.5 py-1 sm:px-3.5 sm:py-1.5 text-[10px] sm:text-[11px] font-semibold transition-all duration-300 active:scale-95 ${
+              className={`flex shrink-0 items-center justify-center gap-1 rounded-full px-3.5 py-2 text-[11px] font-bold transition-all duration-300 active:scale-95 sm:gap-1.5 sm:px-5 sm:py-2.5 sm:text-sm ${
                 added
-                  ? "bg-emerald-500 text-white"
-                  : "border border-[#c9a87c] text-[#c9a87c] hover:bg-[#c9a87c] hover:text-white"
+                  ? "bg-emerald-600 text-white"
+                  : isDark
+                    ? "bg-[#c9a87c] text-[#1a1416] hover:bg-[#d8b98f]"
+                    : "bg-[#1a1416] text-white hover:bg-[#c9507a]"
               }`}
             >
-              <ShoppingCart size={11} />
+              {added ? (
+                <Check className="h-3 w-3 sm:h-4 sm:w-4" />
+              ) : (
+                <ShoppingBag className="h-3 w-3 sm:h-4 sm:w-4" />
+              )}
               {added ? "Added" : "Add"}
             </button>
           </div>
