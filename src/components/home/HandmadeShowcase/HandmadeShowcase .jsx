@@ -15,11 +15,12 @@ import {
 } from "lucide-react";
 import { useSectionTheme } from "../../../hooks/useSectionTheme";
 
-import craft1 from "/assets/images/craft1.jpg";
-import craft2 from "/assets/images/craft2.jpg";
-import craft3 from "/assets/images/craft3.jpg";
-import craft4 from "/assets/images/craft4.jpg";
-import craft5 from "/assets/images/craft5.jpg";
+const assetsBase = `${import.meta.env.BASE_URL}assets/images/`;
+const craft1 = `${assetsBase}craft1.jpg`;
+const craft2 = `${assetsBase}craft2.jpg`;
+const craft3 = `${assetsBase}craft3.jpg`;
+const craft4 = `${assetsBase}craft4.jpg`;
+const craft5 = `${assetsBase}craft5.jpg`;
 
 const AUTOPLAY_MS = 3000;
 

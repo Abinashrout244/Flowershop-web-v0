@@ -17,9 +17,10 @@ import {
 
 import { FLOWER_ONLY_IMAGES, COLLECTIONS } from "./ShopInfo";
 
-// two different transparent PNG bouquets (change the paths to your files)
-import bouquet1 from "/assets/images/bouquet1.png";
-import bouquet2 from "/assets/images/bouquet2.png";
+// Public assets use BASE_URL so their paths also work on subpath deployments.
+const assetsBase = `${import.meta.env.BASE_URL}assets/images/`;
+const bouquet1 = `${assetsBase}bouquet1.png`;
+const bouquet2 = `${assetsBase}bouquet2.png`;
 
 const SLIDES = [
   {
