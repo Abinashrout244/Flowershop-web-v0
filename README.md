@@ -16,21 +16,21 @@ Flora & Bloom is a responsive flower-shop storefront built with React and Vite. 
 
 ## Preview
 
-![Flora & Bloom home page](public/assets/Screenshots/Home.png)
+![Flora & Bloom home page](public/assets/Screenshots/Main.png)
 
 ## Technology
 
-| Area | Tools |
-| --- | --- |
-| UI | React 19, React DOM |
-| Build and development | Vite 7 |
-| Routing | React Router DOM 6 with hash-based routing |
-| Shared state | Redux Toolkit and React Redux |
-| Backend integration | Supabase JavaScript client |
-| Styling | Tailwind CSS 3, PostCSS |
-| Animation and media | Framer Motion, Swiper, React Slick |
-| Icons | Lucide React, React Icons |
-| Code quality | ESLint 9 |
+| Area                  | Tools                                      |
+| --------------------- | ------------------------------------------ |
+| UI                    | React 19, React DOM                        |
+| Build and development | Vite 7                                     |
+| Routing               | React Router DOM 6 with hash-based routing |
+| Shared state          | Redux Toolkit and React Redux              |
+| Backend integration   | Supabase JavaScript client                 |
+| Styling               | Tailwind CSS 3, PostCSS                    |
+| Animation and media   | Framer Motion, Swiper, React Slick         |
+| Icons                 | Lucide React, React Icons                  |
+| Code quality          | ESLint 9                                   |
 
 ## Getting started
 
@@ -89,27 +89,27 @@ Open the local URL printed by Vite (typically `http://localhost:5173`). The app 
 
 ## Available commands
 
-| Command | Description |
-| --- | --- |
-| `npm run dev` | Start the local Vite development server. |
-| `npm run build` | Create the optimized production build in `dist/`. |
+| Command           | Description                                          |
+| ----------------- | ---------------------------------------------------- |
+| `npm run dev`     | Start the local Vite development server.             |
+| `npm run build`   | Create the optimized production build in `dist/`.    |
 | `npm run preview` | Serve the production build locally for verification. |
-| `npm run lint` | Run ESLint across the project. |
+| `npm run lint`    | Run ESLint across the project.                       |
 
 ## Application routes
 
-| Route | Page |
-| --- | --- |
-| `/` | Home |
-| `/shop` | Shop (sign-in required) |
-| `/flowers`, `/plants`, `/gifts`, `/weddings` | Product and service collections |
-| `/product/:id` | Product details |
-| `/cart`, `/checkout` | Cart and checkout (sign-in required) |
-| `/order-confirmed` | Demo order confirmation |
-| `/login`, `/forgot-password`, `/reset-password` | Account access |
-| `/wishlist`, `/profile`, `/contact` | Customer pages (sign-in required) |
-| `/about`, `/blog`, `/careers`, `/press-media` | Brand and editorial pages |
-| `/faq`, `/returns-policy`, `/privacy-policy`, `/terms-conditions`, `/cookie-policy`, `/sitemap` | Help and policy pages |
+| Route                                                                                           | Page                                 |
+| ----------------------------------------------------------------------------------------------- | ------------------------------------ |
+| `/`                                                                                             | Home                                 |
+| `/shop`                                                                                         | Shop (sign-in required)              |
+| `/flowers`, `/plants`, `/gifts`, `/weddings`                                                    | Product and service collections      |
+| `/product/:id`                                                                                  | Product details                      |
+| `/cart`, `/checkout`                                                                            | Cart and checkout (sign-in required) |
+| `/order-confirmed`                                                                              | Demo order confirmation              |
+| `/login`, `/forgot-password`, `/reset-password`                                                 | Account access                       |
+| `/wishlist`, `/profile`, `/contact`                                                             | Customer pages (sign-in required)    |
+| `/about`, `/blog`, `/careers`, `/press-media`                                                   | Brand and editorial pages            |
+| `/faq`, `/returns-policy`, `/privacy-policy`, `/terms-conditions`, `/cookie-policy`, `/sitemap` | Help and policy pages                |
 
 Unknown routes display a not-found page. Routes are declared in `src/app/routes.jsx`; protected pages are wrapped with `ProtectedRoute`.
 
