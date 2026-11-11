@@ -7,20 +7,10 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion";
-import {
-  ChevronLeft,
-  ChevronRight,
-  Move3d,
-  RefreshCw,
-  Sparkles,
-} from "lucide-react";
+import { ChevronLeft, ChevronRight, Move3d, RefreshCw } from "lucide-react";
 
 import { FLOWER_ONLY_IMAGES, COLLECTIONS } from "./ShopInfo";
 
-// Public assets use BASE_URL so their paths also work on subpath deployments.
-// const assetsBase = `${import.meta.env.BASE_URL}assets/images/`;
-// const bouquet1 = `${assetsBase}bouquet1.png`;
-// const bouquet2 = `${assetsBase}bouquet2.png`;
 const bouquet1 = `https://res.cloudinary.com/dnxha9arx/image/upload/v1794297760/bouquet1_blatfa.png`;
 const bouquet2 = `https://res.cloudinary.com/dnxha9arx/image/upload/v1794297762/bouquet2_u6kxid.png`;
 
@@ -43,7 +33,6 @@ const SLIDES = [
 
 const COLORS = ["#f4b6c8", "#c9a87c", "#d8c4f0", "#ffffff"];
 
-// deterministic particles: no randomness, so no hydration mismatch
 const particles = Array.from({ length: 18 }, (_, i) => ({
   left: (i * 53) % 100,
   size: 3 + (i % 4) * 2,
@@ -53,32 +42,90 @@ const particles = Array.from({ length: 18 }, (_, i) => ({
   color: COLORS[i % COLORS.length],
 }));
 
-const toRad = (deg) => (deg * Math.PI) / 180;
+const ORBITERS = [
+  { offset: 0, size: 10, color: "#f4b6c8" },
+  { offset: 72, size: 7, color: "#c9a87c" },
+  { offset: 144, size: 9, color: "#d8c4f0" },
+  { offset: 216, size: 6, color: "#ffffff" },
+  { offset: 288, size: 8, color: "#e3a1b5" },
+];
+const ORBIT_R = 130;
+
+function toRad(deg) {
+  return (deg * Math.PI) / 180;
+}
 
 const faceHidden = {
   backfaceVisibility: "hidden",
   WebkitBackfaceVisibility: "hidden",
 };
 
+// bead orbiting the bouquet in 3D
+const Orbiter = ({ ry, spin, offset, size, color }) => {
+  const x = useTransform(
+    [ry, spin],
+    ([a, b]) => Math.cos(toRad(a * 1.2 + b + offset)) * ORBIT_R,
+  );
+  const y = useTransform(
+    [ry, spin],
+    ([a, b]) => Math.sin(toRad(a * 1.2 + b + offset)) * ORBIT_R,
+  );
+  return (
+    <motion.span
+      className="pointer-events-none absolute rounded-full"
+      style={{
+        x,
+        y,
+        width: size,
+        height: size,
+        left: -size / 2,
+        top: -size / 2,
+        background: color,
+        boxShadow: "0 0 10px rgba(244,182,200,0.9)",
+      }}
+    />
+  );
+};
+
 const HeroBanner = ({ activeCollection, sorted, heroIndex, setHeroIndex }) => {
   const currentCollection = COLLECTIONS.find((c) => c.id === activeCollection);
   const CollectionIcon = currentCollection?.icon;
 
-  // always 0 or 1, even if the parent index goes higher
   const slideIndex =
     ((heroIndex % SLIDES.length) + SLIDES.length) % SLIDES.length;
   const activeSlide = SLIDES[slideIndex];
 
   const [auto, setAuto] = useState(true);
+  const stageRef = useRef(null);
   const dragging = useRef(false);
   const startX = useRef(0);
+  const startY = useRef(0);
   const startRy = useRef(0);
-  const baseRy = useRef(0); // multiples of 180: front / back
+  const startRx = useRef(0);
+  const baseRy = useRef(0);
 
   const targetRy = useMotionValue(0);
   const targetRx = useMotionValue(0);
   const ry = useSpring(targetRy, { stiffness: 90, damping: 18 });
   const rx = useSpring(targetRx, { stiffness: 90, damping: 18 });
+
+  // slow constant spin for orbit beads
+  const spin = useMotionValue(0);
+
+  // hover parallax
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+  const sx = useSpring(mx, { stiffness: 70, damping: 16 });
+  const sy = useSpring(my, { stiffness: 70, damping: 16 });
+  const bgX = useTransform(sx, (v) => v * -26);
+  const bgY = useTransform(sy, (v) => v * -14);
+  const glowX = useTransform(sx, (v) => v * 18);
+  const glowY = useTransform(sy, (v) => v * 10);
+  const bouquetX = useTransform(sx, (v) => v * 16);
+  const bouquetY = useTransform(sy, (v) => v * 9);
+
+  // background circle turns with the bouquet (flat Z-rotation)
+  const bgRotate = useTransform([ry, spin], ([a, b]) => a * 0.35 + b * 0.05);
 
   // shadow reacts to rotation
   const shadowScaleX = useTransform(
@@ -92,6 +139,7 @@ const HeroBanner = ({ activeCollection, sorted, heroIndex, setHeroIndex }) => {
   const shadowX = useTransform(ry, (v) => Math.sin(toRad(v)) * 22);
 
   useAnimationFrame((t) => {
+    spin.set(t / 25);
     if (!auto || dragging.current) return;
     targetRy.set(baseRy.current + Math.sin(t / 1100) * 16);
     targetRx.set(Math.cos(t / 1700) * 4);
@@ -100,13 +148,17 @@ const HeroBanner = ({ activeCollection, sorted, heroIndex, setHeroIndex }) => {
   const onDown = (e) => {
     dragging.current = true;
     startX.current = e.clientX;
+    startY.current = e.clientY;
     startRy.current = targetRy.get();
+    startRx.current = targetRx.get();
     e.currentTarget.setPointerCapture(e.pointerId);
   };
   const onMove = (e) => {
     if (!dragging.current) return;
     const dx = e.clientX - startX.current;
+    const dy = e.clientY - startY.current;
     targetRy.set(startRy.current + dx * 0.6);
+    targetRx.set(Math.max(-18, Math.min(18, startRx.current - dy * 0.25)));
   };
   const onUp = () => {
     if (!dragging.current) return;
@@ -115,6 +167,17 @@ const HeroBanner = ({ activeCollection, sorted, heroIndex, setHeroIndex }) => {
     baseRy.current = snapped;
     targetRy.set(snapped);
     targetRx.set(0);
+  };
+
+  const onStageMove = (e) => {
+    const r = stageRef.current?.getBoundingClientRect();
+    if (!r) return;
+    mx.set((e.clientX - r.left) / r.width - 0.5);
+    my.set((e.clientY - r.top) / r.height - 0.5);
+  };
+  const onStageLeave = () => {
+    mx.set(0);
+    my.set(0);
   };
 
   const prev = () =>
@@ -126,8 +189,34 @@ const HeroBanner = ({ activeCollection, sorted, heroIndex, setHeroIndex }) => {
       <div className="mx-auto max-w-7xl px-3 md:px-6">
         <div className="grid items-center gap-6 md:grid-cols-[1.05fr_1fr] lg:gap-10">
           {/* ---------- LEFT: 3D stage ---------- */}
-          <div className="relative h-[320px] select-none overflow-hidden rounded-[30px] border border-white bg-white shadow-[0_20px_60px_rgba(120,90,80,0.12)] lg:h-[420px] lg:rounded-[36px]">
-            <div className="absolute -bottom-[45%] left-1/2 aspect-square w-[85%] -translate-x-1/2 rounded-full bg-[#ebe5e1]" />
+          <div
+            ref={stageRef}
+            onPointerMove={onStageMove}
+            onPointerLeave={onStageLeave}
+            className="relative h-[320px] select-none overflow-hidden rounded-[30px] border border-white bg-white shadow-[0_20px_60px_rgba(120,90,80,0.12)] lg:h-[420px] lg:rounded-[36px]"
+          >
+            {/* soft glow behind bouquet */}
+            <motion.div
+              className="pointer-events-none absolute left-1/2 top-1/2 h-[260px] w-[260px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#f4b6c8]/30 blur-3xl lg:h-[340px] lg:w-[340px]"
+              style={{ x: glowX, y: glowY }}
+            />
+
+            {/* ---------- ROTATING BACKGROUND CIRCLE ---------- */}
+            <div className="pointer-events-none absolute inset-x-0 -bottom-[45%] flex justify-center">
+              <motion.div
+                className="relative aspect-square w-[85%] rounded-full bg-[conic-gradient(from_0deg,#ebe5e1,#f3eeea,#e6dfda,#f0eae6,#ebe5e1)]"
+                style={{ x: bgX, y: bgY, rotate: bgRotate }}
+              >
+                {/* dashed ring */}
+                <div className="absolute inset-[7%] rounded-full border border-dashed border-[#d6527f]/20" />
+
+                {/* dots on the ring: make the rotation readable */}
+                <span className="absolute left-1/2 top-[7%] h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#e3a1b5]/70" />
+                <span className="absolute bottom-[7%] left-1/2 h-2 w-2 -translate-x-1/2 translate-y-1/2 rounded-full bg-[#c9a87c]/70" />
+                <span className="absolute left-[7%] top-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#d8c4f0]" />
+                <span className="absolute right-[7%] top-1/2 h-2.5 w-2.5 -translate-y-1/2 translate-x-1/2 rounded-full bg-[#e3a1b5]/50" />
+              </motion.div>
+            </div>
 
             {particles.map((p, i) => (
               <motion.span
@@ -183,83 +272,116 @@ const HeroBanner = ({ activeCollection, sorted, heroIndex, setHeroIndex }) => {
                 />
               </motion.div>
 
+              {/* hover parallax layer */}
               <motion.div
-                animate={{ y: [0, -10, 0] }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut",
+                style={{
+                  x: bouquetX,
+                  y: bouquetY,
+                  transformStyle: "preserve-3d",
                 }}
-                style={{ transformStyle: "preserve-3d" }}
               >
-                <AnimatePresence mode="wait" initial={false}>
-                  <motion.div
-                    key={slideIndex}
-                    initial={{ opacity: 0, scale: 0.92 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.96 }}
-                    transition={{ duration: 0.35 }}
-                    style={{ transformStyle: "preserve-3d" }}
+                <motion.div
+                  className="relative"
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                  style={{ transformStyle: "preserve-3d" }}
+                >
+                  {/* ---------- 3D ORBIT RING + BEADS ---------- */}
+                  <div
+                    className="pointer-events-none absolute left-1/2 top-1/2 h-0 w-0"
+                    style={{
+                      transform: "rotateX(72deg)",
+                      transformStyle: "preserve-3d",
+                    }}
                   >
-                    <motion.div
-                      className="relative"
+                    <div
+                      className="absolute rounded-full border border-dashed border-[#e3a1b5]/70"
                       style={{
-                        rotateY: ry,
-                        rotateX: rx,
-                        transformStyle: "preserve-3d",
+                        width: ORBIT_R * 2,
+                        height: ORBIT_R * 2,
+                        left: -ORBIT_R,
+                        top: -ORBIT_R,
                       }}
+                    />
+                    {ORBITERS.map((o) => (
+                      <Orbiter key={o.offset} ry={ry} spin={spin} {...o} />
+                    ))}
+                  </div>
+
+                  <AnimatePresence mode="wait" initial={false}>
+                    <motion.div
+                      key={slideIndex}
+                      initial={{ opacity: 0, scale: 0.92 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.96 }}
+                      transition={{ duration: 0.35 }}
+                      style={{ transformStyle: "preserve-3d" }}
                     >
-                      {/* FRONT: this slide's bouquet */}
-                      <img
-                        src={activeSlide.cutout}
-                        alt={activeSlide.title}
-                        draggable={false}
-                        onError={(e) => {
-                          e.currentTarget.src = FLOWER_ONLY_IMAGES.default[0];
+                      <motion.div
+                        className="relative"
+                        style={{
+                          rotateY: ry,
+                          rotateX: rx,
+                          transformStyle: "preserve-3d",
                         }}
-                        className="block h-[220px] w-auto object-contain drop-shadow-[0_24px_30px_rgba(120,60,70,0.25)] lg:h-[300px]"
-                        style={faceHidden}
-                      />
-
-                      {/* BACK: round seal badge */}
-                      <div
-                        className="absolute inset-0 grid place-items-center"
-                        style={{ ...faceHidden, transform: "rotateY(180deg)" }}
                       >
-                        <div className="relative grid aspect-square w-[150px] place-items-center rounded-full border-[5px] border-[#e3a1b5] bg-[#e8e2df] shadow-[0_24px_40px_rgba(120,60,70,0.22)] lg:w-[200px] lg:border-[6px]">
-                          {/* thin inner ring */}
-                          <div className="pointer-events-none absolute inset-3 rounded-full border border-[#e3a1b5]/70 lg:inset-4" />
+                        {/* FRONT */}
+                        <img
+                          src={activeSlide.cutout}
+                          alt={activeSlide.title}
+                          draggable={false}
+                          onError={(e) => {
+                            e.currentTarget.src = FLOWER_ONLY_IMAGES.default[0];
+                          }}
+                          className="block h-[220px] w-auto object-contain drop-shadow-[0_24px_30px_rgba(120,60,70,0.25)] lg:h-[300px]"
+                          style={faceHidden}
+                        />
 
-                          <div className="flex flex-col items-center px-6 text-center">
-                            <h3 className="font-serif-display text-[16px] font-bold uppercase leading-none tracking-wide text-[#141414] lg:text-[22px]">
-                              Crochet by N&amp;N
-                            </h3>
+                        {/* BACK: round seal badge */}
+                        <div
+                          className="absolute inset-0 grid place-items-center"
+                          style={{
+                            ...faceHidden,
+                            transform: "rotateY(180deg)",
+                          }}
+                        >
+                          <div className="relative grid aspect-square w-[150px] place-items-center rounded-full border-[5px] border-[#e3a1b5] bg-[#e8e2df] shadow-[0_24px_40px_rgba(120,60,70,0.22)] lg:w-[200px] lg:border-[6px]">
+                            <div className="pointer-events-none absolute inset-3 rounded-full border border-[#e3a1b5]/70 lg:inset-4" />
 
-                            <p className="mt-3 text-[7px] font-semibold uppercase tracking-[0.2em] text-[#d6527f] lg:mt-4 lg:text-[9px]">
-                              Signature Floral Keepsake
-                            </p>
+                            <div className="flex flex-col items-center px-6 text-center">
+                              <h3 className="font-serif-display text-[16px] font-bold uppercase leading-none tracking-wide text-[#141414] lg:text-[22px]">
+                                Flora & Bloom
+                              </h3>
 
-                            <p className="mt-2 font-serif-display text-[9px] italic text-[#8a817a] lg:text-[11px]">
-                              100% Handcrafted with Soft Yarn
-                            </p>
+                              <p className="mt-3 text-[7px] font-semibold uppercase tracking-[0.2em] text-[#d6527f] lg:mt-4 lg:text-[9px]">
+                                Signature Floral Keepsake
+                              </p>
 
-                            <div className="mt-3 flex items-center gap-2 text-[10px] text-[#d6527f] lg:mt-4 lg:gap-3 lg:text-xs">
-                              <span>✦</span>
-                              <span>✦</span>
-                              <span>✦</span>
+                              <p className="mt-2 font-serif-display text-[9px] italic text-[#8a817a] lg:text-[11px]">
+                                100% Handcrafted with Soft Yarn
+                              </p>
+
+                              <div className="mt-3 flex items-center gap-2 text-[10px] text-[#d6527f] lg:mt-4 lg:gap-3 lg:text-xs">
+                                <span>✦</span>
+                                <span>✦</span>
+                                <span>✦</span>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </motion.div>
                     </motion.div>
-                  </motion.div>
-                </AnimatePresence>
+                  </AnimatePresence>
+                </motion.div>
               </motion.div>
             </div>
 
             <span className="pointer-events-none absolute left-4 top-4 flex items-center gap-2 rounded-full border border-[#f4d3df] bg-white/90 px-3.5 py-2 text-xs font-bold text-[#c9507a] shadow-sm">
-              <Move3d className="h-4 w-4" />
-              3D Stage • Drag to Rotate
+              Drag to Rotate in 3D
             </span>
 
             <div className="absolute bottom-4 right-4 flex items-center gap-2">
@@ -272,9 +394,6 @@ const HeroBanner = ({ activeCollection, sorted, heroIndex, setHeroIndex }) => {
                 />
                 {auto ? "Auto-Sway" : "Sway Off"}
               </button>
-              <span className="grid h-10 w-10 place-items-center rounded-full border border-[#f4d3df] bg-white/90 text-[#c9507a]">
-                <Sparkles className="h-4 w-4" />
-              </span>
             </div>
           </div>
 
