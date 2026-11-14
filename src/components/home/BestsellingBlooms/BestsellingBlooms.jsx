@@ -20,6 +20,7 @@ import {
   selectIsWishlisted,
 } from "../../../features/user/wishlistSlice";
 import { useSectionTheme } from "../../../hooks/useSectionTheme";
+import { style } from "framer-motion/client";
 
 const products = [
   {
@@ -332,14 +333,24 @@ const ProductCard = ({ product }) => {
                   isDark ? "text-white" : "text-[#1a1416]"
                 }`}
               >
-                Rs. {product.price.toLocaleString()}
+                {product.price.toLocaleString("en-in", {
+                  style: "currency",
+                  currency: "INR",
+                  minimumFractionDigits: 0,
+                  maximimumFractionDigits: 0,
+                })}
               </p>
               <p
                 className={`mt-0.5 text-[10px] line-through sm:text-xs ${
                   isDark ? "text-white/40" : "text-[#a89c94]"
                 }`}
               >
-                Rs. {product.originalPrice.toLocaleString()}
+                {product.originalPrice.toLocaleString("en-in", {
+                  style: "currency",
+                  currency: "INR",
+                  minimumFractionDigits: 0,
+                  maximimumFractionDigits: 0,
+                })}
               </p>
             </div>
 

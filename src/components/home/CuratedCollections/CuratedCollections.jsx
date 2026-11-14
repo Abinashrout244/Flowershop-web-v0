@@ -149,7 +149,7 @@ const CuratedCollections = () => {
         </motion.div>
 
         {/* Grid wrapper: 3 columns, wide container */}
-        <div className="mx-auto grid w-full max-w-[1520px] grid-cols-1 gap-6 px-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8 lg:px-12">
+        <div className="mx-auto grid w-full max-w-[1520px] grid-cols-2 gap-3 px-3 sm:gap-5 sm:px-6 lg:grid-cols-3 lg:gap-8 lg:px-12">
           {collections.map((col, i) => {
             const count = getCollectionCount(col);
             const href = getCollectionURL(col);
@@ -165,23 +165,23 @@ const CuratedCollections = () => {
                   ease: [0.22, 1, 0.36, 1],
                 }}
                 onClick={() => navigate(href)}
-                className={`group flex cursor-pointer flex-col rounded-3xl border p-6 transition-all duration-300 hover:-translate-y-1 sm:p-8 ${
+                className={`group flex min-w-0 cursor-pointer flex-col rounded-2xl border p-3 transition-all duration-300 hover:-translate-y-1 sm:rounded-3xl sm:p-6 lg:p-8 ${
                   isDark
                     ? "border-white/10 bg-[#161214] shadow-[0_10px_40px_rgba(0,0,0,0.45)] hover:border-[#c9a87c]/40 hover:shadow-[0_0_40px_rgba(201,168,124,0.15),0_16px_50px_rgba(0,0,0,0.55)]"
                     : "border-transparent bg-white shadow-[0_2px_20px_rgba(120,90,80,0.05)] hover:shadow-[0_12px_40px_rgba(201,80,122,0.13)]"
                 }`}
               >
                 {/* Top row */}
-                <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center justify-between gap-2 sm:gap-3">
                   <span
-                    className={`text-5xl font-extrabold leading-none tracking-tight ${
+                    className={`text-2xl font-extrabold leading-none tracking-tight sm:text-4xl lg:text-5xl ${
                       isDark ? "text-[#c9a87c]/25" : "text-[#f4d3df]"
                     }`}
                   >
                     {col.number}
                   </span>
                   <span
-                    className={`truncate rounded-full px-3.5 py-1.5 text-xs font-semibold ${
+                    className={`min-w-0 truncate rounded-full px-2 py-1 text-[10px] font-semibold sm:px-3.5 sm:py-1.5 sm:text-xs ${
                       isDark
                         ? "bg-white/[0.07] text-white/70"
                         : "bg-[#f4efeb] text-[#6b635d]"
@@ -192,7 +192,7 @@ const CuratedCollections = () => {
                 </div>
 
                 {/* Image: wide and short */}
-                <div className="relative mt-5 aspect-[2/1] overflow-hidden rounded-2xl">
+                <div className="relative mt-3 aspect-[2/1] overflow-hidden rounded-xl sm:mt-5 sm:rounded-2xl">
                   <img
                     src={col.image}
                     alt={col.label}
@@ -206,7 +206,7 @@ const CuratedCollections = () => {
 
                 {/* Text */}
                 <h3
-                  className={`mt-5 text-xl font-semibold tracking-tight ${
+                  className={`mt-3 text-sm font-semibold leading-snug tracking-tight sm:mt-5 sm:text-lg lg:text-xl ${
                     isDark ? "text-white" : "text-[#141414]"
                   }`}
                 >
@@ -214,7 +214,7 @@ const CuratedCollections = () => {
                 </h3>
 
                 <p
-                  className={`mt-0.5 text-sm font-medium ${
+                  className={`mt-0.5 text-[11px] font-medium sm:text-sm ${
                     isDark ? "text-[#e38aa8]" : "text-[#c9507a]"
                   }`}
                 >
@@ -222,7 +222,7 @@ const CuratedCollections = () => {
                 </p>
 
                 <p
-                  className={`mt-3 mb-5 text-sm leading-relaxed ${
+                  className={`mb-3 mt-2 line-clamp-3 text-[11px] leading-relaxed sm:mb-5 sm:mt-3 sm:line-clamp-none sm:text-sm ${
                     isDark ? "text-white/55" : "text-[#6f6964]"
                   }`}
                 >
@@ -231,7 +231,7 @@ const CuratedCollections = () => {
 
                 {/* Footer pinned to bottom so all cards align */}
                 <div
-                  className={`mt-auto flex items-center justify-between border-t pt-4 ${
+                  className={`mt-auto flex items-center justify-between gap-2 border-t pt-3 sm:pt-4 ${
                     isDark ? "border-white/10" : "border-[#f0e9e5]"
                   }`}
                 >
@@ -240,14 +240,14 @@ const CuratedCollections = () => {
                       e.stopPropagation();
                       navigate(href);
                     }}
-                    className={`text-sm font-semibold ${
+                    className={`min-w-0 truncate text-left text-xs font-semibold sm:text-sm ${
                       isDark ? "text-white" : "text-[#141414]"
                     }`}
                   >
                     {col.actionLabel}
                     {count > 0 && (
                       <span
-                        className={`ml-2 text-xs font-medium ${
+                        className={`ml-1 text-[10px] font-medium sm:ml-2 sm:text-xs ${
                           isDark ? "text-white/40" : "text-[#9a918a]"
                         }`}
                       >
@@ -256,7 +256,7 @@ const CuratedCollections = () => {
                     )}
                   </button>
                   <span
-                    className={`text-lg transition-transform duration-300 group-hover:translate-x-1 ${
+                    className={`text-base transition-transform duration-300 group-hover:translate-x-1 sm:text-lg ${
                       isDark ? "text-[#c9a87c]" : "text-[#cc5580]"
                     }`}
                   >
@@ -277,7 +277,7 @@ const CuratedCollections = () => {
         >
           <button
             onClick={() => navigate("/shop")}
-            className={`px-10 py-3.5 text-sm font-semibold tracking-[0.2em] uppercase rounded-full transition-all duration-300 ${btnOutline}`}
+            className={` px-6 md:px-10 py-2 md:py-3.5 text-xs md:text-sm font-semibold tracking-[0.2em] uppercase rounded-full transition-all duration-300 ${btnOutline}`}
           >
             Browse All Collections
           </button>
